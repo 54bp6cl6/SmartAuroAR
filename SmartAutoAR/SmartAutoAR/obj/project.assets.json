@@ -4878,11 +4878,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+      "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
       "projectName": "SmartAutoAR",
-      "projectPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+      "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
       "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\obj\\",
+      "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

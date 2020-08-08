@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\Debug.csproj": {}
+    "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\Debug.csproj": {
+    "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\Debug.csproj",
+        "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
         "projectName": "Debug",
-        "projectPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\Debug.csproj",
+        "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
         "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\obj\\",
+        "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -32,8 +32,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
-                "projectPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
+              "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
+                "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
               }
             }
           }
@@ -68,14 +68,14 @@
         }
       }
     },
-    "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
+    "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+        "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
         "projectName": "SmartAutoAR",
-        "projectPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+        "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
         "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\SmartAutoAR\\obj\\",
+        "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

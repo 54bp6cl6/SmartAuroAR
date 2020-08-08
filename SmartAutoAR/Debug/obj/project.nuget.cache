@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LafJnVdEHvdjFYLyU/vcr0a5kL1Ubgesv3EDfhlYUU98x4DyCdzr6qZL7ZgV2eneeOaoiqS+n/R0dmGRBUpYcw==",
+  "dgSpecHash": "PxG1u7fuoGYGHPO1AotHRPYwsrEfzOK50DIeXWCTkzacrH0J9e2rgAXzlLv7moy2jYJVxXF0UfFBFULw2Ufzgg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Max\\Downloads\\SmartAuroAR-marker_detector\\SmartAutoAR\\Debug\\Debug.csproj",
+  "projectFilePath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Max\\.nuget\\packages\\assimpnet\\4.1.0\\assimpnet.4.1.0.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
