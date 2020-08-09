@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "Debug/1.0.0": {
         "dependencies": {
+          "OpenCvSharp4.runtime.win": "4.4.0.20200725",
           "SmartAutoAR": "1.0.0"
         },
         "runtime": {
@@ -113,6 +114,60 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "OpenCvSharp4/4.4.0.20200725": {
+        "dependencies": {
+          "System.Drawing.Common": "4.7.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/OpenCvSharp.Blob.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netcoreapp2.1/OpenCvSharp.Extensions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netcoreapp2.1/OpenCvSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+        "runtimeTargets": {
+          "runtimes/win-x64/native/OpenCvSharpExtern.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/OpenCvSharpExtern.pdb": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/opencv_videoio_ffmpeg440_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2020.6.0.0"
+          },
+          "runtimes/win-x86/native/OpenCvSharpExtern.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/OpenCvSharpExtern.pdb": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/opencv_videoio_ffmpeg440.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "2020.6.0.0"
+          }
         }
       },
       "OpenTK.NetStandard/1.0.5.22": {
@@ -494,6 +549,14 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "4.0.6.0",
+            "fileVersion": "4.700.20.12001"
+          }
+        }
+      },
       "System.Runtime.Extensions/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -752,6 +815,7 @@
       "SmartAutoAR/1.0.0": {
         "dependencies": {
           "AssimpNet": "4.1.0",
+          "OpenCvSharp4": "4.4.0.20200725",
           "OpenTK.NetStandard": "1.0.5.22",
           "System.Drawing.Common": "4.7.0"
         },
@@ -815,6 +879,20 @@
       "sha512": "sha512-WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
+    },
+    "OpenCvSharp4/4.4.0.20200725": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/FQX9t4izMBs6kFzQmtkeaQZPh20zwADrwGBgIaAVnejh83qoOvH7KHb8FxcKLE52ezbMJUi/6Ckc+NNOjGwyw==",
+      "path": "opencvsharp4/4.4.0.20200725",
+      "hashPath": "opencvsharp4.4.4.0.20200725.nupkg.sha512"
+    },
+    "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WgyTG/Tq3/Msy/o0XcS4NDnmbDD8iuh2MbptdIpH/JdAiOq4H3nUzmJ8ea+3qoBv1SsCCko93zmh01XE47m1NQ==",
+      "path": "opencvsharp4.runtime.win/4.4.0.20200725",
+      "hashPath": "opencvsharp4.runtime.win.4.4.0.20200725.nupkg.sha512"
     },
     "OpenTK.NetStandard/1.0.5.22": {
       "type": "package",
@@ -1165,6 +1243,13 @@
       "sha512": "sha512-JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
+      "path": "system.runtime.compilerservices.unsafe/4.7.1",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512"
     },
     "System.Runtime.Extensions/4.3.0": {
       "type": "package",

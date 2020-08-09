@@ -11,8 +11,12 @@ namespace Debug
 		/// <summary>
 		///  The main entry point for the application.
 		/// </summary>
+		[STAThread]
 		static void Main()
 		{
+			Application.SetHighDpiMode(HighDpiMode.SystemAware);
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 			using (ArForm game = new ArForm(800, 600, "LearnOpenTK"))
 			{
 				//Run takes a double, which is how many frames per second it should strive to reach.

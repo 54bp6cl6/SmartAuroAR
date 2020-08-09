@@ -154,6 +154,55 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
+      "OpenCvSharp4/4.4.0.20200725": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.7.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        },
+        "compile": {
+          "lib/netcoreapp2.1/OpenCvSharp.Blob.dll": {},
+          "lib/netcoreapp2.1/OpenCvSharp.Extensions.dll": {},
+          "lib/netcoreapp2.1/OpenCvSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/OpenCvSharp.Blob.dll": {},
+          "lib/netcoreapp2.1/OpenCvSharp.Extensions.dll": {},
+          "lib/netcoreapp2.1/OpenCvSharp.dll": {}
+        }
+      },
+      "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+        "type": "package",
+        "build": {
+          "build/netcoreapp/OpenCvSharp4.runtime.win.props": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win-x64/native/OpenCvSharpExtern.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/OpenCvSharpExtern.pdb": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/opencv_videoio_ffmpeg440_64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/OpenCvSharpExtern.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/OpenCvSharpExtern.pdb": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/opencv_videoio_ffmpeg440.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
       "OpenTK.NetStandard/1.0.5.22": {
         "type": "package",
         "dependencies": {
@@ -871,6 +920,15 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
       "System.Runtime.Extensions/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1343,6 +1401,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "AssimpNet": "4.1.0",
+          "OpenCvSharp4": "4.4.0.20200725",
           "OpenTK.NetStandard": "1.0.5.22",
           "System.Drawing.Common": "4.7.0"
         },
@@ -1537,6 +1596,67 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.1.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "OpenCvSharp4/4.4.0.20200725": {
+      "sha512": "/FQX9t4izMBs6kFzQmtkeaQZPh20zwADrwGBgIaAVnejh83qoOvH7KHb8FxcKLE52ezbMJUi/6Ckc+NNOjGwyw==",
+      "type": "package",
+      "path": "opencvsharp4/4.4.0.20200725",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/OpenCvSharp.Blob.dll",
+        "lib/net461/OpenCvSharp.Blob.xml",
+        "lib/net461/OpenCvSharp.Extensions.dll",
+        "lib/net461/OpenCvSharp.Extensions.xml",
+        "lib/net461/OpenCvSharp.dll",
+        "lib/net461/OpenCvSharp.xml",
+        "lib/net48/OpenCvSharp.Blob.dll",
+        "lib/net48/OpenCvSharp.Blob.xml",
+        "lib/net48/OpenCvSharp.Extensions.dll",
+        "lib/net48/OpenCvSharp.Extensions.xml",
+        "lib/net48/OpenCvSharp.dll",
+        "lib/net48/OpenCvSharp.xml",
+        "lib/netcoreapp2.1/OpenCvSharp.Blob.dll",
+        "lib/netcoreapp2.1/OpenCvSharp.Blob.xml",
+        "lib/netcoreapp2.1/OpenCvSharp.Extensions.dll",
+        "lib/netcoreapp2.1/OpenCvSharp.Extensions.xml",
+        "lib/netcoreapp2.1/OpenCvSharp.dll",
+        "lib/netcoreapp2.1/OpenCvSharp.xml",
+        "lib/netstandard2.0/OpenCvSharp.Blob.dll",
+        "lib/netstandard2.0/OpenCvSharp.Blob.xml",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.0/OpenCvSharp.dll",
+        "lib/netstandard2.0/OpenCvSharp.xml",
+        "lib/netstandard2.1/OpenCvSharp.Blob.dll",
+        "lib/netstandard2.1/OpenCvSharp.Blob.xml",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.1/OpenCvSharp.dll",
+        "lib/netstandard2.1/OpenCvSharp.xml",
+        "opencvsharp4.4.4.0.20200725.nupkg.sha512",
+        "opencvsharp4.nuspec"
+      ]
+    },
+    "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+      "sha512": "WgyTG/Tq3/Msy/o0XcS4NDnmbDD8iuh2MbptdIpH/JdAiOq4H3nUzmJ8ea+3qoBv1SsCCko93zmh01XE47m1NQ==",
+      "type": "package",
+      "path": "opencvsharp4.runtime.win/4.4.0.20200725",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net/OpenCvSharp4.runtime.win.props",
+        "build/netcoreapp/OpenCvSharp4.runtime.win.props",
+        "build/netstandard/OpenCvSharp4.runtime.win.props",
+        "opencvsharp4.runtime.win.4.4.0.20200725.nupkg.sha512",
+        "opencvsharp4.runtime.win.nuspec",
+        "runtimes/win-x64/native/OpenCvSharpExtern.dll",
+        "runtimes/win-x64/native/OpenCvSharpExtern.pdb",
+        "runtimes/win-x64/native/opencv_videoio_ffmpeg440_64.dll",
+        "runtimes/win-x86/native/OpenCvSharpExtern.dll",
+        "runtimes/win-x86/native/OpenCvSharpExtern.pdb",
+        "runtimes/win-x86/native/opencv_videoio_ffmpeg440.dll"
       ]
     },
     "OpenTK.NetStandard/1.0.5.22": {
@@ -3636,6 +3756,36 @@
         "system.runtime.nuspec"
       ]
     },
+    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "sha512": "zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Runtime.Extensions/4.3.0": {
       "sha512": "guW0uK0fn5fcJJ1tJVXYd7/1h5F+pea1r7FLSOz/f8vPEqbR2ZAknuRDvTQ8PzAilDveOxNjSfr0CHfIQfFk8g==",
       "type": "package",
@@ -4860,29 +5010,30 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "OpenCvSharp4.runtime.win >= 4.4.0.20200725",
       "SmartAutoAR >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Max\\.nuget\\packages\\": {},
+    "C:\\Users\\FamilyZheng\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
+      "projectUniqueName": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\Debug\\Debug.csproj",
       "projectName": "Debug",
-      "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
-      "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\obj\\",
+      "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\Debug\\Debug.csproj",
+      "packagesPath": "C:\\Users\\FamilyZheng\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\Debug\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\FamilyZheng\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -4896,8 +5047,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
-              "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
+            "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
+              "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
             }
           }
         }
@@ -4910,6 +5061,12 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "dependencies": {
+          "OpenCvSharp4.runtime.win": {
+            "target": "Package",
+            "version": "[4.4.0.20200725, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
