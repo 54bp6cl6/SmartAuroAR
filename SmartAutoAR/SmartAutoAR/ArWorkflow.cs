@@ -31,6 +31,7 @@ namespace SmartAutoAR
 
 		public void DoWork()
 		{
+			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
 			background.SetImage(frame);
 			background.Render();
@@ -39,8 +40,8 @@ namespace SmartAutoAR
 				if (MarkerDetector.Detecte(frame, marker))
 				{
 					// 偵測到 marker
-					MarkerPairs[marker].Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
-					//MarkerPairs[marker].Camera.Update(Matrix4.LookAt(new Vector3(0,0,10), Vector3.Zero, Vector3.UnitY), new Vector3(0, 0, 10));
+					//MarkerPairs[marker].Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
+					MarkerPairs[marker].Camera.Update(Matrix4.LookAt(new Vector3(0,0,10), Vector3.Zero, Vector3.UnitY), new Vector3(0, 0, 10));
 					MarkerPairs[marker].Render((float)AspectRatio);
 				}
 			}
