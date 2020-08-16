@@ -1,9 +1,9 @@
 ﻿using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.ES10;
 using SmartAutoAR;
 using SmartAutoAR.InputSource;
 using SmartAutoAR.VirtualObject;
+using SmartAutoAR.VirtualObject.Lights;
 using System;
 using Bitmap = System.Drawing.Bitmap;
 
@@ -35,16 +35,17 @@ namespace Debug
 			workflow = new ArWorkflow(inputSource);
 
 			// 導入 marker圖像
-			marker = new Bitmap("background.jpg");
+			marker = new Bitmap("marker.png");
 
 			// 設定場景
 			scene = new Scene();
 
 			// 載入模型
 			Model coin_model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
-			coin_model.Move(z: -40);
+			//coin_model.Move(z: -40);
 			coin_model.Resize(0.5f);
 			scene.Models.Add(coin_model);
+			scene.Lights.Add(new AmbientLight(Color4.White, 0.5f));
 
 			// 設定 marker 對應的 scene
 			workflow.MarkerPairs[marker] = scene;
@@ -58,10 +59,11 @@ namespace Debug
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
+			Height = (int)((double)Width * workflow.AspectRatio);
+
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			workflow.DoWork();
 
-			Height = (int)((double)Width * workflow.AspectRatio);
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

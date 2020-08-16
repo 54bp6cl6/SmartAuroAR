@@ -4942,11 +4942,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+      "projectUniqueName": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
       "projectName": "SmartAutoAR",
-      "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+      "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
       "packagesPath": "C:\\Users\\FamilyZheng\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\obj\\",
+      "outputPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

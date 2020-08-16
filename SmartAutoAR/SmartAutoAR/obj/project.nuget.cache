@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zP1YR77BbmgV8pp9CKWvjfK5Vk/mnCCZ+yM3H+jXIOF432sHAzQSr6zNuAA3zb/TomFO2Ey50KiylyWh8yV08g==",
+  "dgSpecHash": "C197QdhiLEP2dmKtGV0/B56gqbpzqnmuDE5U5yu0XB/U70K7xM2gYYAgdPd0s3sIfBj82eYxR4SzW+b6dOIT/Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\FamilyZheng\\Desktop\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+  "projectFilePath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FamilyZheng\\.nuget\\packages\\assimpnet\\4.1.0\\assimpnet.4.1.0.nupkg.sha512",
     "C:\\Users\\FamilyZheng\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

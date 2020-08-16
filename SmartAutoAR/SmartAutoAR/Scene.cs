@@ -31,6 +31,7 @@ namespace SmartAutoAR
 		{
 			// 開啟深度檢測
 			GL.Enable(EnableCap.DepthTest);
+			GL.Clear(ClearBufferMask.DepthBufferBit);
 
 			// 設定攝影機
 			Matrix4 temp = Camera.ViewMatrix;

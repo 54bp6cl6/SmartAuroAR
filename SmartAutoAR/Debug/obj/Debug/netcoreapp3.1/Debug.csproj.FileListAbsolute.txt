@@ -60,3 +60,13 @@ C:\Users\FamilyZheng\Desktop\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\OpenCvSharpExtern.pdb
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\opencv_videoio_ffmpeg440.dll
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.csproj.CoreCompileInputs.cache
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\OpenCvSharp.Blob.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\OpenCvSharp.Extensions.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\OpenCvSharp.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\OpenCvSharpExtern.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\OpenCvSharpExtern.pdb
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\opencv_videoio_ffmpeg440_64.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\OpenCvSharpExtern.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\OpenCvSharpExtern.pdb
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\opencv_videoio_ffmpeg440.dll
