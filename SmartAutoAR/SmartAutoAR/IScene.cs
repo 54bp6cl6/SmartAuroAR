@@ -9,8 +9,6 @@ namespace SmartAutoAR
 	/// </summary>
 	public interface IScene :IDisposable
 	{
-		public ICamera Camera { get; }
-
-		public void Render(float aspectRatio);
+		public void Render(ICamera camera);
 	}
 }

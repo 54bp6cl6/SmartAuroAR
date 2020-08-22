@@ -177,7 +177,6 @@ namespace SmartAutoAR
 							//double[,] jacobian;
 							// Point2f[] imgPts;
 							var imgPts = new Mat();
-							Cv2.ProjectPoints(InputArray.Create(objPts), InputArray.Create(rvec), InputArray.Create(tvec), InputArray.Create(cameraMatrix), InputArray.Create(dist), imgPts, new Mat());
 							var rvecMat = new Mat();
 							var tvecMat = new Mat();
 							//solvePnP(objectPoints, vertices, camera_matrix, dist_coeffs, rotation_vector, translation_vector);
@@ -188,6 +187,7 @@ namespace SmartAutoAR
 								InputArray.Create(dist),
 								rvecMat, tvecMat);
 
+							Cv2.ProjectPoints(InputArray.Create(objPts), InputArray.Create(rvec), InputArray.Create(tvec), InputArray.Create(cameraMatrix), InputArray.Create(dist), imgPts, new Mat());
 							//21s
 							//646 vs 869(c++
 							Mat rotation = new Mat();

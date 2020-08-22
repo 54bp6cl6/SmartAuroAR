@@ -42,7 +42,6 @@ namespace Debug
 
 			// 載入模型
 			Model coin_model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
-			//coin_model.Move(z: -40);
 			coin_model.Resize(0.5f);
 			scene.Models.Add(coin_model);
 			scene.Lights.Add(new AmbientLight(Color4.White, 0.5f));
@@ -59,11 +58,11 @@ namespace Debug
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
-			Height = (int)((double)Width * workflow.AspectRatio);
+			// 確保視窗比例與背景一致
+			Height = (int)(Width * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			workflow.DoWork();
-
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

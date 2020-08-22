@@ -8,9 +8,9 @@ namespace SmartAutoAR.VirtualObject
 {
 	public class Background : IDisposable
 	{
-		public double Width { get; protected set; }
-		public double Height { get; protected set; }
-		public double AspectRatio { get { return Height / Width; } }
+		public float Width { get; protected set; }
+		public float Height { get; protected set; }
+		public float AspectRatio { get { return Width / Height; } }
 
 		protected static float[] vertices =
 		{

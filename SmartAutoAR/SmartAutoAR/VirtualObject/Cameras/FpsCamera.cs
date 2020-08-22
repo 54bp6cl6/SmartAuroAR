@@ -24,10 +24,11 @@ namespace SmartAutoAR.VirtualObject.Cameras
         public Vector3 Up => _up;
 
         public Matrix4 ViewMatrix { get { return Matrix4.LookAt(Position, Position + _front, _up); } }
+        public float AspectRatio { get; set; }
 
-        public Matrix4 GetProjectionMatrix(float aspectRatio)
+        public Matrix4 GetProjectionMatrix()
 		{
-            return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, aspectRatio, 0.01f, 10000f);
+            return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, AspectRatio, 0.01f, 10000f);
         }
 
         //public Vector3 Right => _right;
