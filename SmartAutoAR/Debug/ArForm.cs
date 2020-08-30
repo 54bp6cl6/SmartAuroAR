@@ -29,7 +29,7 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"background.jpg");
+			inputSource = new ImageSource(@"background3.jpg");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
@@ -41,10 +41,11 @@ namespace Debug
 			scene = new Scene();
 
 			// 載入模型
-			Model coin_model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
-			coin_model.Resize(0.5f);
-			scene.Models.Add(coin_model);
-			scene.Lights.Add(new AmbientLight(Color4.White, 0.5f));
+			Model model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
+			model.Resize(0.015f);
+			scene.Models.Add(model);
+			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
+			scene.Lights.Add(new PointLight(Color4.White, new Vector3(20, 10, 20), 1.0f, 0.2f));
 
 			// 設定 marker 對應的 scene
 			workflow.MarkerPairs[marker] = scene;
@@ -59,10 +60,11 @@ namespace Debug
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
 			// 確保視窗比例與背景一致
-			Height = (int)(Width * workflow.WindowAspectRatio);
+			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			workflow.DoWork();
+			workflow.ShowLast();
+			//workflow.Show();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();
