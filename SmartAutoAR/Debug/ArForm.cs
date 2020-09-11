@@ -45,7 +45,7 @@ namespace Debug
 			model.Resize(0.015f);
 			scene.Models.Add(model);
 			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
-			scene.Lights.Add(new PointLight(Color4.White, new Vector3(20, 10, 20), 1.0f, 0.2f));
+			scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
 
 			// 設定 marker 對應的 scene
 			workflow.MarkerPairs[marker] = scene;
@@ -63,8 +63,8 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			workflow.ShowLast();
-			//workflow.Show();
+			//workflow.ShowLast(true);
+			workflow.Show();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

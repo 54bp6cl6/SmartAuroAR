@@ -37,30 +37,19 @@ namespace SmartAutoAR
 			have_last = false;
 		}
 
-		public void Show()
+		public void Show(bool backeground = true)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
 			background.SetImage(frame);
-			background.Render();
+			if (backeground) background.Render();
 			last_markers.Clear();
 			foreach (Bitmap marker in MarkerPairs.Keys)
 			{
 				if (MarkerDetector.Detecte(frame, marker))
 				{
 					// 偵測到 marker
-					/*Camera.Update(
-						Matrix4.LookAt(
-							new Vector3(4.145535f,8.7422075f,-0.42383f), 
-							new Vector3(0.0f,0f,0.0f), 
-							Vector3.UnitY),
-						new Vector3(4.145535f, 8.7422075f, 0.42383f));*/
-					Camera.Update(
-						Matrix4.LookAt(
-							new Vector3(3f, 6f, 3f),
-							new Vector3(0.8f, 0f, 0.8f),
-							Vector3.UnitY),
-						new Vector3(3f, 6f, 3f));
+					Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
 					MarkerPairs[marker].Render(Camera);
 					last_markers.Add(marker);
 					have_last = true;
@@ -68,20 +57,20 @@ namespace SmartAutoAR
 			}
 		}
 
-		public void ShowLast()
+		public void ShowLast(bool backeground = true)
 		{
 			if (have_last)
 			{
 				GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-				background.Render();
-				foreach(Bitmap marker in last_markers)
+				if (backeground) background.Render();
+				foreach (Bitmap marker in last_markers)
 				{
 					MarkerPairs[marker].Render(Camera);
 				}
 			}
 			else
 			{
-				Show();
+				Show(backeground);
 			}
 		}
 

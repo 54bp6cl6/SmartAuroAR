@@ -149,10 +149,10 @@ namespace SmartAutoAR
 						double tempmaxp, tempminp;
 						tempmaxp = (perimeter > perimeter2) ? perimeter : perimeter2;
 						tempminp = (perimeter > perimeter2) ? perimeter2 : perimeter;
-
+						var temp1 = tempmaxp / tempminp;
 						if (tempmaxp / tempminp > 2)
 						{
-							return false;
+							continue;
 						}
 
 						Point2f[] dst = {
