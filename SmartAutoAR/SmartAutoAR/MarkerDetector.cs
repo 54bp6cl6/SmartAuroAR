@@ -53,6 +53,7 @@ namespace SmartAutoAR
 
 		private bool Hist(Mat marker, Mat target)
 		{
+			// wat
 			Mat hist1 = new Mat();
 			Mat hist2 = new Mat();
 			int histogramSize = 256;
