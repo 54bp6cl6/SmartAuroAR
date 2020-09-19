@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "Debug/1.0.0": {
         "dependencies": {
-          "OpenCvSharp4.runtime.win": "4.4.0.20200725",
+          "OpenCvSharp4.runtime.win": "4.4.0.20200915",
           "SmartAutoAR": "1.0.0"
         },
         "runtime": {
@@ -116,9 +116,10 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "OpenCvSharp4/4.4.0.20200725": {
+      "OpenCvSharp4/4.4.0.20200915": {
         "dependencies": {
           "System.Drawing.Common": "4.7.0",
+          "System.Memory": "4.5.4",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1"
         },
         "runtime": {
@@ -136,7 +137,7 @@
           }
         }
       },
-      "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+      "OpenCvSharp4.runtime.win/4.4.0.20200915": {
         "runtimeTargets": {
           "runtimes/win-x64/native/OpenCvSharpExtern.dll": {
             "rid": "win-x64",
@@ -423,6 +424,7 @@
           "System.Threading": "4.3.0"
         }
       },
+      "System.Memory/4.5.4": {},
       "System.Net.Http/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -815,7 +817,7 @@
       "SmartAutoAR/1.0.0": {
         "dependencies": {
           "AssimpNet": "4.1.0",
-          "OpenCvSharp4": "4.4.0.20200725",
+          "OpenCvSharp4": "4.4.0.20200915",
           "OpenTK.NetStandard": "1.0.5.22",
           "System.Drawing.Common": "4.7.0"
         },
@@ -880,19 +882,19 @@
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
     },
-    "OpenCvSharp4/4.4.0.20200725": {
+    "OpenCvSharp4/4.4.0.20200915": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/FQX9t4izMBs6kFzQmtkeaQZPh20zwADrwGBgIaAVnejh83qoOvH7KHb8FxcKLE52ezbMJUi/6Ckc+NNOjGwyw==",
-      "path": "opencvsharp4/4.4.0.20200725",
-      "hashPath": "opencvsharp4.4.4.0.20200725.nupkg.sha512"
+      "sha512": "sha512-O/RrwNKWpwsI872yLcJBsGj0M6N7lnbhWuG6jmOjMahI8bZJdKDkkie/jzRjQenCmEN3rumizROzejTFNin4Zg==",
+      "path": "opencvsharp4/4.4.0.20200915",
+      "hashPath": "opencvsharp4.4.4.0.20200915.nupkg.sha512"
     },
-    "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+    "OpenCvSharp4.runtime.win/4.4.0.20200915": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WgyTG/Tq3/Msy/o0XcS4NDnmbDD8iuh2MbptdIpH/JdAiOq4H3nUzmJ8ea+3qoBv1SsCCko93zmh01XE47m1NQ==",
-      "path": "opencvsharp4.runtime.win/4.4.0.20200725",
-      "hashPath": "opencvsharp4.runtime.win.4.4.0.20200725.nupkg.sha512"
+      "sha512": "sha512-VWgYLt7NmdSq+jNQd8b4ePm41FzGi4xeZDEBxatHHeRxNxRY/vgYv3Di3930/82/uC8S7HJM0wMJEO/t37M4Vg==",
+      "path": "opencvsharp4.runtime.win/4.4.0.20200915",
+      "hashPath": "opencvsharp4.runtime.win.4.4.0.20200915.nupkg.sha512"
     },
     "OpenTK.NetStandard/1.0.5.22": {
       "type": "package",
@@ -1152,6 +1154,13 @@
       "sha512": "sha512-PGKkrd2khG4CnlyJwxwwaWWiSiWFNBGlgXvJpeO0xCXrZ89ODrQ6tjEWS/kOqZ8GwEOUATtKtzp1eRgmYNfclg==",
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
     "System.Net.Http/4.3.0": {
       "type": "package",

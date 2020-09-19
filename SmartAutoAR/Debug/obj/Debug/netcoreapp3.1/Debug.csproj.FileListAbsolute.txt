@@ -1,7 +1,6 @@
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.csprojAssemblyReference.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfoInputs.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfo.cs
-C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.csproj.CoreCompileInputs.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Debug.exe
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Shaders\background_frag.shader
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Shaders\background_vert.shader
@@ -70,3 +69,4 @@ C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netc
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\OpenCvSharpExtern.dll
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\OpenCvSharpExtern.pdb
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\opencv_videoio_ffmpeg440.dll
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.csproj.CoreCompileInputs.cache

@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {}
+    "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
+    "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+        "projectUniqueName": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
         "projectName": "SmartAutoAR",
-        "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
-        "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\obj\\",
+        "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj",
+        "packagesPath": "C:\\Users\\FamilyZheng\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\FamilyZheng\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -49,7 +49,7 @@
             },
             "OpenCvSharp4": {
               "target": "Package",
-              "version": "[4.4.0.20200725, )"
+              "version": "[4.4.0.20200915, )"
             },
             "OpenTK.NetStandard": {
               "target": "Package",

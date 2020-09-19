@@ -29,7 +29,7 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"background3.jpg");
+			inputSource = new ImageSource(@"background.jpg");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
