@@ -1,10 +1,10 @@
-﻿using System.Drawing;
-using SmartAutoAR.InputSource;
+﻿using SmartAutoAR.InputSource;
 using System.Collections.Generic;
 using SmartAutoAR.VirtualObject;
 using OpenTK.Graphics.OpenGL4;
 using Bitmap = System.Drawing.Bitmap;
-using OpenTK;
+using SmartAutoAR.VirtualObject.Cameras;
+using System;
 
 namespace SmartAutoAR
 {
@@ -16,8 +16,13 @@ namespace SmartAutoAR
 		public IInputSource InputSource { get; set; }
 		public Dictionary<Bitmap, IScene> MarkerPairs { get; set; }
 		public MarkerDetector MarkerDetector { get; protected set; }
-		public double AspectRatio { get; protected set; }
+		public ICamera Camera { get; protected set; }
 
+		// 儲存最後一個結果
+		private bool have_last;
+		private List<Bitmap> last_markers;
+
+		public float WindowAspectRatio { get { return background.AspectRatio; } }
 
 		protected Background background;
 
@@ -27,30 +32,54 @@ namespace SmartAutoAR
 			MarkerPairs = new Dictionary<Bitmap, IScene>();
 			MarkerDetector = new MarkerDetector();
 			background = new Background();
+			Camera = new ArCamera();
+			last_markers = new List<Bitmap>();
+			have_last = false;
 		}
 
-		public void DoWork()
+		public void Show(bool backeground = true)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
+			//Bitmap frame = new Bitmap(1,1);
 			background.SetImage(frame);
-			background.Render();
+			if (backeground) background.Render();
+			last_markers.Clear();
 			foreach (Bitmap marker in MarkerPairs.Keys)
 			{
 				if (MarkerDetector.Detecte(frame, marker))
 				{
 					// 偵測到 marker
-					//MarkerPairs[marker].Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
-					MarkerPairs[marker].Camera.Update(Matrix4.LookAt(new Vector3(0,0,10), Vector3.Zero, Vector3.UnitY), new Vector3(0, 0, 10));
-					MarkerPairs[marker].Render((float)AspectRatio);
+					Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
+					MarkerPairs[marker].Render(Camera);
+					last_markers.Add(marker);
+					have_last = true;
 				}
+			}
+			GC.Collect();
+		}
+
+		public void ShowLast(bool backeground = true)
+		{
+			if (have_last)
+			{
+				GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+				if (backeground) background.Render();
+				foreach (Bitmap marker in last_markers)
+				{
+					MarkerPairs[marker].Render(Camera);
+				}
+			}
+			else
+			{
+				Show(backeground);
 			}
 		}
 
 		public void Resize(int Width, int Height)
 		{
 			GL.Viewport(0, 0, Width, Height);
-			AspectRatio = Width / Height;
+			Camera.AspectRatio = (float)Width / (float)Height;
 		}
 	}
 }

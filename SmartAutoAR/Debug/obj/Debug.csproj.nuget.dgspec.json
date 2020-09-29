@@ -49,7 +49,7 @@
           "dependencies": {
             "OpenCvSharp4.runtime.win": {
               "target": "Package",
-              "version": "[4.4.0.20200725, )"
+              "version": "[4.4.0.20200915, )"
             }
           },
           "imports": [
@@ -119,7 +119,7 @@
             },
             "OpenCvSharp4": {
               "target": "Package",
-              "version": "[4.4.0.20200725, )"
+              "version": "[4.4.0.20200915, )"
             },
             "OpenTK.NetStandard": {
               "target": "Package",

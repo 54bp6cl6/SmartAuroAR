@@ -11,7 +11,7 @@ namespace Debug
 {
 	public partial class ArForm : GameWindow
 	{
-		ImageSource inputSource;
+		IInputSource inputSource;
 		ArWorkflow workflow;
 		Bitmap marker;
 		Scene scene;
@@ -29,7 +29,8 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"background.jpg");
+			//inputSource = new ImageSource(@"background.jpg");
+			inputSource = new VideoSource("video.mp4");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
@@ -41,11 +42,11 @@ namespace Debug
 			scene = new Scene();
 
 			// 載入模型
-			Model coin_model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
-			//coin_model.Move(z: -40);
-			coin_model.Resize(0.5f);
-			scene.Models.Add(coin_model);
-			scene.Lights.Add(new AmbientLight(Color4.White, 0.5f));
+			Model model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
+			model.Resize(0.005f);
+			scene.Models.Add(model);
+			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
+			scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
 
 			// 設定 marker 對應的 scene
 			workflow.MarkerPairs[marker] = scene;
@@ -59,11 +60,12 @@ namespace Debug
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
-			Height = (int)((double)Width * workflow.AspectRatio);
+			// 確保視窗比例與背景一致
+			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			workflow.DoWork();
-
+			//workflow.ShowLast(true);
+			workflow.Show();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

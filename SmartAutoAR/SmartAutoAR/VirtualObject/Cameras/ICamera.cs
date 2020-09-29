@@ -6,9 +6,10 @@ namespace SmartAutoAR.VirtualObject.Cameras
 	{
 		public Matrix4 ViewMatrix { get; }
 		public Vector3 Position { get; }
+		public float AspectRatio { get; set; }
 
 		public void Update(Matrix4 matrix, Vector3 position);
 
-		public Matrix4 GetProjectionMatrix(float aspectRatio);
+		public Matrix4 GetProjectionMatrix();
 	}
 }

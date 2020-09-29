@@ -15,7 +15,6 @@ namespace SmartAutoAR
 	{
 		public List<Model> Models { get; set; }
 		public List<ILight> Lights { get; set; }
-		public ICamera Camera { get; set; }
 
 		protected Shader shader;
 
@@ -23,22 +22,21 @@ namespace SmartAutoAR
 		{
 			Models = new List<Model>();
 			Lights = new List<ILight>();
-			Camera = new ArCamera();
 			shader = Shader.StandardShader;
 		}
 
-		public void Render(float aspectRatio)
+		public void Render(ICamera camera)
 		{
 			// 開啟深度檢測
 			GL.Enable(EnableCap.DepthTest);
 			//GL.Clear(ClearBufferMask.DepthBufferBit);
 
 			// 設定攝影機
-			Matrix4 temp = Camera.ViewMatrix;
+			Matrix4 temp = camera.ViewMatrix;
 			GL.UniformMatrix4(shader.GetUniformLocation("view"), false, ref temp);
-			temp = Camera.GetProjectionMatrix(aspectRatio);
+			temp = camera.GetProjectionMatrix();
 			GL.UniformMatrix4(shader.GetUniformLocation("projection"), false, ref temp);
-			GL.Uniform3(shader.GetUniformLocation("view_position"), Camera.Position);
+			GL.Uniform3(shader.GetUniformLocation("view_position"), camera.Position);
 
 			// 設定光源
 			Vector3 count = new Vector3(0, 0, 0);

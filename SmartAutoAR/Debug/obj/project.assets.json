@@ -154,10 +154,11 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "OpenCvSharp4/4.4.0.20200725": {
+      "OpenCvSharp4/4.4.0.20200915": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "4.7.0",
+          "System.Memory": "4.5.4",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1"
         },
         "compile": {
@@ -171,7 +172,7 @@
           "lib/netcoreapp2.1/OpenCvSharp.dll": {}
         }
       },
-      "OpenCvSharp4.runtime.win/4.4.0.20200725": {
+      "OpenCvSharp4.runtime.win/4.4.0.20200915": {
         "type": "package",
         "build": {
           "build/netcoreapp/OpenCvSharp4.runtime.win.props": {}
@@ -715,6 +716,15 @@
         },
         "runtime": {
           "lib/netstandard1.6/System.Linq.Expressions.dll": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Net.Http/4.3.0": {
@@ -1401,7 +1411,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "AssimpNet": "4.1.0",
-          "OpenCvSharp4": "4.4.0.20200725",
+          "OpenCvSharp4": "4.4.0.20200915",
           "OpenTK.NetStandard": "1.0.5.22",
           "System.Drawing.Common": "4.7.0"
         },
@@ -1598,10 +1608,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "OpenCvSharp4/4.4.0.20200725": {
-      "sha512": "/FQX9t4izMBs6kFzQmtkeaQZPh20zwADrwGBgIaAVnejh83qoOvH7KHb8FxcKLE52ezbMJUi/6Ckc+NNOjGwyw==",
+    "OpenCvSharp4/4.4.0.20200915": {
+      "sha512": "O/RrwNKWpwsI872yLcJBsGj0M6N7lnbhWuG6jmOjMahI8bZJdKDkkie/jzRjQenCmEN3rumizROzejTFNin4Zg==",
       "type": "package",
-      "path": "opencvsharp4/4.4.0.20200725",
+      "path": "opencvsharp4/4.4.0.20200915",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1635,21 +1645,21 @@
         "lib/netstandard2.1/OpenCvSharp.Extensions.xml",
         "lib/netstandard2.1/OpenCvSharp.dll",
         "lib/netstandard2.1/OpenCvSharp.xml",
-        "opencvsharp4.4.4.0.20200725.nupkg.sha512",
+        "opencvsharp4.4.4.0.20200915.nupkg.sha512",
         "opencvsharp4.nuspec"
       ]
     },
-    "OpenCvSharp4.runtime.win/4.4.0.20200725": {
-      "sha512": "WgyTG/Tq3/Msy/o0XcS4NDnmbDD8iuh2MbptdIpH/JdAiOq4H3nUzmJ8ea+3qoBv1SsCCko93zmh01XE47m1NQ==",
+    "OpenCvSharp4.runtime.win/4.4.0.20200915": {
+      "sha512": "VWgYLt7NmdSq+jNQd8b4ePm41FzGi4xeZDEBxatHHeRxNxRY/vgYv3Di3930/82/uC8S7HJM0wMJEO/t37M4Vg==",
       "type": "package",
-      "path": "opencvsharp4.runtime.win/4.4.0.20200725",
+      "path": "opencvsharp4.runtime.win/4.4.0.20200915",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/net/OpenCvSharp4.runtime.win.props",
         "build/netcoreapp/OpenCvSharp4.runtime.win.props",
         "build/netstandard/OpenCvSharp4.runtime.win.props",
-        "opencvsharp4.runtime.win.4.4.0.20200725.nupkg.sha512",
+        "opencvsharp4.runtime.win.4.4.0.20200915.nupkg.sha512",
         "opencvsharp4.runtime.win.nuspec",
         "runtimes/win-x64/native/OpenCvSharpExtern.dll",
         "runtimes/win-x64/native/OpenCvSharpExtern.pdb",
@@ -2965,6 +2975,29 @@
         "runtimes/aot/lib/netcore50/System.Linq.Expressions.dll",
         "system.linq.expressions.4.3.0.nupkg.sha512",
         "system.linq.expressions.nuspec"
+      ]
+    },
+    "System.Memory/4.5.4": {
+      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "type": "package",
+      "path": "system.memory/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Net.Http/4.3.0": {
@@ -5010,7 +5043,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "OpenCvSharp4.runtime.win >= 4.4.0.20200725",
+      "OpenCvSharp4.runtime.win >= 4.4.0.20200915",
       "SmartAutoAR >= 1.0.0"
     ]
   },
@@ -5064,7 +5097,7 @@
         "dependencies": {
           "OpenCvSharp4.runtime.win": {
             "target": "Package",
-            "version": "[4.4.0.20200725, )"
+            "version": "[4.4.0.20200915, )"
           }
         },
         "imports": [
