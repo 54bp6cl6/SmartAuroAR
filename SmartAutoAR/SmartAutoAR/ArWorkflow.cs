@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using SmartAutoAR.VirtualObject;
 using OpenTK.Graphics.OpenGL4;
 using Bitmap = System.Drawing.Bitmap;
-using OpenTK;
 using SmartAutoAR.VirtualObject.Cameras;
+using System;
 
 namespace SmartAutoAR
 {
@@ -41,6 +41,7 @@ namespace SmartAutoAR
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
+			//Bitmap frame = new Bitmap(1,1);
 			background.SetImage(frame);
 			if (backeground) background.Render();
 			last_markers.Clear();
@@ -55,6 +56,7 @@ namespace SmartAutoAR
 					have_last = true;
 				}
 			}
+			GC.Collect();
 		}
 
 		public void ShowLast(bool backeground = true)

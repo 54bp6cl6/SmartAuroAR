@@ -16,34 +16,30 @@ namespace SmartAutoAR
 	{
 		private double[,] cameraMatrix = new double[3, 3]
 		{
-			{ 1.72933044e+03, 0.00000000e+00, 6.38250933e+02 },
-			{ 0.00000000e+00, 1.52595386e+03, 3.21003959e+02 },
+			{ 1.2195112968898779e+003, 0, 3.6448211117862780e+002 },
+			{ 0, 1.2414409169216196e+003, 2.4321803868732076e+002 },
 			{ 0, 0, 1 }
 		};
 
 		private double[] distCoeffs = new double[]
-		{ 4.83589141e-01 ,- 5.85278583e+00 ,- 1.42979696e-02 ,- 1.31067357e-02,  1.86111848e+01 };
+		{ -4.1802327018241026e-001, 5.0715243805833121e-001, 0, 0, -5.7843596847939704e-001 };
 
-		/*private double[,] cameraMatrix = new double[3, 3]
-		{
-			{ 1, 0, 3 },
-			{ 0, 1, 2 },
-			{ 0, 0, 1 }
-		};*/
-
-		//private double[] distCoeffs = new double[] { 0, 0, 0, 0, 0 };
+		// 指定要使用的 aruco marker
+		Dictionary dictionary;
 
 		public bool Validity { get; protected set; }
 		public Matrix4 ViewMatrix { get; protected set; }
 		public Vector3 CameraPosition { get; protected set; }
 
+		public MarkerDetector()
+		{
+			dictionary = CvAruco.GetPredefinedDictionary(PredefinedDictionaryName.Dict6X6_250);
+		}
+
 
 		public bool Detecte(System.Drawing.Bitmap frame, System.Drawing.Bitmap marker)
 		{
 			bool result = false;
-
-			// 指定要使用的 aruco marker
-			Dictionary dictionary = CvAruco.GetPredefinedDictionary(PredefinedDictionaryName.Dict6X6_250);
 
 			// 輸入影像轉為 mat
 			Mat inputImage = frame.ToMat();
@@ -60,9 +56,9 @@ namespace SmartAutoAR
 			if (markerCorners.Length > 0)
 			{
 				result = true;
-				Mat outputImage = inputImage.Clone();
-				CvAruco.DrawDetectedMarkers(outputImage, markerCorners, markerIds);
-				// Cv2.ImWrite("result.png", outputImage);
+				//Mat outputImage = inputImage.Clone();
+				//CvAruco.DrawDetectedMarkers(outputImage, markerCorners, markerIds);
+				//Cv2.ImWrite("result.png", outputImage);
 
 				// 計算姿態參數
 				List<Vec3d> rvecs = new List<Vec3d>(), tvecs = new List<Vec3d>();
@@ -75,17 +71,17 @@ namespace SmartAutoAR
 					OutputArray.Create<Vec3d>(tvecs));
 
 				// 畫出軸
-				CvAruco.DrawAxis(
+				/*CvAruco.DrawAxis(
 					outputImage,
 					InputArray.Create(cameraMatrix),
 					InputArray.Create(distCoeffs),
 					InputArray.Create(rvecs),
 					InputArray.Create(tvecs),
 					1f);
-				Cv2.ImWrite("result.png", outputImage);
+				Cv2.ImWrite("result.png", outputImage);*/
 
 				// 開始計算 view matrix
-				ViewMatrix = getViewMatrix2(rvecs[0], tvecs[0]);
+				ViewMatrix = GetViewMatrix2(rvecs[0], tvecs[0]);
 			}
 
 			return result;
@@ -115,7 +111,7 @@ namespace SmartAutoAR
 		}
 
 		// 自動算ViewMatrix
-		private Matrix4 getViewMatrix2(Vec3d rvec, Vec3d tvec)
+		private Matrix4 GetViewMatrix2(Vec3d rvec, Vec3d tvec)
 		{
 			Mat rotMat = new Mat();
 			Cv2.Rodrigues(rvec, rotMat);
@@ -127,6 +123,8 @@ namespace SmartAutoAR
 				0, 0, 0, 1);
 
 			output.Transpose();
+
+			rotMat.Dispose();
 
 			return output;
 		}

@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System.Drawing;
 
 namespace SmartAutoAR.InputSource
 {
@@ -7,9 +9,19 @@ namespace SmartAutoAR.InputSource
 	/// </summary>
 	public class StreamSource : IInputSource
 	{
-		public Bitmap GetInputFrame()
-		{
-			return new Bitmap(0, 0);
-		}
-	}
+        VideoCapture videoCapture;
+        Mat frame;
+
+        public StreamSource(int camId = 0)
+        {
+            videoCapture = new VideoCapture(camId);
+            frame = new Mat();
+        }
+
+        public Bitmap GetInputFrame()
+        {
+            videoCapture.Read(frame);
+            return frame.ToBitmap();
+        }
+    }
 }

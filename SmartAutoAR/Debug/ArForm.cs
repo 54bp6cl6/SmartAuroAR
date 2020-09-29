@@ -11,7 +11,7 @@ namespace Debug
 {
 	public partial class ArForm : GameWindow
 	{
-		ImageSource inputSource;
+		IInputSource inputSource;
 		ArWorkflow workflow;
 		Bitmap marker;
 		Scene scene;
@@ -29,7 +29,8 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"background.jpg");
+			//inputSource = new ImageSource(@"background.jpg");
+			inputSource = new VideoSource("video.mp4");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
@@ -63,8 +64,8 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			workflow.ShowLast(true);
-			//workflow.Show();
+			//workflow.ShowLast(true);
+			workflow.Show();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();
