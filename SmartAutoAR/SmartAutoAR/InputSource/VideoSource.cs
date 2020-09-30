@@ -10,19 +10,34 @@ namespace SmartAutoAR.InputSource
 	public class VideoSource : IInputSource
 	{
 		VideoCapture videoCapture;
-		Mat frame;
+		Mat frame, next_frame;
+		public bool EndOfVideo { get; protected set; }
 
 		public VideoSource(string path)
 		{
 			videoCapture = new VideoCapture(path);
-			frame = new Mat();
+			next_frame = new Mat();
+			videoCapture.Read(next_frame);
+			EndOfVideo = false;
 		}
 
 		public Bitmap GetInputFrame()
 		{
-			videoCapture.Read(frame);
+			if (next_frame.Cols + next_frame.Rows == 0) 
+				throw new System.ArgumentException("Reach the end of video");
+			frame = next_frame.Clone();
+			videoCapture.Read(next_frame);
+			if (next_frame.Cols + next_frame.Rows == 0)
+				EndOfVideo = true;
 
 			return frame.ToBitmap();
+		}
+
+		public void Replay()
+		{
+			videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
+			videoCapture.Read(next_frame);
+			EndOfVideo = false;
 		}
 	}
 }

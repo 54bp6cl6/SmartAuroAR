@@ -43,7 +43,7 @@ namespace Debug
 
 			// 載入模型
 			Model model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
-			model.Resize(0.005f);
+			model.Resize(0.03f);
 			scene.Models.Add(model);
 			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
 			scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
@@ -64,6 +64,7 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
+			if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
 			//workflow.ShowLast(true);
 			workflow.Show();
 

@@ -33,7 +33,7 @@ namespace SmartAutoAR
 
 		public MarkerDetector()
 		{
-			dictionary = CvAruco.GetPredefinedDictionary(PredefinedDictionaryName.Dict6X6_250);
+			dictionary = CvAruco.GetPredefinedDictionary(PredefinedDictionaryName.DictArucoOriginal);
 		}
 
 
@@ -117,9 +117,9 @@ namespace SmartAutoAR
 			Cv2.Rodrigues(rvec, rotMat);
 
 			Matrix4 output = new Matrix4(
-				(float)rotMat.At<double>(0, 0), (float)rotMat.At<double>(0, 1), (float)rotMat.At<double>(0, 2), (float)tvec[0],
-				-(float)rotMat.At<double>(1, 0), -(float)rotMat.At<double>(1, 1), -(float)rotMat.At<double>(1, 2), -(float)tvec[1],
-				-(float)rotMat.At<double>(2, 0), -(float)rotMat.At<double>(2, 1), -(float)rotMat.At<double>(2, 2), -(float)tvec[2],
+				(float)rotMat.At<double>(0, 0), (float)rotMat.At<double>(0, 2), -(float)rotMat.At<double>(0, 1), (float)tvec[0],
+				-(float)rotMat.At<double>(1, 0), -(float)rotMat.At<double>(1, 2), (float)rotMat.At<double>(1, 1),  -(float)tvec[1],
+				-(float)rotMat.At<double>(2, 0), -(float)rotMat.At<double>(2, 2), (float)rotMat.At<double>(2, 1),  -(float)tvec[2],
 				0, 0, 0, 1);
 
 			output.Transpose();

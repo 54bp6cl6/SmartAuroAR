@@ -37,11 +37,10 @@ namespace SmartAutoAR
 			have_last = false;
 		}
 
-		public void Show(bool backeground = true)
+		public bool Show(bool backeground = true)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
-			//Bitmap frame = new Bitmap(1,1);
 			background.SetImage(frame);
 			if (backeground) background.Render();
 			last_markers.Clear();
@@ -57,6 +56,7 @@ namespace SmartAutoAR
 				}
 			}
 			GC.Collect();
+			return true;
 		}
 
 		public void ShowLast(bool backeground = true)
