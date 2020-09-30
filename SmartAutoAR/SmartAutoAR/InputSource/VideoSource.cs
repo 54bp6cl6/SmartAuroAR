@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace SmartAutoAR.InputSource
 {
@@ -10,24 +11,40 @@ namespace SmartAutoAR.InputSource
 	public class VideoSource : IInputSource
 	{
 		VideoCapture videoCapture;
-		Mat frame, next_frame;
+		Mat frame;
+		Stopwatch watch;
+		double msPerFrame;
 		public bool EndOfVideo { get; protected set; }
 
 		public VideoSource(string path)
 		{
 			videoCapture = new VideoCapture(path);
-			next_frame = new Mat();
-			videoCapture.Read(next_frame);
+			msPerFrame = 1000 / videoCapture.Fps;
+			watch = new Stopwatch();
+			frame = new Mat();
 			EndOfVideo = false;
 		}
 
 		public Bitmap GetInputFrame()
 		{
-			if (next_frame.Cols + next_frame.Rows == 0) 
+			if (videoCapture.Get(VideoCaptureProperties.PosFrames) == videoCapture.FrameCount)
 				throw new System.ArgumentException("Reach the end of video");
-			frame = next_frame.Clone();
-			videoCapture.Read(next_frame);
-			if (next_frame.Cols + next_frame.Rows == 0)
+
+			if (!watch.IsRunning)
+			{
+				videoCapture.Read(frame);
+				watch.Start();
+			}
+
+			if (watch.ElapsedMilliseconds > msPerFrame)
+			{
+				for(double ms = 0; ms < watch.ElapsedMilliseconds; ms += msPerFrame)
+					if (videoCapture.Get(VideoCaptureProperties.PosFrames) < videoCapture.FrameCount)
+						videoCapture.Read(frame);
+				watch.Reset();
+			}
+
+			if (videoCapture.Get(VideoCaptureProperties.PosFrames) == videoCapture.FrameCount)
 				EndOfVideo = true;
 
 			return frame.ToBitmap();
@@ -36,7 +53,6 @@ namespace SmartAutoAR.InputSource
 		public void Replay()
 		{
 			videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-			videoCapture.Read(next_frame);
 			EndOfVideo = false;
 		}
 	}
