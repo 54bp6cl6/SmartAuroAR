@@ -34,7 +34,7 @@ namespace SmartAutoAR
 			// 設定攝影機
 			Matrix4 temp = camera.ViewMatrix;
 			GL.UniformMatrix4(shader.GetUniformLocation("view"), false, ref temp);
-			temp = camera.GetProjectionMatrix();
+			temp = camera.ProjectionMatrix;
 			GL.UniformMatrix4(shader.GetUniformLocation("projection"), false, ref temp);
 			GL.Uniform3(shader.GetUniformLocation("view_position"), camera.Position);
 

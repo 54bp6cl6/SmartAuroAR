@@ -22,5 +22,4 @@ C:\Users\FamilyZheng\Desktop\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Re
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Shaders\standard_vert.shader
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache
 C:\Users\FamilyZheng\Desktop\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csproj.CoreCompileInputs.cache
-C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csproj.CoreCompileInputs.cache

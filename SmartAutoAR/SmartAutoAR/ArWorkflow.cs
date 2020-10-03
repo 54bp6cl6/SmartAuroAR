@@ -49,7 +49,10 @@ namespace SmartAutoAR
 				if (MarkerDetector.Detecte(frame, marker))
 				{
 					// 偵測到 marker
-					Camera.Update(MarkerDetector.ViewMatrix, MarkerDetector.CameraPosition);
+					Camera.Update(
+						MarkerDetector.ViewMatrix, 
+						MarkerDetector.GetProjectionMatrix(frame.Height, frame.Width), 
+						MarkerDetector.CameraPosition);
 					MarkerPairs[marker].Render(Camera);
 					last_markers.Add(marker);
 					have_last = true;
