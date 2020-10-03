@@ -30,20 +30,20 @@ namespace Debug
 		{
 			// 設定影像輸入
 			//inputSource = new ImageSource(@"background.jpg");
-			inputSource = new VideoSource("video.mp4");
-
-			// 建立 workflow 物件
-			workflow = new ArWorkflow(inputSource);
+			inputSource = new VideoSource("logo.mp4");
 
 			// 導入 marker圖像
-			marker = new Bitmap("marker.png");
+			marker = new Bitmap("logo.png");
+
+			// 建立 workflow 物件
+			workflow = new ArWorkflow(inputSource, marker);
 
 			// 設定場景
 			scene = new Scene();
 
 			// 載入模型
 			Model model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
-			model.Resize(0.03f);
+			model.Resize(0.005f);
 			scene.Models.Add(model);
 			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
 			scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
@@ -57,6 +57,7 @@ namespace Debug
 
 			base.OnLoad(e);
 		}
+
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{

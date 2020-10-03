@@ -81,45 +81,21 @@ namespace SmartAutoAR
 				Cv2.ImWrite("result.png", outputImage);*/
 
 				// 開始計算 view matrix
-				ViewMatrix = GetViewMatrix2(rvecs[0], tvecs[0]);
+				ViewMatrix = GetViewMatrix(rvecs[0], tvecs[0]);
 			}
 
 			return result;
 		}
 
-		// 手動抓 lookAt
-		private Matrix4 getViewMatrix(Vec3d rvec, Vec3d tvec)
-		{
-			Mat rotMat = new Mat();
-			Mat tmat = new Mat(3, 1, MatType.CV_64F);
-			Mat rmat = new Mat();
-			tmat.At<double>(0, 0) = tvec[0];
-			tmat.At<double>(1, 0) = tvec[1];
-			tmat.At<double>(2, 0) = tvec[2];
-			Cv2.Rodrigues(rvec, rotMat);
-
-			rotMat = rotMat.T();
-			tmat = -rotMat * tmat;
-			Cv2.Rodrigues(rotMat, rmat);
-
-			Vector3 tVector3 = new Vector3((float)tmat.At<double>(0, 0), (float)tmat.At<double>(2, 0), -(float)tmat.At<double>(1, 0));
-			Vector3 rVector3 = new Vector3((float)rmat.At<double>(0, 0), (float)rmat.At<double>(2, 0), -(float)rmat.At<double>(1, 0));
-
-			Matrix4 guest = Matrix4.LookAt(tVector3, new Vector3(0.9f, 0f, 0.3f), new Vector3(-1f, 0f, 0f));
-
-			return guest;
-		}
-
-		// 自動算ViewMatrix
-		private Matrix4 GetViewMatrix2(Vec3d rvec, Vec3d tvec)
+		private Matrix4 GetViewMatrix(Vec3d rvec, Vec3d tvec)
 		{
 			Mat rotMat = new Mat();
 			Cv2.Rodrigues(rvec, rotMat);
 
 			Matrix4 output = new Matrix4(
 				(float)rotMat.At<double>(0, 0), (float)rotMat.At<double>(0, 2), -(float)rotMat.At<double>(0, 1), (float)tvec[0],
-				-(float)rotMat.At<double>(1, 0), -(float)rotMat.At<double>(1, 2), (float)rotMat.At<double>(1, 1),  -(float)tvec[1],
-				-(float)rotMat.At<double>(2, 0), -(float)rotMat.At<double>(2, 2), (float)rotMat.At<double>(2, 1),  -(float)tvec[2],
+				-(float)rotMat.At<double>(1, 0), -(float)rotMat.At<double>(1, 2), (float)rotMat.At<double>(1, 1), -(float)tvec[1],
+				-(float)rotMat.At<double>(2, 0), -(float)rotMat.At<double>(2, 2), (float)rotMat.At<double>(2, 1), -(float)tvec[2],
 				0, 0, 0, 1);
 
 			output.Transpose();
@@ -127,6 +103,11 @@ namespace SmartAutoAR
 			rotMat.Dispose();
 
 			return output;
+		}
+
+		public Matrix4 GetProjectionMatrix(float width, float height, float near = 0.0001f, float far = 10000f)
+		{
+			return new Matrix4();
 		}
 	}
 }

@@ -6,18 +6,15 @@ namespace SmartAutoAR.VirtualObject.Cameras
 	class ArCamera : ICamera
 	{
 		public Matrix4 ViewMatrix { get; set; }
+		public Matrix4 ProjectionMatrix { get; set; }
 		public Vector3 Position { get; set; }
 		public float AspectRatio { get; set; }
 
-		public void Update(Matrix4 matrix, Vector3 position)
+		public void Update(Matrix4 viewMat, Matrix4 projectionMat, Vector3 position)
 		{
-			ViewMatrix = matrix;
+			ViewMatrix = viewMat;
+			ProjectionMatrix = projectionMat;
 			Position = position;
-		}
-
-		public Matrix4 GetProjectionMatrix()
-		{
-			return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, AspectRatio, 0.01f, 10000f);
 		}
 	}
 }
