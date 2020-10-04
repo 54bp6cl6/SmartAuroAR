@@ -123,7 +123,6 @@ namespace OpenCVMarkerLessAR
             m_warpedImg = new Mat ();
             m_roughHomography = new Mat ();
             m_refinedHomography = new Mat ();
-
         }
 
         /// <summary>
@@ -252,9 +251,6 @@ namespace OpenCVMarkerLessAR
                                        HomographyMethods.Ransac);
         
             if (homographyFound) {
-                        
-
-                        
                 // If homography refinement enabled improve found transformation
                 if (enableRatioTest) {
                     // Warp image using found homography
@@ -277,9 +273,9 @@ namespace OpenCVMarkerLessAR
                     if (!homographyFound)
                         return false;
                     info.homography = m_roughHomography * m_refinedHomography;
-                   
 
-
+                    // 取得彩色marker轉正
+                    Cv2.WarpPerspective(image, info.detectedMarkerImage, info.homography, m_pattern.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
                 } else {
                     info.homography = m_roughHomography;                        
                 }

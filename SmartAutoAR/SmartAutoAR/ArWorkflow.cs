@@ -82,6 +82,32 @@ namespace SmartAutoAR
 			}
 		}
 
+		// 測試用
+		public void ShowMarker()
+		{
+			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+			Bitmap frame = InputSource.GetInputFrame();
+			last_markers.Clear();
+			foreach (Bitmap marker in MarkerPairs.Keys)
+			{
+				if (patternDetector.findPattern(frame.ToMat(), patternTrackinginfo))
+				{
+					background.SetImage(patternTrackinginfo.detectedMarkerImage.ToBitmap());
+					background.Render();
+
+					patternTrackinginfo.ComputePose();
+					// 偵測到 marker
+					Camera.Update(
+						patternTrackinginfo.ViewMatrix,
+						patternTrackinginfo.GetProjectionMatrix(frame.Width, frame.Height),
+						patternTrackinginfo.CameraPosition);
+					last_markers.Add(marker);
+					have_last = true;
+				}
+			}
+			GC.Collect();
+		}
+
 		public void Resize(int Width, int Height)
 		{
 			GL.Viewport(0, 0, Width, Height);

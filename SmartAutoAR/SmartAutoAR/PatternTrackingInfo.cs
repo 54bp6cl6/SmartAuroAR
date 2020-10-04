@@ -18,6 +18,7 @@ namespace OpenCVMarkerLessAR
 		public Point2d center;
 		public Mat imgPts;
 		public Mat raux, taux;
+		public Mat detectedMarkerImage;
 		public Matrix4 ViewMatrix { get; protected set; }
 		public Vector3 CameraPosition { get; protected set; }
 
@@ -35,6 +36,7 @@ namespace OpenCVMarkerLessAR
 		{
 			homography = new Mat();
 			points2d = new Mat();
+			detectedMarkerImage = new Mat();
 		}
 
 		public void ComputePose()
