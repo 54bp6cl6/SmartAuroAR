@@ -301,13 +301,7 @@ namespace OpenCVMarkerLessAR
         /// <param name="gray">Gray.</param>
         static void getGray (Mat image,ref Mat gray)
         {
-
             Mat labImage = new Mat();
-            Mat grayImage = new Mat();
-            Mat binaryImage = new Mat();
-            Mat edgeImage = new Mat();
-
-            int w = image.Cols, h = image.Rows;
 
             // 以 L 二值化，並做邊緣檢測
             Cv2.CvtColor(image, labImage, ColorConversionCodes.BGR2Lab);
@@ -315,8 +309,6 @@ namespace OpenCVMarkerLessAR
             Mat[] grayChannel = new Mat[] { labChannel[0] };
             Cv2.MixChannels(labChannel, grayChannel, new int[] { 0, 0 });
             Cv2.Merge(grayChannel, gray);
-
-                        
         }
 
         /// <summary>

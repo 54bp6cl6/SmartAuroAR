@@ -22,6 +22,7 @@ namespace SmartAutoAR
 		public PatternDetector patternDetector { get; protected set; }
 		public PatternTrackingInfo patternTrackinginfo { get; protected set; }
 		public Pattern pattern;
+		private Mat OrgMarker;
 
 		// 儲存最後一個結果
 		private bool have_last;
@@ -37,6 +38,8 @@ namespace SmartAutoAR
 			Camera = new ArCamera();
 			last_markers = new List<Bitmap>();
 			have_last = false;
+			OrgMarker = marker.ToMat();
+			Cv2.Resize(OrgMarker, OrgMarker, new OpenCvSharp.Size(400, 400));
 			SetMarker(marker);
 		}
 
@@ -55,7 +58,7 @@ namespace SmartAutoAR
 					// 偵測到 marker
 					Camera.Update(
 						patternTrackinginfo.ViewMatrix,
-						patternTrackinginfo.GetProjectionMatrix(frame.Width,frame.Height),
+						patternTrackinginfo.GetProjectionMatrix(frame.Width, frame.Height),
 						patternTrackinginfo.CameraPosition);
 					MarkerPairs[marker].Render(Camera);
 					last_markers.Add(marker);
@@ -87,25 +90,30 @@ namespace SmartAutoAR
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			Bitmap frame = InputSource.GetInputFrame();
-			last_markers.Clear();
-			foreach (Bitmap marker in MarkerPairs.Keys)
+			if (patternDetector.findPattern(frame.ToMat(), patternTrackinginfo))
 			{
-				if (patternDetector.findPattern(frame.ToMat(), patternTrackinginfo))
-				{
-					background.SetImage(patternTrackinginfo.detectedMarkerImage.ToBitmap());
-					background.Render();
+				Mat Dgray = new Mat(), Ogray = new Mat();
+				getGray(patternTrackinginfo.detectedMarkerImage, ref Dgray);
+				getGray(OrgMarker, ref Ogray);
 
-					patternTrackinginfo.ComputePose();
-					// 偵測到 marker
-					Camera.Update(
-						patternTrackinginfo.ViewMatrix,
-						patternTrackinginfo.GetProjectionMatrix(frame.Width, frame.Height),
-						patternTrackinginfo.CameraPosition);
-					last_markers.Add(marker);
-					have_last = true;
-				}
+				Mat result = Ogray - Dgray;
+				background.SetImage(result.ToBitmap());
+				background.Render();
 			}
 			GC.Collect();
+		}
+
+		// 測試用
+		static void getGray(Mat image, ref Mat gray)
+		{
+			Mat labImage = new Mat();
+
+			// 以 L 二值化，並做邊緣檢測
+			Cv2.CvtColor(image, labImage, ColorConversionCodes.BGR2Lab);
+			Mat[] labChannel = Cv2.Split(labImage); //分割通道
+			Mat[] grayChannel = new Mat[] { labChannel[0] };
+			Cv2.MixChannels(labChannel, grayChannel, new int[] { 0, 0 });
+			Cv2.Merge(grayChannel, gray);
 		}
 
 		public void Resize(int Width, int Height)
