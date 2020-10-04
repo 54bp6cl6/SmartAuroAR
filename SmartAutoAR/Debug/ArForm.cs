@@ -29,8 +29,8 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			//inputSource = new ImageSource(@"background.jpg");
-			inputSource = new VideoSource("logo.mp4");
+			inputSource = new ImageSource(@"image_test.jpg");
+			//inputSource = new VideoSource("video_test.mp4");
 
 			// 導入 marker圖像
 			marker = new Bitmap("logo.png");
@@ -42,10 +42,10 @@ namespace Debug
 			scene = new Scene();
 
 			// 載入模型
-			Model model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
-			model.Resize(0.005f);
+			Model model = Model.LoadModel(@"..\..\..\models\Stone\Stone.obj");
+			model.Resize(0.1f);
 			scene.Models.Add(model);
-			scene.Lights.Add(new AmbientLight(Color4.White, 1.0f));
+			scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
 			scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
 
 			// 設定 marker 對應的 scene
@@ -65,7 +65,7 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
+			//if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
 			//workflow.ShowLast(true);
 			workflow.Show();
 

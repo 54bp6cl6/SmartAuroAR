@@ -15,7 +15,6 @@ namespace OpenCVMarkerLessAR
 		public Mat points2d;
 		public Point2f[] pts;
 		public Matrix4 pose3d;
-		public Mat campos;
 		public Point2d center;
 		public Mat imgPts;
 		public Mat raux, taux;
@@ -36,7 +35,6 @@ namespace OpenCVMarkerLessAR
 		{
 			homography = new Mat();
 			points2d = new Mat();
-			campos = new Mat();
 		}
 
 		public void ComputePose()
@@ -53,6 +51,19 @@ namespace OpenCVMarkerLessAR
 				OutputArray.Create<Vec3d>(rvecs),
 				OutputArray.Create<Vec3d>(tvecs));
 			ViewMatrix = GetViewMatrix(rvecs[0], tvecs[0]);
+
+			// 計算campos
+			Mat rotMat = new Mat();
+			Mat tmat = new Mat(3, 1, MatType.CV_64F);
+			Mat rmat = new Mat();
+			tmat.At<double>(0, 0) = tvecs[0][0];
+			tmat.At<double>(1, 0) = tvecs[0][1];
+			tmat.At<double>(2, 0) = tvecs[0][2];
+			Cv2.Rodrigues(rvecs[0], rotMat);
+			rotMat = rotMat.T();
+			tmat = -rotMat * tmat;
+			Cv2.Rodrigues(rotMat, rmat);
+			CameraPosition = new Vector3((float)tmat.At<double>(0, 0), (float)tmat.At<double>(2, 0), -(float)tmat.At<double>(1, 0));
 		}
 
 		private Matrix4 GetViewMatrix(Vec3d rvec, Vec3d tvec)

@@ -49,3 +49,4 @@ C:\Users\FamilyZheng\Downloads\SmartAuroAR-detector\SmartAutoAR\SmartAutoAR\obj\
 C:\Users\FamilyZheng\Downloads\SmartAuroAR-detector\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csproj.CoreCompileInputs.cache
 C:\Users\FamilyZheng\Downloads\SmartAuroAR-detector\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.dll
 C:\Users\FamilyZheng\Downloads\SmartAuroAR-detector\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.pdb
+C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache
