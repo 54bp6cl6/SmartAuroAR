@@ -33,7 +33,7 @@ namespace Debug
 			//inputSource = new VideoSource("video_test.mp4");
 
 			// 導入 marker圖像
-			marker = new Bitmap("logo.png");
+			marker = new Bitmap("Logo.png");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource, marker);
@@ -67,7 +67,9 @@ namespace Debug
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			//if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
 			//workflow.ShowLast(true);
-			workflow.Show();
+			//workflow.Show();
+			workflow.Simulate(Width, Height);
+			//workflow.ShowMarker();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

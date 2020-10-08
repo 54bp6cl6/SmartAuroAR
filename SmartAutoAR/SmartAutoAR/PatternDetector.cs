@@ -123,7 +123,6 @@ namespace OpenCVMarkerLessAR
             m_warpedImg = new Mat ();
             m_roughHomography = new Mat ();
             m_refinedHomography = new Mat ();
-
         }
 
         /// <summary>
@@ -252,9 +251,6 @@ namespace OpenCVMarkerLessAR
                                        HomographyMethods.Ransac);
         
             if (homographyFound) {
-                        
-
-                        
                 // If homography refinement enabled improve found transformation
                 if (enableRatioTest) {
                     // Warp image using found homography
@@ -277,9 +273,9 @@ namespace OpenCVMarkerLessAR
                     if (!homographyFound)
                         return false;
                     info.homography = m_roughHomography * m_refinedHomography;
-                   
 
-
+                    // 取得彩色marker轉正
+                    Cv2.WarpPerspective(image, info.detectedMarkerImage, info.homography, m_pattern.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
                 } else {
                     info.homography = m_roughHomography;                        
                 }
@@ -305,13 +301,7 @@ namespace OpenCVMarkerLessAR
         /// <param name="gray">Gray.</param>
         static void getGray (Mat image,ref Mat gray)
         {
-
             Mat labImage = new Mat();
-            Mat grayImage = new Mat();
-            Mat binaryImage = new Mat();
-            Mat edgeImage = new Mat();
-
-            int w = image.Cols, h = image.Rows;
 
             // 以 L 二值化，並做邊緣檢測
             Cv2.CvtColor(image, labImage, ColorConversionCodes.BGR2Lab);
@@ -319,8 +309,6 @@ namespace OpenCVMarkerLessAR
             Mat[] grayChannel = new Mat[] { labChannel[0] };
             Cv2.MixChannels(labChannel, grayChannel, new int[] { 0, 0 });
             Cv2.Merge(grayChannel, gray);
-
-                        
         }
 
         /// <summary>
