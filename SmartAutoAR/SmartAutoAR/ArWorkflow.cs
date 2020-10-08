@@ -77,6 +77,11 @@ namespace SmartAutoAR
 			Bitmap ARframe = Screenshot(width, height);
 			objectOnly.Save("result1.jpg", ImageFormat.Jpeg);
 			ARframe.Save("result2.jpg", ImageFormat.Jpeg);
+
+			// 請把 output 替換進來
+			Bitmap output = new Bitmap(width, height);
+			background.SetImage(output);
+			background.Render();
 		}
 
 		private Bitmap Screenshot(int width, int height)
