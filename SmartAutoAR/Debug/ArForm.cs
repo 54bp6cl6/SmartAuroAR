@@ -29,8 +29,8 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			//inputSource = new ImageSource(@"background.jpg");
-			inputSource = new VideoSource("video_test.mp4");
+			inputSource = new ImageSource(@"image_test.jpg");
+			//inputSource = new VideoSource("video_test.mp4");
 
 			// 導入 marker圖像
 			marker = new Bitmap("Logo.png");
@@ -65,10 +65,11 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
+			//if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
 			//workflow.ShowLast(true);
 			//workflow.Show();
-			workflow.ShowMarker();
+			workflow.Simulate(Width, Height);
+			//workflow.ShowMarker();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();

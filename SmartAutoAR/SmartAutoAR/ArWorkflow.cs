@@ -8,6 +8,7 @@ using System;
 using OpenCVMarkerLessAR;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using System.Drawing.Imaging;
 
 namespace SmartAutoAR
 {
@@ -68,6 +69,27 @@ namespace SmartAutoAR
 			GC.Collect();
 		}
 
+		public void Simulate(int width, int height)
+		{
+			Show(false);
+			Bitmap objectOnly = Screenshot(width, height);
+			Show(true);
+			Bitmap ARframe = Screenshot(width, height);
+			objectOnly.Save("result1.jpg", ImageFormat.Jpeg);
+			ARframe.Save("result2.jpg", ImageFormat.Jpeg);
+		}
+
+		private Bitmap Screenshot(int width, int height)
+		{
+			// 取得畫面
+			Bitmap bmp = new Bitmap(width, height);
+			BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+			GL.ReadPixels(0, 0, bmp.Width, bmp.Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
+			bmp.UnlockBits(data);
+			bmp.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
+			return bmp;
+		}
+
 		public void ShowLast(bool backeground = true)
 		{
 			if (have_last)
@@ -96,15 +118,31 @@ namespace SmartAutoAR
 				getGray(patternTrackinginfo.detectedMarkerImage, ref Dgray);
 				getGray(OrgMarker, ref Ogray);
 
+				Mat white = new Mat(Ogray.Width, Ogray.Height, Ogray.Type());
+				white += 255;
+				Mat Nlogo = white - Ogray;
+
 				Mat result = Ogray - Dgray;
-				background.SetImage(result.ToBitmap());
+				//result = result.Resize(new Size(10, 10), interpolation: InterpolationFlags.Area);
+				Mat leftTop = result.SubMat(0, result.Width / 3, 0, result.Height / 3);
+				Mat midTop = result.SubMat(0, result.Height / 3, result.Width / 3, result.Width / 3 * 2);
+				Mat rightTop = result.SubMat(0, result.Width / 3, result.Height / 3 * 2, result.Height - 1);
+				Mat leftMid = result.SubMat(result.Width / 3, result.Width / 3 * 2, 0, result.Height / 3);
+				Mat mid = result.SubMat(result.Width / 3, result.Width / 3 * 2, result.Width / 3, result.Width / 3 * 2);
+				Mat rightMid = result.SubMat(result.Width / 3, result.Width / 3 * 2, result.Height / 3 * 2, result.Height - 1);
+				Mat leftBottom = result.SubMat(result.Height / 3 * 2, result.Height - 1, 0, result.Height / 3);
+				Mat midBottom = result.SubMat(result.Height / 3 * 2, result.Height - 1, result.Width / 3, result.Width / 3 * 2);
+				Mat rightBottom = result.SubMat(result.Height / 3 * 2, result.Height - 1, result.Height / 3 * 2, result.Height - 1);
+
+				background.SetImage(patternTrackinginfo.detectedMarkerImage.ToBitmap());
 				background.Render();
 			}
 			GC.Collect();
 		}
 
+
 		// 測試用
-		static void getGray(Mat image, ref Mat gray)
+		void getGray(Mat image, ref Mat gray)
 		{
 			Mat labImage = new Mat();
 
