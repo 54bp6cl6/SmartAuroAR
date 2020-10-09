@@ -172,13 +172,14 @@ namespace OpenCVMarkerLessAR
         /// </summary>
         /// <param name="image">Image.</param>
         /// <param name="pattern">Pattern.</param>
-        public void buildPatternFromImage (Mat image, Pattern pattern)
+        public void buildPatternFromImage (Mat image)
         {
             //        int numImages = 4;
             //        float step = Mathf.Sqrt (2.0f);
 
             // Store original image in pattern structure
             // Image dimensions
+            Pattern pattern = new Pattern();
             m_pattern = pattern;
             float w = image.Cols;
             float h = image.Rows;
@@ -229,8 +230,9 @@ namespace OpenCVMarkerLessAR
         /// <returns><c>true</c>, if pattern was found, <c>false</c> otherwise.</returns>
         /// <param name="image">Image.</param>
         /// <param name="info">Info.</param>
-        public bool findPattern (Mat image, PatternTrackingInfo info)
+        public bool Detect (Mat image, out PatternTrackingInfo info)
         {
+            info = new PatternTrackingInfo();
             // Convert input image to gray
             getGray (image,ref m_grayImg);
             //Cv2.CvtColor(image, m_grayImg, ColorConversionCodes.BGR2GRAY);

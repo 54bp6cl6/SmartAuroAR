@@ -8,5 +8,8 @@ namespace SmartAutoAR.InputSource
 	public interface IInputSource
 	{
 		public Bitmap GetInputFrame();
+		public int OutputWidth { get; }
+		public int OutputHeight { get; }
+		public float AspectRatio { get; }
 	}
 }

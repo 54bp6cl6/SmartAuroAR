@@ -8,7 +8,11 @@ namespace SmartAutoAR.InputSource
 	public class ImageSource : IInputSource
 	{
 		public Bitmap Image { get; set; }
-		
+		public int OutputWidth { get { return Image.Width; } }
+		public int OutputHeight { get { return Image.Height; } }
+		public float AspectRatio { get { return (float)Image.Width / (float)Image.Height; } }
+
+
 		public ImageSource(Bitmap bitmap)
 		{
 			this.Image = bitmap;

@@ -8,10 +8,6 @@ namespace SmartAutoAR.VirtualObject
 {
 	public class Background : IDisposable
 	{
-		public float Width { get; protected set; }
-		public float Height { get; protected set; }
-		public float AspectRatio { get { return Width / Height; } }
-
 		protected static float[] vertices =
 		{
 			//Position          Texture coordinates
@@ -39,8 +35,6 @@ namespace SmartAutoAR.VirtualObject
 			EBO = GL.GenBuffer();
 			shader = Shader.BackgroundShader;
 			texture = new Texture();
-			Width = 0;
-			Height = 0;
 
 			// 設定 VBO 規格
 			GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
@@ -68,8 +62,6 @@ namespace SmartAutoAR.VirtualObject
 		public void SetImage(Bitmap frame)
 		{
 			texture.SetImage(frame);
-			Width = frame.Width;
-			Height = frame.Height;
 		}
 
 		public void Render()

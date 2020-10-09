@@ -9,19 +9,27 @@ namespace SmartAutoAR.InputSource
 	/// </summary>
 	public class StreamSource : IInputSource
 	{
+        public int OutputWidth { get; protected set; }
+        public int OutputHeight { get; protected set; }
+        public float AspectRatio { get { return (float)OutputWidth / (float)OutputHeight; } }
+
         VideoCapture videoCapture;
-        Mat frame;
 
         public StreamSource(int camId = 0)
         {
+            OutputWidth = 1;
+            OutputHeight = 1;
             videoCapture = new VideoCapture(camId);
-            frame = new Mat();
         }
 
         public Bitmap GetInputFrame()
         {
+            Mat frame = new Mat();
             videoCapture.Read(frame);
-            return frame.ToBitmap();
+            Bitmap output = frame.ToBitmap();
+            OutputWidth = output.Width;
+            OutputHeight = output.Height;
+            return output;
         }
     }
 }

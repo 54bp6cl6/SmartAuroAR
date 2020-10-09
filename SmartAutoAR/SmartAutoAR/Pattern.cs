@@ -6,7 +6,7 @@ namespace OpenCVMarkerLessAR
     /// Pattern.
     /// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
     /// </summary>
-    public class Pattern
+    class Pattern
     {
         /// <summary>
         /// The size.

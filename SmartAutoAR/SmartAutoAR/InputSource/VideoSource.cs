@@ -10,19 +10,25 @@ namespace SmartAutoAR.InputSource
 	/// </summary>
 	public class VideoSource : IInputSource
 	{
+		public int OutputWidth { get; protected set; }
+		public int OutputHeight { get; protected set; }
+		public float AspectRatio { get { return (float)OutputWidth / (float)OutputHeight; } }
+		public bool EndOfVideo { get; protected set; }
+
 		VideoCapture videoCapture;
 		Mat frame;
 		Stopwatch watch;
 		double msPerFrame;
-		public bool EndOfVideo { get; protected set; }
 
 		public VideoSource(string path)
 		{
+			OutputWidth = 1;
+			OutputHeight = 1;
+			EndOfVideo = false;
 			videoCapture = new VideoCapture(path);
 			msPerFrame = 1000 / videoCapture.Fps;
 			watch = new Stopwatch();
 			frame = new Mat();
-			EndOfVideo = false;
 		}
 
 		public Bitmap GetInputFrame()
@@ -47,7 +53,11 @@ namespace SmartAutoAR.InputSource
 			if (videoCapture.Get(VideoCaptureProperties.PosFrames) == videoCapture.FrameCount)
 				EndOfVideo = true;
 
-			return frame.ToBitmap();
+			Bitmap output = frame.ToBitmap();
+			OutputWidth = output.Width;
+			OutputHeight = output.Height;
+
+			return output;
 		}
 
 		public void Replay()

@@ -36,12 +36,10 @@ namespace Debug
 			marker = new Bitmap("Logo.png");
 
 			// 建立 workflow 物件
-			workflow = new ArWorkflow(inputSource, marker);
+			workflow = new ArWorkflow(inputSource);
 
 			// 設定場景
 			scene = new Scene();
-
-			// 載入模型
 			Model model = Model.LoadModel(@"..\..\..\models\Stone\Stone.obj");
 			model.Resize(0.1f);
 			scene.Models.Add(model);
@@ -50,10 +48,11 @@ namespace Debug
 
 			// 設定 marker 對應的 scene
 			workflow.MarkerPairs[marker] = scene;
+			workflow.TrainMarker();
 
 			// 啟用需要的擬真方法
-			// LightSourceSimulation = true;
-			// ColorTransfer = true;
+			workflow.EnableSimulation = false;
+			workflow.EnableLightTracking = true;
 
 			base.OnLoad(e);
 		}
@@ -65,10 +64,9 @@ namespace Debug
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			//if ((inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
-			//workflow.ShowLast(true);
-			//workflow.Show();
-			workflow.Simulate(Width, Height);
+			if(inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
+			//workflow.ShowLast();
+			workflow.Show();
 			//workflow.ShowMarker();
 
 			// 針對視窗本身做繪製
@@ -79,7 +77,7 @@ namespace Debug
 
 		protected override void OnResize(EventArgs e)
 		{
-			workflow.Resize(Width, Height);
+			workflow.OutputResize(Width, Height);
 
 			base.OnResize(e);
 		}
