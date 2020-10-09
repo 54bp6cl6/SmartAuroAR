@@ -116,8 +116,6 @@ namespace SmartAutoAR
 			Bitmap objectOnly = Screenshot();
 			ProcessAR(true);
 			Bitmap ARframe = Screenshot();
-			objectOnly.Save("result1.jpg", ImageFormat.Jpeg);
-			ARframe.Save("result2.jpg", ImageFormat.Jpeg);
 
 			// 請把 output 替換進來
 			Bitmap output = new Bitmap(windowWidth, windowWidth);
