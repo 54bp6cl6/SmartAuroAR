@@ -11,7 +11,7 @@ namespace SmartAutoAR
 	/// <summary>
 	/// 用於管理模型與燈光的類別
 	/// </summary>
-	public class Scene : IScene
+	public class Scene
 	{
 		public List<Model> Models { get; set; }
 		public List<ILight> Lights { get; set; }

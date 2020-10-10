@@ -1,6 +1,6 @@
 ﻿//using OpenCVForUnity.CoreModule;
 using OpenCvSharp;
-namespace OpenCVMarkerLessAR
+namespace SmartAutoAR
 {
     /// <summary>
     /// Pattern.

@@ -4,7 +4,7 @@ using System.Linq;
 using OpenCvSharp;
 
 
-namespace OpenCVMarkerLessAR
+namespace SmartAutoAR
 {
     /// <summary>
     /// Pattern detector.
@@ -12,6 +12,8 @@ namespace OpenCVMarkerLessAR
     /// </summary>
     public class PatternDetector
     {
+        public Mat MarkerMat { get; protected set; }
+
         /// <summary>
         /// The enable ratio test.
         /// </summary>
@@ -179,13 +181,15 @@ namespace OpenCVMarkerLessAR
 
             // Store original image in pattern structure
             // Image dimensions
+            MarkerMat = image;
+
             Pattern pattern = new Pattern();
             m_pattern = pattern;
             float w = image.Cols;
             float h = image.Rows;
             m_pattern.size = new Size (w, h);
             m_pattern.frame = image.Clone ();
-            //getGray (image, pattern.grayImg);
+            //ColorCalculation.GetGrayImage(image, pattern.grayImg);
             Cv2.CvtColor(image, m_pattern.grayImg, ColorConversionCodes.BGR2GRAY);
 
            
@@ -234,7 +238,7 @@ namespace OpenCVMarkerLessAR
         {
             info = new PatternTrackingInfo();
             // Convert input image to gray
-            getGray (image,ref m_grayImg);
+            ColorCalculation.GetGrayImage(image, ref m_grayImg);
             //Cv2.CvtColor(image, m_grayImg, ColorConversionCodes.BGR2GRAY);
             // Extract feature points from input gray image
             extractFeatures (m_grayImg, ref m_queryKeypoints, ref m_queryDescriptors);
@@ -277,7 +281,7 @@ namespace OpenCVMarkerLessAR
                     info.homography = m_roughHomography * m_refinedHomography;
 
                     // 取得彩色marker轉正
-                    Cv2.WarpPerspective(image, info.detectedMarkerImage, info.homography, m_pattern.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
+                    Cv2.WarpPerspective(image, info.DetectedMarkerImage, info.homography, m_pattern.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
                 } else {
                     info.homography = m_roughHomography;                        
                 }
@@ -294,23 +298,6 @@ namespace OpenCVMarkerLessAR
 
 
             return homographyFound;
-        }
-
-        /// <summary>
-        /// Gets the gray.
-        /// </summary>
-        /// <param name="image">Image.</param>
-        /// <param name="gray">Gray.</param>
-        static void getGray (Mat image,ref Mat gray)
-        {
-            Mat labImage = new Mat();
-
-            // 以 L 二值化，並做邊緣檢測
-            Cv2.CvtColor(image, labImage, ColorConversionCodes.BGR2Lab);
-            Mat[] labChannel = Cv2.Split(labImage); //分割通道
-            Mat[] grayChannel = new Mat[] { labChannel[0] };
-            Cv2.MixChannels(labChannel, grayChannel, new int[] { 0, 0 });
-            Cv2.Merge(grayChannel, gray);
         }
 
         /// <summary>

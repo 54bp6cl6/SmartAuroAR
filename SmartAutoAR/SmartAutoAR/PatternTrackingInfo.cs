@@ -3,7 +3,7 @@ using OpenCvSharp;
 using OpenCvSharp.Aruco;
 using OpenTK;
 
-namespace OpenCVMarkerLessAR
+namespace SmartAutoAR
 {
 	/// <summary>
 	/// Pattern tracking info.
@@ -18,7 +18,7 @@ namespace OpenCVMarkerLessAR
 		public Point2d center;
 		public Mat imgPts;
 		public Mat raux, taux;
-		public Mat detectedMarkerImage;
+		public Mat DetectedMarkerImage { get; protected set; }
 		public Matrix4 ViewMatrix { get; protected set; }
 		public Vector3 CameraPosition { get; protected set; }
 
@@ -36,7 +36,7 @@ namespace OpenCVMarkerLessAR
 		{
 			homography = new Mat();
 			points2d = new Mat();
-			detectedMarkerImage = new Mat();
+			DetectedMarkerImage = new Mat();
 		}
 
 		public void ComputePose()

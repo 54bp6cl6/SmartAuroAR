@@ -5,10 +5,12 @@ using OpenTK.Graphics.OpenGL4;
 using Bitmap = System.Drawing.Bitmap;
 using SmartAutoAR.VirtualObject.Cameras;
 using System;
-using OpenCVMarkerLessAR;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Drawing.Imaging;
+using SmartAutoAR.VirtualObject.Lights;
+using OpenTK.Graphics;
+using OpenTK;
 
 namespace SmartAutoAR
 {
@@ -18,38 +20,34 @@ namespace SmartAutoAR
 	public class ArWorkflow
 	{
 		public IInputSource InputSource { get; set; }
-		public Dictionary<Bitmap, IScene> MarkerPairs { get; set; }
+		public Dictionary<Bitmap, Scene> MarkerPairs { get; set; }
 		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
 		public bool EnableSimulation { get; set; }
 		public bool EnableLightTracking { get; set; }
 
 		protected int windowWidth, windowHeight;
-		protected Dictionary<PatternDetector, IScene> patternScene;
+		protected Dictionary<PatternDetector, Scene> patternScene;
 		protected ICamera camera;
 
-		protected bool haveLast;
-		protected List<IScene> lastScenes;
 		protected Background background;
 
 		public ArWorkflow(IInputSource inputSource)
 		{
 			InputSource = inputSource;
-			MarkerPairs = new Dictionary<Bitmap, IScene>();
+			MarkerPairs = new Dictionary<Bitmap, Scene>();
 			EnableSimulation = false;
 			EnableLightTracking = false;
 			camera = new ArCamera();
-			haveLast = false;
-			lastScenes = new List<IScene>();
 			background = new Background();
 		}
 
-		public void TrainMarker()
+		public void TrainMarkers()
 		{
-			patternScene = new Dictionary<PatternDetector, IScene>();
+			patternScene = new Dictionary<PatternDetector, Scene>();
 			foreach (Bitmap marker in MarkerPairs.Keys)
 			{
 				Mat marker_mat = marker.ToMat();
-				Cv2.Resize(marker_mat, marker_mat, new Size(400, 400));
+				Cv2.Resize(marker_mat, marker_mat, new OpenCvSharp.Size(400, 400));
 				PatternDetector patternDetector = new PatternDetector(true);
 				patternDetector.buildPatternFromImage(marker_mat);
 				patternDetector.train();
@@ -63,27 +61,9 @@ namespace SmartAutoAR
 			else ProcessAR(backeground);
 		}
 
-		public void ShowLast(bool backeground = true)
-		{
-			if (haveLast)
-			{
-				GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-				if (backeground) background.Render();
-				foreach (IScene scene in lastScenes)
-				{
-					scene.Render(camera);
-				}
-			}
-			else
-			{
-				Show(backeground);
-			}
-		}
-
 		private void ProcessAR(bool backeground)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-			lastScenes.Clear();
 
 			Bitmap frame = InputSource.GetInputFrame();
 			if (backeground)
@@ -101,9 +81,16 @@ namespace SmartAutoAR
 						info.ViewMatrix,
 						info.GetProjectionMatrix(frame.Width, frame.Height),
 						info.CameraPosition);
-					patternScene[detector].Render(camera);
-					lastScenes.Add(patternScene[detector]);
-					if (!haveLast) haveLast = true;
+
+					if (EnableLightTracking)
+					{
+						ILight[] predictLights = LightSourceTracker.PredictLightSource(detector.MarkerMat, info);
+						patternScene[detector].Lights.AddRange(predictLights);
+						patternScene[detector].Render(camera);
+						patternScene[detector].Lights.RemoveAt(patternScene[detector].Lights.Count - 1);
+						patternScene[detector].Lights.RemoveAt(patternScene[detector].Lights.Count - 1);
+					}
+					else patternScene[detector].Render(camera);
 				}
 			}
 
@@ -122,7 +109,6 @@ namespace SmartAutoAR
 			background.SetImage(output);
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			background.Render();
-			lastScenes.Clear();
 		}
 
 		public Bitmap Screenshot()
