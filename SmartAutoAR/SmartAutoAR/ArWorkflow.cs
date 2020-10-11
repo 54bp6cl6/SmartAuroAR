@@ -111,7 +111,7 @@ namespace SmartAutoAR
 
 		public Bitmap Screenshot()
 		{
-			Bitmap bmp = new Bitmap(windowWidth, windowWidth);
+			Bitmap bmp = new Bitmap(windowWidth, windowHeight);
 			BitmapData data = bmp.LockBits(
 				new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), 
 				ImageLockMode.WriteOnly, 
