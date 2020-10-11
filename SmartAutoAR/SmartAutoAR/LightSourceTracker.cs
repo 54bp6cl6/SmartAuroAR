@@ -3,8 +3,6 @@ using OpenTK;
 using OpenTK.Graphics;
 using SmartAutoAR.VirtualObject.Lights;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartAutoAR
 {
@@ -13,17 +11,17 @@ namespace SmartAutoAR
 		public static ILight[] PredictLightSource(Mat marker, PatternTrackingInfo info)
 		{
 			Mat distribution = GetDistribution(marker, info.DetectedMarkerImage);
-			double[] AvgBrightness = GetAvgBrightness(distribution);
+			double[] avgBrightness = GetAvgBrightness(distribution);
 
 			int maxIndex = 0, minIndex = 0;
 			for (int i = 1; i < 9; i++)
 			{
-				if (AvgBrightness[i] > AvgBrightness[maxIndex]) maxIndex = i;
-				else if (AvgBrightness[i] < AvgBrightness[minIndex]) minIndex = i;
+				if (avgBrightness[i] > avgBrightness[maxIndex]) maxIndex = i;
+				else if (avgBrightness[i] < avgBrightness[minIndex]) minIndex = i;
 			}
 
 			ILight[] output = new ILight[2];
-			output[0] = new AmbientLight(Color4.White, (float)AvgBrightness[minIndex] / (float)255 * 0.5f);
+			output[0] = new AmbientLight(Color4.White, (float)avgBrightness[minIndex] / (float)255 * 0.5f);
 			float x, z;
 			if (maxIndex < 3) z = -50;
 			else if (maxIndex < 6) z = 0;
@@ -31,16 +29,16 @@ namespace SmartAutoAR
 			if (maxIndex % 3 == 0) x = -50;
 			else if (maxIndex % 3 == 1) x = 0;
 			else x = 50;
-			output[1] = new DirectionalLight(Color4.White, new Vector3(x, 50, z), (float)AvgBrightness[maxIndex] / (float)255 * (float)(AvgBrightness[maxIndex] / AvgBrightness[minIndex]) , 1f);
+			output[1] = new DirectionalLight(Color4.White, new Vector3(x, 50, z), (float)avgBrightness[maxIndex] / (float)255 * Math.Min((float)(avgBrightness[maxIndex] / avgBrightness[minIndex]), 3f) , 1f);
 			return output;
 		}
 
-		private static Mat GetDistribution(Mat OrgMarker, Mat DetectedMarker)
+		private static Mat GetDistribution(Mat orgMarker, Mat detectedMarker)
 		{
-			Mat OrgGray = new Mat(), DetectedGray = new Mat();
-			ColorCalculation.GetGrayImage(OrgMarker, ref OrgGray);
-			ColorCalculation.GetGrayImage(DetectedMarker, ref DetectedGray);
-			return DetectedGray / OrgGray * 255;
+			Mat[] labResult = new Mat[3];
+			Mat[] orgLab = ColorCalculation.GetLabChennel(orgMarker);
+			Mat[] detectedLab = ColorCalculation.GetLabChennel(detectedMarker);
+			return detectedLab[0] / orgLab[0] * 256;
 		}
 
 		private static double[] GetAvgBrightness(Mat distribution)

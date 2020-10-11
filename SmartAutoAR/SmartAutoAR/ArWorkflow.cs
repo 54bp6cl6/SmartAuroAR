@@ -9,8 +9,6 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Drawing.Imaging;
 using SmartAutoAR.VirtualObject.Lights;
-using OpenTK.Graphics;
-using OpenTK;
 
 namespace SmartAutoAR
 {
@@ -55,10 +53,10 @@ namespace SmartAutoAR
 			}
 		}
 
-		public void Show(bool backeground = true)
+		public void Show()
 		{
 			if (EnableSimulation) Simulate();
-			else ProcessAR(backeground);
+			else ProcessAR(true);
 		}
 
 		private void ProcessAR(bool backeground)

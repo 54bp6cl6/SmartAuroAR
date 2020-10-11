@@ -43,6 +43,8 @@ namespace Debug
 			// 設定場景
 			scene = new Scene();
 			model = Model.LoadModel(@"..\..\..\models\Stone\Stone.obj");
+			//model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
+			//model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
 			model.Resize(0.1f);
 			scene.Models.Add(model);
 			//scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));

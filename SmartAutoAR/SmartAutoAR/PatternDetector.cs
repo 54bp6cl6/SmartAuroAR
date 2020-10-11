@@ -189,7 +189,6 @@ namespace SmartAutoAR
             float h = image.Rows;
             m_pattern.size = new Size (w, h);
             m_pattern.frame = image.Clone ();
-            //ColorCalculation.GetGrayImage(image, pattern.grayImg);
             Cv2.CvtColor(image, m_pattern.grayImg, ColorConversionCodes.BGR2GRAY);
 
            
@@ -238,7 +237,7 @@ namespace SmartAutoAR
         {
             info = new PatternTrackingInfo();
             // Convert input image to gray
-            ColorCalculation.GetGrayImage(image, ref m_grayImg);
+            m_grayImg = ColorCalculation.GetLabChennel(image)[0];
             //Cv2.CvtColor(image, m_grayImg, ColorConversionCodes.BGR2GRAY);
             // Extract feature points from input gray image
             extractFeatures (m_grayImg, ref m_queryKeypoints, ref m_queryDescriptors);
