@@ -12,10 +12,10 @@ namespace SmartAutoAR.VirtualObject.Lights
 		public float Main_strength { get; set; }
 		public float Specular_strength { get; set; }
 
-		public DirectionalLight(Color4 color, Vector3 direction, float main_strength, float specular_strength)
+		public DirectionalLight(Color4 color, Vector3 position, float main_strength, float specular_strength)
 		{
 			Color = color;
-			Direction = direction;
+			Direction = position * -1;
 			Main_strength = main_strength;
 			Specular_strength = specular_strength;
 		}
