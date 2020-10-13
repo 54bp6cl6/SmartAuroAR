@@ -40,6 +40,11 @@ namespace SmartAutoAR
 			background = new Background();
 		}
 
+		public void ClearState()
+		{
+			lastInfo = null;
+		}
+
 		public void TrainMarkers()
 		{
 			patternScene = new Dictionary<PatternDetector, Scene>();
@@ -76,17 +81,15 @@ namespace SmartAutoAR
 				// 如果偵測到 marker 把偵測結果放在 info 中
 				if (detector.Detect(frame.ToMat(), out PatternTrackingInfo info))
 				{
+					info.ComputePose();
+					/*
 					// 如果這是第一幀 就不用防震動
-					if (lastInfo == null || lastInfo.HaveBigDifferentWith(info))
-					{
-						lastInfo = info;
-						info.ComputePose();
-					}
-					else
-					{
-						// 拿上一幀的 info 蓋掉新的
-						info = lastInfo;
-					}
+					if (lastInfo == null || lastInfo.HaveBigDifferentWith(info)) lastInfo = info;
+					// 拿上一幀的 info 蓋掉新的
+					else info = lastInfo;*/
+					if(lastInfo != null) info.SmoothWith(lastInfo);
+					lastInfo = info;
+					info.ComputeMatrix();
 
 					camera.Update(
 						info.ViewMatrix,

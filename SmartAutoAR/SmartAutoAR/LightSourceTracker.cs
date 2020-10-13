@@ -29,7 +29,11 @@ namespace SmartAutoAR
 			if (maxIndex % 3 == 0) x = -50;
 			else if (maxIndex % 3 == 1) x = 0;
 			else x = 50;
-			output[1] = new DirectionalLight(Color4.White, new Vector3(x, 50, z), (float)avgBrightness[maxIndex] / (float)255 * Math.Min((float)(avgBrightness[maxIndex] / avgBrightness[minIndex]), 3f) , 1f);
+			output[1] = new DirectionalLight(
+				Color4.White, 
+				new Vector3(x, 50, z), 
+				(float)avgBrightness[maxIndex] / (float)255 * Math.Min((float)(avgBrightness[maxIndex] / avgBrightness[minIndex]), 3f) 
+				, 1f);
 			return output;
 		}
 

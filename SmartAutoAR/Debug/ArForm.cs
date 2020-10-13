@@ -30,8 +30,8 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"image_test2.jpg");
-			//inputSource = new VideoSource("video_test2.mp4");
+			//inputSource = new ImageSource(@"image_test2.jpg");
+			inputSource = new VideoSource("video_test2.mp4");
 			//inputSource = new StreamSource();
 
 			// 導入 marker圖像
@@ -67,10 +67,14 @@ namespace Debug
 			// 確保視窗比例與背景一致
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
-			model.Rotation(y: 3);
+			//model.Rotation(y: 3);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
-			if(inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo) (inputSource as VideoSource).Replay();
+			if (inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo)
+			{
+				(inputSource as VideoSource).Replay();
+				workflow.ClearState();
+			}
 			workflow.Show();
 			//workflow.ShowMarker();
 

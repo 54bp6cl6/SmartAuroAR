@@ -21,11 +21,17 @@ namespace SmartAutoAR
 		public Mat DetectedMarkerImage { get; protected set; }
 		public Matrix4 ViewMatrix { get; protected set; }
 		public Vector3 CameraPosition { get; protected set; }
+		public Vec3d Tvec { get; set; }
+		public Vec3d Rvec { get; set; }
+		public double Distance { get; protected set; }
+		public double Pitch { get; protected set; }
+		public double Roll { get; protected set; }
+		public double Yaw { get; protected set; }
 
 		protected float[,] cameraMatrix = new float[3, 3]
 		{
 			{ 1.72933044e+03f, 0.00000000e+00f, 6.38250933e+02f },
-		    { 0.00000000e+00f, 1.52595386e+03f, 3.21003959e+02f },
+			{ 0.00000000e+00f, 1.52595386e+03f, 3.21003959e+02f },
 			{ 0, 0, 1 }
 		};
 
@@ -41,7 +47,6 @@ namespace SmartAutoAR
 
 		public void ComputePose()
 		{
-
 			List<Vec3d> rvecs = new List<Vec3d>(), tvecs = new List<Vec3d>();
 			CvAruco.EstimatePoseSingleMarkers(
 				new Point2f[][] { pts },
@@ -50,20 +55,31 @@ namespace SmartAutoAR
 				InputArray.Create(dist),
 				OutputArray.Create<Vec3d>(rvecs),
 				OutputArray.Create<Vec3d>(tvecs));
-			ViewMatrix = GetViewMatrix(rvecs[0], tvecs[0]);
+			Tvec = tvecs[0];
+			Rvec = rvecs[0];
+		}
+
+		public void ComputeMatrix()
+		{
+			ViewMatrix = GetViewMatrix(Rvec, Tvec);
 
 			// 計算campos
 			Mat rotMat = new Mat();
 			Mat tmat = new Mat(3, 1, MatType.CV_64F);
 			Mat rmat = new Mat();
-			tmat.At<double>(0, 0) = tvecs[0][0];
-			tmat.At<double>(1, 0) = tvecs[0][1];
-			tmat.At<double>(2, 0) = tvecs[0][2];
-			Cv2.Rodrigues(rvecs[0], rotMat);
+			tmat.At<double>(0, 0) = Tvec[0];
+			tmat.At<double>(1, 0) = Tvec[1];
+			tmat.At<double>(2, 0) = Tvec[2];
+			Cv2.Rodrigues(Rvec, rotMat);
 			rotMat = rotMat.T();
 			tmat = -rotMat * tmat;
 			Cv2.Rodrigues(rotMat, rmat);
 			CameraPosition = new Vector3((float)tmat.At<double>(0, 0), (float)tmat.At<double>(2, 0), -(float)tmat.At<double>(1, 0));
+
+			Distance = Math.Sqrt(Math.Pow(Tvec[0], 2) + Math.Pow(Tvec[1], 2) + Math.Pow(Tvec[2], 2));
+			Pitch = Rvec[0] / Math.PI * 180 % 360;
+			Roll = Rvec[1] / Math.PI * 180 % 360;
+			Yaw = Rvec[2] / Math.PI * 180 % 360;
 		}
 
 		private Matrix4 GetViewMatrix(Vec3d rvec, Vec3d tvec)
@@ -101,15 +117,36 @@ namespace SmartAutoAR
 			return pm;
 		}
 
-		// diffRange是調整防震動的域值 1~100
-		public bool HaveBigDifferentWith(PatternTrackingInfo info, int diffRange = 50)
+		public bool HaveBigDifferentWith(PatternTrackingInfo info, double diffD = 3, double diffRX = 3, double diffRY = 3, double diffRZ = 3)
 		{
-			if (diffRange < 1 || diffRange > 100) throw new ArgumentException("diffRange的有效範圍為1~100");
-
-			// 比較 this 與 info 
-
-			// 如果差異太大就 return true
+			if (Math.Abs(info.Distance - Distance) <= diffD
+				&& Math.Abs(info.Pitch - Pitch) <= diffRX
+				&& Math.Abs(info.Roll - Roll) <= diffRY
+				&& Math.Abs(info.Yaw - Yaw) <= diffRZ)
+			{
+				return false;
+			}
 			return true;
+		}
+
+		public void SmoothWith(PatternTrackingInfo info)
+		{
+			Vec3d newTvec = new Vec3d
+			{
+				Item0 = info.Tvec[0] + (Tvec[0] - info.Tvec[0]) * 0.5,
+				Item1 = info.Tvec[1] + (Tvec[1] - info.Tvec[1]) * 0.5,
+				Item2 = info.Tvec[2] + (Tvec[2] - info.Tvec[2]) * 0.5
+			};
+
+			Vec3d newRvec = new Vec3d
+			{
+				Item0 = info.Rvec[0] + (Rvec[0] - info.Rvec[0]) * 0.5,
+				Item1 = info.Rvec[1] + (Rvec[1] - info.Rvec[1]) * 0.5,
+				Item2 = info.Rvec[2] + (Rvec[2] - info.Rvec[2]) * 0.5
+			};
+
+			Tvec = newTvec;
+			Rvec = newRvec;
 		}
 	}
 }
