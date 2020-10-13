@@ -26,6 +26,7 @@ namespace SmartAutoAR
 		protected int windowWidth, windowHeight;
 		protected Dictionary<PatternDetector, Scene> patternScene;
 		protected ICamera camera;
+		protected PatternTrackingInfo lastInfo;
 
 		protected Background background;
 
@@ -74,7 +75,19 @@ namespace SmartAutoAR
 			{
 				if (detector.Detect(frame.ToMat(), out PatternTrackingInfo info))
 				{
-					info.ComputePose();
+					if (lastInfo != null)
+					{
+						if (lastInfo.HaveBigDifferentWith(info))
+						{
+							lastInfo = info;
+							info.ComputePose();
+						}
+						else
+						{
+							info = lastInfo;
+						}
+					}
+
 					camera.Update(
 						info.ViewMatrix,
 						info.GetProjectionMatrix(frame.Width, frame.Height),
@@ -113,8 +126,8 @@ namespace SmartAutoAR
 		{
 			Bitmap bmp = new Bitmap(windowWidth, windowHeight);
 			BitmapData data = bmp.LockBits(
-				new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), 
-				ImageLockMode.WriteOnly, 
+				new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+				ImageLockMode.WriteOnly,
 				System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 			GL.ReadPixels(0, 0, bmp.Width, bmp.Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
 			bmp.UnlockBits(data);

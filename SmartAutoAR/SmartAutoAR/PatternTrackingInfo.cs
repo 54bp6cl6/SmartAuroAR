@@ -102,5 +102,13 @@ namespace SmartAutoAR
 			};
 			return pm;
 		}
+
+		public bool HaveBigDifferentWith(PatternTrackingInfo info, int diffRange)
+		{
+			// 比較 this 與 info 
+
+			// 如果差異太大就 return true
+			return true;
+		}
 	}
 }
