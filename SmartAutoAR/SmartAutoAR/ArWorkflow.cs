@@ -77,23 +77,15 @@ namespace SmartAutoAR
 				if (detector.Detect(frame.ToMat(), out PatternTrackingInfo info))
 				{
 					// 如果這是第一幀 就不用防震動
-					if (lastInfo == null) lastInfo = info;
+					if (lastInfo == null || lastInfo.HaveBigDifferentWith(info))
+					{
+						lastInfo = info;
+						info.ComputePose();
+					}
 					else
 					{
-						// 如果這一幀跟上一幀差太多
-						if (lastInfo.HaveBigDifferentWith(info))
-						{
-							// 把這一幀存起來
-							lastInfo = info;
-							// 計算mat
-							info.ComputePose();
-						}
-						// 差不多
-						else
-						{
-							// 拿上一幀的 info 蓋掉新的
-							info = lastInfo;
-						}
+						// 拿上一幀的 info 蓋掉新的
+						info = lastInfo;
 					}
 
 					camera.Update(

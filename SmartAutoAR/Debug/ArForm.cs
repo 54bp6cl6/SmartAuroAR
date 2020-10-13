@@ -55,7 +55,7 @@ namespace Debug
 			workflow.TrainMarkers();
 
 			// 啟用需要的擬真方法
-			workflow.EnableSimulation = true;
+			workflow.EnableSimulation = false;
 			workflow.EnableLightTracking = true;
 
 			base.OnLoad(e);

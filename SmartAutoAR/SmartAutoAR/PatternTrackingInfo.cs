@@ -18,7 +18,6 @@ namespace SmartAutoAR
 		public Matrix4 pose3d;
 		public Point2d center;
 		public Mat imgPts;
-		public Mat raux, taux;
 		public Mat DetectedMarkerImage { get; protected set; }
 		public Matrix4 ViewMatrix { get; protected set; }
 		public Vector3 CameraPosition { get; protected set; }
@@ -42,8 +41,6 @@ namespace SmartAutoAR
 
 		public void ComputePose()
 		{
-			raux = new Mat();
-			taux = new Mat();
 
 			List<Vec3d> rvecs = new List<Vec3d>(), tvecs = new List<Vec3d>();
 			CvAruco.EstimatePoseSingleMarkers(
