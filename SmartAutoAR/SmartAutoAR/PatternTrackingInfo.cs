@@ -2,6 +2,7 @@
 using OpenCvSharp;
 using OpenCvSharp.Aruco;
 using OpenTK;
+using System;
 
 namespace SmartAutoAR
 {
@@ -103,8 +104,11 @@ namespace SmartAutoAR
 			return pm;
 		}
 
-		public bool HaveBigDifferentWith(PatternTrackingInfo info, int diffRange)
+		// diffRange是調整防震動的域值 1~100
+		public bool HaveBigDifferentWith(PatternTrackingInfo info, int diffRange = 50)
 		{
+			if (diffRange < 1 || diffRange > 100) throw new ArgumentException("diffRange的有效範圍為1~100");
+
 			// 比較 this 與 info 
 
 			// 如果差異太大就 return true

@@ -73,17 +73,25 @@ namespace SmartAutoAR
 
 			foreach (PatternDetector detector in patternScene.Keys)
 			{
+				// 如果偵測到 marker 把偵測結果放在 info 中
 				if (detector.Detect(frame.ToMat(), out PatternTrackingInfo info))
 				{
-					if (lastInfo != null)
+					// 如果這是第一幀 就不用防震動
+					if (lastInfo == null) lastInfo = info;
+					else
 					{
+						// 如果這一幀跟上一幀差太多
 						if (lastInfo.HaveBigDifferentWith(info))
 						{
+							// 把這一幀存起來
 							lastInfo = info;
+							// 計算mat
 							info.ComputePose();
 						}
+						// 差不多
 						else
 						{
+							// 拿上一幀的 info 蓋掉新的
 							info = lastInfo;
 						}
 					}
