@@ -91,4 +91,3 @@ D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAuto
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Caffe\ini_input.jpg
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Caffe\SmartAutoAR.caffemodel
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Caffe\SmartAutoAR.prototxt
-C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache

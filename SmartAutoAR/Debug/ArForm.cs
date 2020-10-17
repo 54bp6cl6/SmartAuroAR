@@ -56,7 +56,7 @@ namespace Debug
 			workflow.TrainMarkers();
 
 			// 啟用需要的擬真方法
-			workflow.EnableColorHarmonizing = true;
+			workflow.EnableColorHarmonizing = false;
 			workflow.EnableLightTracking = true;
 
 			base.OnLoad(e);
