@@ -25,7 +25,7 @@ namespace SmartAutoAR
 			get { return _enableColorHarmonizing; }
 			set { 
 				_enableColorHarmonizing = value;
-				if (!(colorHarmonize is null) && !colorHarmonize.IsDisposed)
+				if (!value && !(colorHarmonize is null) && !colorHarmonize.IsDisposed)
 					colorHarmonize.Dispose();
 			} }
 
