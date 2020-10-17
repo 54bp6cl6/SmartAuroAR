@@ -56,7 +56,7 @@ namespace Debug
 			workflow.TrainMarkers();
 
 			// 啟用需要的擬真方法
-			workflow.EnableSimulation = true;
+			workflow.EnableColorHarmonizing = true;
 			workflow.EnableLightTracking = true;
 
 			base.OnLoad(e);
@@ -81,6 +81,8 @@ namespace Debug
 
 			// 針對視窗本身做繪製
 			SwapBuffers();
+
+			workflow.EnableColorHarmonizing = false;
 
 			base.OnRenderFrame(e);
 		}

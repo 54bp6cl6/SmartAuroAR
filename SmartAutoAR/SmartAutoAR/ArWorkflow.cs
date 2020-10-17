@@ -19,8 +19,15 @@ namespace SmartAutoAR
 	{
 		public IInputSource InputSource { get; set; }
 		public Dictionary<Bitmap, Scene> MarkerPairs { get; set; }
-		public bool EnableSimulation { get; set; }
 		public bool EnableLightTracking { get; set; }
+
+		public bool EnableColorHarmonizing { 
+			get { return _enableColorHarmonizing; }
+			set { 
+				_enableColorHarmonizing = value;
+				if (!(colorHarmonize is null) && !colorHarmonize.IsDisposed)
+					colorHarmonize.Dispose();
+			} }
 
 		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
 
@@ -31,11 +38,13 @@ namespace SmartAutoAR
 		protected ColorHarmonization colorHarmonize;
 		protected Background background;
 
+		protected bool _enableColorHarmonizing;
+
 		public ArWorkflow(IInputSource inputSource)
 		{
 			InputSource = inputSource;
 			MarkerPairs = new Dictionary<Bitmap, Scene>();
-			EnableSimulation = false;
+			EnableColorHarmonizing = false;
 			EnableLightTracking = false;
 			camera = new ArCamera();
 			background = new Background();
@@ -63,8 +72,16 @@ namespace SmartAutoAR
 
 		public void Show()
 		{
-			if (EnableSimulation) Simulate();
-			else ProcessAR(true);
+			if (EnableColorHarmonizing)
+			{
+				if (colorHarmonize is null || colorHarmonize.IsDisposed)
+					colorHarmonize = new ColorHarmonization();
+				Simulate();
+			}
+			else
+			{
+				ProcessAR(true);
+			}
 		}
 
 		private void ProcessAR(bool withBackeground)
@@ -109,9 +126,6 @@ namespace SmartAutoAR
 
 		private void Simulate()
 		{
-			if (colorHarmonize is null || colorHarmonize.IsDisposed) 
-				colorHarmonize = new ColorHarmonization();
-
 			ProcessAR(true);
 			//截圖(有背景)
 			Bitmap ARframe = Screenshot();
