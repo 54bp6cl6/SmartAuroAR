@@ -19,8 +19,15 @@ namespace SmartAutoAR
 	{
 		public IInputSource InputSource { get; set; }
 		public Dictionary<Bitmap, Scene> MarkerPairs { get; set; }
-		public bool EnableSimulation { get; set; }
 		public bool EnableLightTracking { get; set; }
+
+		public bool EnableColorHarmonizing { 
+			get { return _enableColorHarmonizing; }
+			set { 
+				_enableColorHarmonizing = value;
+				if (!(colorHarmonize is null) && !colorHarmonize.IsDisposed)
+					colorHarmonize.Dispose();
+			} }
 
 		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
 
@@ -28,18 +35,21 @@ namespace SmartAutoAR
 		protected Dictionary<MarkerDetector, Scene> markerScene;
 		protected ICamera camera;
 		protected MarkerTrackingInfo lastInfo;
-
+		protected ColorHarmonization colorHarmonize;
 		protected Background background;
+
+		protected bool _enableColorHarmonizing;
 
 		public ArWorkflow(IInputSource inputSource)
 		{
 			InputSource = inputSource;
 			MarkerPairs = new Dictionary<Bitmap, Scene>();
-			EnableSimulation = false;
+			EnableColorHarmonizing = false;
 			EnableLightTracking = false;
 			camera = new ArCamera();
 			background = new Background();
 		}
+
 
 		public void ClearState()
 		{
@@ -62,8 +72,16 @@ namespace SmartAutoAR
 
 		public void Show()
 		{
-			if (EnableSimulation) Simulate();
-			else ProcessAR(true);
+			if (EnableColorHarmonizing)
+			{
+				if (colorHarmonize is null || colorHarmonize.IsDisposed)
+					colorHarmonize = new ColorHarmonization();
+				Simulate();
+			}
+			else
+			{
+				ProcessAR(true);
+			}
 		}
 
 		private void ProcessAR(bool withBackeground)
@@ -82,7 +100,7 @@ namespace SmartAutoAR
 				if (detector.Detect(frame.ToMat(), out MarkerTrackingInfo info))
 				{
 					info.ComputePose();
-					if(lastInfo != null) info.SmoothWith(lastInfo);
+					if (lastInfo != null) info.SmoothWith(lastInfo);
 					lastInfo = info;
 					info.ComputeMatrix();
 
@@ -108,14 +126,26 @@ namespace SmartAutoAR
 
 		private void Simulate()
 		{
-			ProcessAR(false);
-			Bitmap objectOnly = Screenshot();
 			ProcessAR(true);
+			//截圖(有背景)
 			Bitmap ARframe = Screenshot();
+			//由於套件需要所以轉成mat
+			Mat input_img = ARframe.ToMat();
 
-			// 請把 output 替換進來
-			Bitmap output = new Bitmap(windowWidth, windowWidth);
-			background.SetImage(output);
+			//Preprocess
+			input_img = colorHarmonize.inputImg_Process(input_img);
+
+			//這個沒有布林值的只能在 #175行有布林值的ProcessAR執行後才能執行
+			//這個只有截AR物體，借用 #175行已經計算過的值所以每次大概只有0~1ms之間
+			ProcessAR(false);
+			//一樣截圖了轉Mat
+			Bitmap objectOnly = Screenshot();
+			Mat mask = objectOnly.ToMat();
+			mask = colorHarmonize.maskImg_Process(mask);
+			//把截下來的圖傳去做前處理，因爲background.SetImage()需要bitmap所以回傳回來又.ToBitmap了
+			Mat output = colorHarmonize.netForward_Process(input_img, mask);
+			output = colorHarmonize.outputImg_Process(output, windowWidth, windowHeight);
+			background.SetImage(output.ToBitmap());
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			background.Render();
 		}

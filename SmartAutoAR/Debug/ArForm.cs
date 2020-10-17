@@ -16,7 +16,6 @@ namespace Debug
 		Bitmap marker;
 		Scene scene;
 		Model model;
-
 		public ArForm(int width, int height, string title) :
 			base(width, height,
 				GraphicsMode.Default,
@@ -30,12 +29,14 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			//inputSource = new ImageSource(@"image_test2.jpg");
-			inputSource = new VideoSource("video_test2.mp4");
+			inputSource = new ImageSource(@"image_test2.jpg");
+			//inputSource = new VideoSource("video_test2.mp4");
 			//inputSource = new StreamSource();
 
 			// 導入 marker圖像
 			marker = new Bitmap("Logo.png");
+
+			//導入caffe套件做擬真化處理
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
@@ -55,7 +56,7 @@ namespace Debug
 			workflow.TrainMarkers();
 
 			// 啟用需要的擬真方法
-			workflow.EnableSimulation = false;
+			workflow.EnableColorHarmonizing = true;
 			workflow.EnableLightTracking = true;
 
 			base.OnLoad(e);
@@ -67,7 +68,7 @@ namespace Debug
 			// 確保視窗比例與背景一致
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
-			//model.Rotation(y: 3);
+			model.Rotation(y: 5);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			if (inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo)
