@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Assimp;
-using Assimp.Unmanaged;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
@@ -10,7 +10,7 @@ using Mesh = SmartAutoAR.VirtualObject.Base.Mesh;
 
 namespace SmartAutoAR.VirtualObject
 {
-	public class Model
+	public class Model : IDisposable
 	{
 		public List<Mesh> Meshes { get; }
 		public Matrix4 ModelMatrix { get; set; }

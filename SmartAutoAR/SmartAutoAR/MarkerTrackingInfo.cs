@@ -7,10 +7,10 @@ using System;
 namespace SmartAutoAR
 {
 	/// <summary>
-	/// Pattern tracking info.
+	/// Marker tracking info.
 	/// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
 	/// </summary>
-	public class PatternTrackingInfo
+	public class MarkerTrackingInfo
 	{
 		public Mat homography;
 		public Mat points2d;
@@ -38,7 +38,7 @@ namespace SmartAutoAR
 		protected float[] dist = new float[]
 		{ 4.83589141e-01f ,- 5.85278583e+00f ,- 1.42979696e-02f ,- 1.31067357e-02f,  1.86111848e+01f };
 
-		public PatternTrackingInfo()
+		public MarkerTrackingInfo()
 		{
 			homography = new Mat();
 			points2d = new Mat();
@@ -117,19 +117,7 @@ namespace SmartAutoAR
 			return pm;
 		}
 
-		public bool HaveBigDifferentWith(PatternTrackingInfo info, double diffD = 3, double diffRX = 3, double diffRY = 3, double diffRZ = 3)
-		{
-			if (Math.Abs(info.Distance - Distance) <= diffD
-				&& Math.Abs(info.Pitch - Pitch) <= diffRX
-				&& Math.Abs(info.Roll - Roll) <= diffRY
-				&& Math.Abs(info.Yaw - Yaw) <= diffRZ)
-			{
-				return false;
-			}
-			return true;
-		}
-
-		public void SmoothWith(PatternTrackingInfo info)
+		public void SmoothWith(MarkerTrackingInfo info)
 		{
 			Vec3d newTvec = new Vec3d
 			{

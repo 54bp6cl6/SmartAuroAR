@@ -8,7 +8,7 @@ namespace SmartAutoAR
 {
 	public static class LightSourceTracker
 	{
-		public static ILight[] PredictLightSource(Mat marker, PatternTrackingInfo info)
+		public static ILight[] PredictLightSource(Mat marker, MarkerTrackingInfo info)
 		{
 			Mat distribution = GetDistribution(marker, info.DetectedMarkerImage);
 			double[] avgBrightness = GetAvgBrightness(distribution);

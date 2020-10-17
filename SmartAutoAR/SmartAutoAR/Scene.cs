@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using System;
 using SmartAutoAR.VirtualObject;
 using SmartAutoAR.VirtualObject.Base;
 using SmartAutoAR.VirtualObject.Cameras;
@@ -11,7 +12,7 @@ namespace SmartAutoAR
 	/// <summary>
 	/// 用於管理模型與燈光的類別
 	/// </summary>
-	public class Scene
+	public class Scene : IDisposable
 	{
 		public List<Model> Models { get; set; }
 		public List<ILight> Lights { get; set; }

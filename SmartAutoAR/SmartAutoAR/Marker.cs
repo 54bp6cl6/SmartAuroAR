@@ -3,10 +3,10 @@ using OpenCvSharp;
 namespace SmartAutoAR
 {
     /// <summary>
-    /// Pattern.
+    /// Marker.
     /// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
     /// </summary>
-    class Pattern
+    class Marker
     {
         /// <summary>
         /// The size.
@@ -49,7 +49,7 @@ namespace SmartAutoAR
         //public MatOfPoint3f points3d;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Pattern"/> class.
+        /// Initializes a new instance of the <see cref="Marker"/> class.
         /// </summary>
         /// 
         //public Mat points2d;
@@ -57,7 +57,7 @@ namespace SmartAutoAR
         //            w.Set<Point2d>(1, new Point2d(0, 0));
         //            w.Set<Point2d>(2, new Point2d(0, 0));
         //            w.Set<Point2d>(3, new Point2d(0, 0));
-        public Pattern ()
+        public Marker ()
         {
             size = new Size ();
             frame = new Mat ();

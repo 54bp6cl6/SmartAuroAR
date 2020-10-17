@@ -19,14 +19,15 @@ namespace SmartAutoAR
 	{
 		public IInputSource InputSource { get; set; }
 		public Dictionary<Bitmap, Scene> MarkerPairs { get; set; }
-		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
 		public bool EnableSimulation { get; set; }
 		public bool EnableLightTracking { get; set; }
 
+		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
+
 		protected int windowWidth, windowHeight;
-		protected Dictionary<PatternDetector, Scene> patternScene;
+		protected Dictionary<MarkerDetector, Scene> markerScene;
 		protected ICamera camera;
-		protected PatternTrackingInfo lastInfo;
+		protected MarkerTrackingInfo lastInfo;
 
 		protected Background background;
 
@@ -47,15 +48,15 @@ namespace SmartAutoAR
 
 		public void TrainMarkers()
 		{
-			patternScene = new Dictionary<PatternDetector, Scene>();
+			markerScene = new Dictionary<MarkerDetector, Scene>();
 			foreach (Bitmap marker in MarkerPairs.Keys)
 			{
-				Mat marker_mat = marker.ToMat();
-				Cv2.Resize(marker_mat, marker_mat, new OpenCvSharp.Size(400, 400));
-				PatternDetector patternDetector = new PatternDetector(true);
-				patternDetector.buildPatternFromImage(marker_mat);
-				patternDetector.train();
-				patternScene.Add(patternDetector, MarkerPairs[marker]);
+				Mat markerMat = marker.ToMat();
+				Cv2.Resize(markerMat, markerMat, new Size(400, 400));
+				MarkerDetector markerDetector = new MarkerDetector(true);
+				markerDetector.buildMarkerFromImage(markerMat);
+				markerDetector.train();
+				markerScene.Add(markerDetector, MarkerPairs[marker]);
 			}
 		}
 
@@ -65,28 +66,22 @@ namespace SmartAutoAR
 			else ProcessAR(true);
 		}
 
-		private void ProcessAR(bool backeground)
+		private void ProcessAR(bool withBackeground)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
 			Bitmap frame = InputSource.GetInputFrame();
-			if (backeground)
+			if (withBackeground)
 			{
 				background.SetImage(frame);
 				background.Render();
 			}
 
-			foreach (PatternDetector detector in patternScene.Keys)
+			foreach (MarkerDetector detector in markerScene.Keys)
 			{
-				// 如果偵測到 marker 把偵測結果放在 info 中
-				if (detector.Detect(frame.ToMat(), out PatternTrackingInfo info))
+				if (detector.Detect(frame.ToMat(), out MarkerTrackingInfo info))
 				{
 					info.ComputePose();
-					/*
-					// 如果這是第一幀 就不用防震動
-					if (lastInfo == null || lastInfo.HaveBigDifferentWith(info)) lastInfo = info;
-					// 拿上一幀的 info 蓋掉新的
-					else info = lastInfo;*/
 					if(lastInfo != null) info.SmoothWith(lastInfo);
 					lastInfo = info;
 					info.ComputeMatrix();
@@ -99,12 +94,12 @@ namespace SmartAutoAR
 					if (EnableLightTracking)
 					{
 						ILight[] predictLights = LightSourceTracker.PredictLightSource(detector.MarkerMat, info);
-						patternScene[detector].Lights.AddRange(predictLights);
-						patternScene[detector].Render(camera);
-						patternScene[detector].Lights.RemoveAt(patternScene[detector].Lights.Count - 1);
-						patternScene[detector].Lights.RemoveAt(patternScene[detector].Lights.Count - 1);
+						markerScene[detector].Lights.AddRange(predictLights);
+						markerScene[detector].Render(camera);
+						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
+						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
 					}
-					else patternScene[detector].Render(camera);
+					else markerScene[detector].Render(camera);
 				}
 			}
 
@@ -127,18 +122,18 @@ namespace SmartAutoAR
 
 		public Bitmap Screenshot()
 		{
-			Bitmap bmp = new Bitmap(windowWidth, windowHeight);
-			BitmapData data = bmp.LockBits(
-				new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+			Bitmap output = new Bitmap(windowWidth, windowHeight);
+			BitmapData data = output.LockBits(
+				new System.Drawing.Rectangle(0, 0, output.Width, output.Height),
 				ImageLockMode.WriteOnly,
 				System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-			GL.ReadPixels(0, 0, bmp.Width, bmp.Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
-			bmp.UnlockBits(data);
-			bmp.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
-			return bmp;
+			GL.ReadPixels(0, 0, output.Width, output.Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
+			output.UnlockBits(data);
+			output.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
+			return output;
 		}
 
-		public void OutputResize(int Width, int Height)
+		public void SetOutputSize(int Width, int Height)
 		{
 			windowWidth = Width;
 			windowHeight = Height;

@@ -31,11 +31,11 @@ namespace Debug
 		{
 			// 設定影像輸入
 			//inputSource = new ImageSource(@"image_test2.jpg");
-			//inputSource = new VideoSource("video_test2.mp4");
-			inputSource = new StreamSource();
+			inputSource = new VideoSource("video_test2.mp4");
+			//inputSource = new StreamSource();
 
 			// 導入 marker圖像
-			marker = new Bitmap("watch.png");
+			marker = new Bitmap("Logo.png");
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
@@ -86,7 +86,7 @@ namespace Debug
 
 		protected override void OnResize(EventArgs e)
 		{
-			workflow.OutputResize(Width, Height);
+			workflow.SetOutputSize(Width, Height);
 
 			base.OnResize(e);
 		}

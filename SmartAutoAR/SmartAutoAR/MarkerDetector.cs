@@ -7,10 +7,10 @@ using OpenCvSharp;
 namespace SmartAutoAR
 {
     /// <summary>
-    /// Pattern detector.
+    /// Marker detector.
     /// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
     /// </summary>
-    public class PatternDetector
+    public class MarkerDetector
     {
         public Mat MarkerMat { get; protected set; }
 
@@ -74,9 +74,9 @@ namespace SmartAutoAR
         Mat m_refinedHomography;
 
         /// <summary>
-        /// The m_pattern.
+        /// The m_marker.
         /// </summary>
-        Pattern m_pattern;
+        Marker m_marker;
 
         /// <summary>
         /// The m_detector.
@@ -95,7 +95,7 @@ namespace SmartAutoAR
         DescriptorMatcher m_matcher;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PatternDetector"/> class.
+        /// Initializes a new instance of the <see cref="MarkerDetector"/> class.
         /// </summary>
         /// <param name="detector">Detector.</param>
         /// <param name="extractor">Extractor.</param>
@@ -104,7 +104,7 @@ namespace SmartAutoAR
         /// 
         public  Point2d Point2fToPoint2d(Point2f pf) => new Point2d(((int)pf.X), ((int)pf.Y));
        
-        public PatternDetector (bool ratioTest)
+        public MarkerDetector (bool ratioTest)
         {
 
             m_detector = ORB.Create(1000);
@@ -128,12 +128,12 @@ namespace SmartAutoAR
         }
 
         /// <summary>
-        /// Train the specified pattern.
+        /// Train the specified marker.
         /// </summary>
-        /// <param name="pattern">Pattern.</param>
+        /// <param name="marker">Marker.</param>
         public void train ()
         {
-            // Store the pattern object
+            // Store the marker object
 
         
             // API of cv::DescriptorMatcher is somewhat tricky
@@ -143,7 +143,7 @@ namespace SmartAutoAR
             // Then we add vector of descriptors (each descriptors matrix describe one image). 
             // This allows us to perform search across multiple images:
             List<Mat> descriptors = new List<Mat> (1);
-            descriptors.Add (m_pattern.descriptors.Clone ()); 
+            descriptors.Add (m_marker.descriptors.Clone ()); 
             m_matcher.Add (descriptors);
         
             // After adding train data perform actual train:
@@ -170,29 +170,29 @@ namespace SmartAutoAR
         }
 
         /// <summary>
-        /// Builds the pattern from image.
+        /// Builds the marker from image.
         /// </summary>
         /// <param name="image">Image.</param>
-        /// <param name="pattern">Pattern.</param>
-        public void buildPatternFromImage (Mat image)
+        /// <param name="marker">Marker.</param>
+        public void buildMarkerFromImage (Mat image)
         {
             //        int numImages = 4;
             //        float step = Mathf.Sqrt (2.0f);
 
-            // Store original image in pattern structure
+            // Store original image in marker structure
             // Image dimensions
             MarkerMat = image;
 
-            Pattern pattern = new Pattern();
-            m_pattern = pattern;
+            Marker marker = new Marker();
+            m_marker = marker;
             float w = image.Cols;
             float h = image.Rows;
-            m_pattern.size = new Size (w, h);
-            m_pattern.frame = image.Clone ();
-            Cv2.CvtColor(image, m_pattern.grayImg, ColorConversionCodes.BGR2GRAY);
+            m_marker.size = new Size (w, h);
+            m_marker.frame = image.Clone ();
+            Cv2.CvtColor(image, m_marker.grayImg, ColorConversionCodes.BGR2GRAY);
 
            
-            m_pattern.points2d = new Point2f[]
+            m_marker.points2d = new Point2f[]
             {
 
                 new Point2f(0,0),
@@ -202,10 +202,10 @@ namespace SmartAutoAR
             };
 
             //float maxsize = Math.Max(h, w);
-            ////pattern.points2d.fromList (points2dList);
+            ////marker.points2d.fromList (points2dList);
             //float unitH = h / maxsize;
             //float unitW = w / maxsize;
-            //m_pattern.points3d = new Point3f[]
+            //m_marker.points3d = new Point3f[]
             //{
             //    //18 mean marker cm
             //    new Point3f(-unitW, -unitH, 0),
@@ -214,7 +214,7 @@ namespace SmartAutoAR
             //    new Point3f(-unitW, unitH, 0)
             //};
              float w_r = 6, h_r = 5.5f;
-             m_pattern.points3d = new Point3f[]
+             m_marker.points3d = new Point3f[]
             {
                     //18 mean marker cm
                     new Point3f(-w_r, -h_r, 0),
@@ -224,32 +224,32 @@ namespace SmartAutoAR
             };
             
 
-            extractFeatures (pattern.grayImg,ref pattern.keyPoints,ref pattern.descriptors);
+            extractFeatures (marker.grayImg,ref marker.keyPoints,ref marker.descriptors);
         }
 
         /// <summary>
-        /// Finds the pattern.
+        /// Finds the marker.
         /// </summary>
-        /// <returns><c>true</c>, if pattern was found, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c>, if marker was found, <c>false</c> otherwise.</returns>
         /// <param name="image">Image.</param>
         /// <param name="info">Info.</param>
-        public bool Detect (Mat image, out PatternTrackingInfo info)
+        public bool Detect (Mat image, out MarkerTrackingInfo info)
         {
-            info = new PatternTrackingInfo();
+            info = new MarkerTrackingInfo();
             // Convert input image to gray
             m_grayImg = ColorCalculation.GetLabChennel(image)[0];
             //Cv2.CvtColor(image, m_grayImg, ColorConversionCodes.BGR2GRAY);
             // Extract feature points from input gray image
             extractFeatures (m_grayImg, ref m_queryKeypoints, ref m_queryDescriptors);
         
-            // Get matches with current pattern
+            // Get matches with current marker
             getMatches (m_queryDescriptors,ref m_matches);
 
             m_roughHomography = new Mat();
             // Find homography transformation and detect good matches
             bool homographyFound = refineMatchesWithHomography (
                                        m_queryKeypoints, 
-                                       m_pattern.keyPoints, 
+                                       m_marker.keyPoints, 
                                        homographyReprojectionThreshold, 
                                        ref m_matches, 
                                        ref m_roughHomography,
@@ -259,18 +259,18 @@ namespace SmartAutoAR
                 // If homography refinement enabled improve found transformation
                 if (enableRatioTest) {
                     // Warp image using found homography
-                    Cv2.WarpPerspective(m_grayImg, m_warpedImg, m_roughHomography, m_pattern.size,InterpolationFlags.WarpInverseMap| InterpolationFlags.Cubic);
+                    Cv2.WarpPerspective(m_grayImg, m_warpedImg, m_roughHomography, m_marker.size,InterpolationFlags.WarpInverseMap| InterpolationFlags.Cubic);
                     KeyPoint[] warpedqueryKeypoints=null;
                     Mat m_queryDescriptors=new Mat();
                     extractFeatures(m_warpedImg, ref warpedqueryKeypoints, ref m_queryDescriptors);
                     DMatch[] refinedMatches = null;
-                    // Match with pattern
+                    // Match with marker
                     getMatches(m_queryDescriptors, ref refinedMatches);
                     m_refinedHomography = new Mat();
                     // Estimate new refinement homography
                     homographyFound = refineMatchesWithHomography(
                         warpedqueryKeypoints,
-                        m_pattern.keyPoints,
+                        m_marker.keyPoints,
                         homographyReprojectionThreshold,
                         ref refinedMatches,
                         ref m_refinedHomography,
@@ -280,12 +280,12 @@ namespace SmartAutoAR
                     info.homography = m_roughHomography * m_refinedHomography;
 
                     // 取得彩色marker轉正
-                    Cv2.WarpPerspective(image, info.DetectedMarkerImage, info.homography, m_pattern.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
+                    Cv2.WarpPerspective(image, info.DetectedMarkerImage, info.homography, m_marker.size, InterpolationFlags.WarpInverseMap | InterpolationFlags.Cubic);
                 } else {
                     info.homography = m_roughHomography;                        
                 }
 
-                info.pts= getPerspectiveTransformValue(info.homography, m_pattern.points2d);
+                info.pts= getPerspectiveTransformValue(info.homography, m_marker.points2d);
                 for(int j=0;j<info.pts.Length;j++)
                     Console.WriteLine(info.pts[j]);
                 info.center = new Point2d();
