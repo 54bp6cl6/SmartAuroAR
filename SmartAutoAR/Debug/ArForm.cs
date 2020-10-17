@@ -16,7 +16,7 @@ namespace Debug
 		Bitmap marker;
 		Scene scene;
 		Model model;
-
+		ColorHarmonization colorHarmonize;
 		public ArForm(int width, int height, string title) :
 			base(width, height,
 				GraphicsMode.Default,
@@ -37,8 +37,11 @@ namespace Debug
 			// 導入 marker圖像
 			marker = new Bitmap("Logo.png");
 
+			//導入caffe套件做擬真化處理
+			colorHarmonize = new ColorHarmonization("SmartAutoAR.prototxt", "SmartAutoAR.caffemodel", "ini_input.jpg");
+
 			// 建立 workflow 物件
-			workflow = new ArWorkflow(inputSource);
+			workflow = new ArWorkflow(inputSource, colorHarmonize);
 
 			// 設定場景
 			scene = new Scene();

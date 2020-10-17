@@ -75,3 +75,16 @@ C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debu
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csproj.CoreCompileInputs.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.dll
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.pdb
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Shaders\background_frag.shader
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Shaders\background_vert.shader
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Shaders\standard_frag.shader
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\Resources\Shaders\standard_vert.shader
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.deps.json
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.dll
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.pdb
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.AssemblyInfoInputs.cache
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.AssemblyInfo.cs
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csproj.CoreCompileInputs.cache
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.dll
+D:\GitHub\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.pdb
