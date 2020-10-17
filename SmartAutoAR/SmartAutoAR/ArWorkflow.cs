@@ -28,7 +28,7 @@ namespace SmartAutoAR
 		protected Dictionary<MarkerDetector, Scene> markerScene;
 		protected ICamera camera;
 		protected MarkerTrackingInfo lastInfo;
-		public ColorHarmonization ColorHarmonize { get; set; }
+		protected ColorHarmonization colorHarmonize;
 		protected Background background;
 
 		public ArWorkflow(IInputSource inputSource)
@@ -39,17 +39,6 @@ namespace SmartAutoAR
 			EnableLightTracking = false;
 			camera = new ArCamera();
 			background = new Background();
-		}
-
-		public ArWorkflow(IInputSource inputSource, ColorHarmonization colorHarmonize)
-		{
-			InputSource = inputSource;
-			MarkerPairs = new Dictionary<Bitmap, Scene>();
-			EnableSimulation = false;
-			EnableLightTracking = false;
-			camera = new ArCamera();
-			background = new Background();
-			ColorHarmonize = colorHarmonize;
 		}
 
 
@@ -94,7 +83,7 @@ namespace SmartAutoAR
 				if (detector.Detect(frame.ToMat(), out MarkerTrackingInfo info))
 				{
 					info.ComputePose();
-					if(lastInfo != null) info.SmoothWith(lastInfo);
+					if (lastInfo != null) info.SmoothWith(lastInfo);
 					lastInfo = info;
 					info.ComputeMatrix();
 
@@ -120,7 +109,9 @@ namespace SmartAutoAR
 
 		private void Simulate()
 		{
-		
+			if (colorHarmonize is null || colorHarmonize.IsDisposed) 
+				colorHarmonize = new ColorHarmonization();
+
 			ProcessAR(true);
 			//截圖(有背景)
 			Bitmap ARframe = Screenshot();
@@ -128,7 +119,7 @@ namespace SmartAutoAR
 			Mat input_img = ARframe.ToMat();
 
 			//Preprocess
-			input_img = ColorHarmonize.inputImg_Process(input_img);
+			input_img = colorHarmonize.inputImg_Process(input_img);
 
 			//這個沒有布林值的只能在 #175行有布林值的ProcessAR執行後才能執行
 			//這個只有截AR物體，借用 #175行已經計算過的值所以每次大概只有0~1ms之間
@@ -136,10 +127,10 @@ namespace SmartAutoAR
 			//一樣截圖了轉Mat
 			Bitmap objectOnly = Screenshot();
 			Mat mask = objectOnly.ToMat();
-			mask = ColorHarmonize.maskImg_Process(mask);
+			mask = colorHarmonize.maskImg_Process(mask);
 			//把截下來的圖傳去做前處理，因爲background.SetImage()需要bitmap所以回傳回來又.ToBitmap了
-			Mat output = ColorHarmonize.netForward_Process(input_img, mask);
-			output = ColorHarmonize.outputImg_Process(output, windowWidth, windowHeight);
+			Mat output = colorHarmonize.netForward_Process(input_img, mask);
+			output = colorHarmonize.outputImg_Process(output, windowWidth, windowHeight);
 			background.SetImage(output.ToBitmap());
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			background.Render();

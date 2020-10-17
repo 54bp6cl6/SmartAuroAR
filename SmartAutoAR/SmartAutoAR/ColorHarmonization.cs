@@ -1,23 +1,23 @@
-﻿using OpenCvSharp;
+﻿using System;
+using OpenCvSharp;
 using OpenCvSharp.Dnn;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartAutoAR
 {
-	public class ColorHarmonization
+	public class ColorHarmonization : IDisposable
 	{
-		public Net net;
+		public bool IsDisposed { get; protected set; }
 
-		public ColorHarmonization(string prototxt, string model, string ini_input)
+		private Net net;
+
+		public ColorHarmonization()
 		{
 			//Net initialize 
-			net = CvDnn.ReadNetFromCaffe(prototxt, model);
+			net = CvDnn.ReadNetFromCaffe("Resources\\Caffe\\SmartAutoAR.prototxt", "Resources\\Caffe\\SmartAutoAR.caffemodel");
 			//By using OPENCL we get the best speed ever
 			net.SetPreferableBackend(Net.Backend.OPENCV);
 			net.SetPreferableTarget(Net.Target.OPENCL_FP16);
-			first_forward(ini_input);
+			first_forward("Resources\\Caffe\\ini_input.jpg");
 		}
 
 		//先預設讀一個最基本的照片來forward
@@ -64,8 +64,6 @@ namespace SmartAutoAR
 
 		public Mat netForward_Process(Mat blob_InputImg, Mat blob_mask)
 		{
-
-
 			//把input img和mask都丟進input内，"data" 和"mask"是套件取好的
 			net.SetInput(blob_InputImg, "data");
 			net.SetInput(blob_mask, "mask");
@@ -105,6 +103,15 @@ namespace SmartAutoAR
 			output_Img.ConvertTo(output_Img, MatType.CV_8UC1, 255.0 / (maxVal - minVal), -255.0 / minVal);
 			output_Img = output_Img.Resize(new Size(windowWidth, windowHeight), interpolation: InterpolationFlags.LinearExact);
 			return output_Img;
+		}
+
+		public void Dispose()
+		{
+			if (!IsDisposed)
+			{
+				net.Dispose();
+				IsDisposed = true;
+			}
 		}
 
 	}//end class
