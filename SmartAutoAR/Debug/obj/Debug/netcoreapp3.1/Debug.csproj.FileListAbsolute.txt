@@ -253,3 +253,6 @@ D:\GitHub\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.genruntime
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\ini_input.jpg
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\SmartAutoAR.caffemodel
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\SmartAutoAR.prototxt
+D:\GitHub\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\ini_input.jpg
+D:\GitHub\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\SmartAutoAR.prototxt
+D:\GitHub\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\Resources\Caffe\SmartAutoAR.caffemodel
