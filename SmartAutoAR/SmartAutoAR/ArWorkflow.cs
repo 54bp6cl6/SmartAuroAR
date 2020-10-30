@@ -17,10 +17,24 @@ namespace SmartAutoAR
 	/// </summary>
 	public class ArWorkflow
 	{
+		/// <summary>
+		/// 設定或取得影像輸入來源
+		/// </summary>
 		public IInputSource InputSource { get; set; }
+
+		/// <summary>
+		/// 設定或取得Marker與其對應的虛擬場景。須執行TrainMarker()後才會生效
+		/// </summary>
 		public Dictionary<Bitmap, Scene> MarkerPairs { get; set; }
+
+		/// <summary>
+		/// 是否啟用光源追蹤模組
+		/// </summary>
 		public bool EnableLightTracking { get; set; }
 
+		/// <summary>
+		/// 是否啟用色彩調和模組
+		/// </summary>
 		public bool EnableColorHarmonizing { 
 			get { return _enableColorHarmonizing; }
 			set { 
@@ -29,18 +43,47 @@ namespace SmartAutoAR
 					colorHarmonize.Dispose();
 			} }
 
+		/// <summary>
+		/// 取得輸出影像的長寬比
+		/// </summary>
 		public float WindowAspectRatio { get { return InputSource.AspectRatio; } }
 
+		/// <summary>
+		/// 輸出影像的大小
+		/// </summary>
 		protected int windowWidth, windowHeight;
+
+		/// <summary>
+		/// 真正參與運算的 Marker Scene 對應關係
+		/// </summary>
 		protected Dictionary<MarkerDetector, Scene> markerScene;
+
+		/// <summary>
+		/// 用於OpenTK渲染的虛擬鏡頭
+		/// </summary>
 		protected ICamera camera;
+
+		/// <summary>
+		/// 上一幀來源影像的計算結果
+		/// </summary>
 		protected MarkerTrackingInfo lastInfo;
+
+		/// <summary>
+		/// 用於對影像作色彩調和的物件
+		/// </summary>
 		protected ColorHarmonization colorHarmonize;
+
+		/// <summary>
+		/// 用於渲染背景圖片(輸入影像)的物件
+		/// </summary>
 		protected Background background;
 
-		protected bool _enableColorHarmonizing;
-		Bitmap ARMask;
-		Bitmap ARframe;
+		private bool _enableColorHarmonizing;
+		private Bitmap arFrame;
+
+		/// <summary>
+		/// 以指定的影像輸入元件，初始化 SmartAutoAR.ArWorkFlow 類別的物件
+		/// </summary>
 		public ArWorkflow(IInputSource inputSource)
 		{
 			InputSource = inputSource;
@@ -51,12 +94,17 @@ namespace SmartAutoAR
 			background = new Background();
 		}
 
-
+		/// <summary>
+		/// 將暫存資料清除
+		/// </summary>
 		public void ClearState()
 		{
 			lastInfo = null;
 		}
 
+		/// <summary>
+		/// 設定並部署 Marker 與其關聯的虛擬場影，使 MarkerPairs 屬性的改動生效
+		/// </summary>
 		public void TrainMarkers()
 		{
 			markerScene = new Dictionary<MarkerDetector, Scene>();
@@ -71,6 +119,9 @@ namespace SmartAutoAR
 			}
 		}
 
+		/// <summary>
+		/// 在目前綁定的 OpenGL Context 上渲染 AR 畫面
+		/// </summary>
 		public void Show()
 		{
 			if (EnableColorHarmonizing)
@@ -153,7 +204,6 @@ namespace SmartAutoAR
 
 						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
 						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						ARMask = Screenshot();
 
 					}
 					else markerScene[detector].Render(camera);
@@ -172,9 +222,7 @@ namespace SmartAutoAR
 
 						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
 						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						ARframe = Screenshot();
-
-
+						arFrame = Screenshot();
 					}
 					else markerScene[detector].Render(camera);
 
@@ -189,14 +237,14 @@ namespace SmartAutoAR
 			ProcessAR();
 
 			//由於套件需要所以轉成mat
-			Mat input_img = ARframe.ToMat();
+			Mat input_img = arFrame.ToMat();
 
 			//Preprocess
 			input_img = colorHarmonize.inputImg_Process(input_img);
 
 			//這個只有截AR物體
 			//一樣截圖了轉Mat
-			Mat mask = ARframe.ToMat();
+			Mat mask = arFrame.ToMat();
 			mask = colorHarmonize.maskImg_Process(mask);
 			//把截下來的圖傳去做前處理，因爲background.SetImage()需要bitmap所以回傳回來又.ToBitmap了
 			Mat output = colorHarmonize.netForward_Process(input_img, mask);
@@ -206,6 +254,9 @@ namespace SmartAutoAR
 			background.Render();
 		}
 
+		/// <summary>
+		/// 輸出目前綁定之 OpenGL Context 上已經繪製的影像
+		/// </summary>
 		public Bitmap Screenshot()
 		{
 			Bitmap output = new Bitmap(windowWidth, windowHeight);
@@ -219,6 +270,9 @@ namespace SmartAutoAR
 			return output;
 		}
 
+		/// <summary>
+		/// 設定輸出影像的大小
+		/// </summary>
 		public void SetOutputSize(int Width, int Height)
 		{
 			windowWidth = Width;

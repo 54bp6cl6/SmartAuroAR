@@ -4,12 +4,21 @@ using OpenCvSharp.Dnn;
 
 namespace SmartAutoAR
 {
+	/// <summary>
+	/// 提供以機器學習技術對影像做色彩調和的效果
+	/// </summary>
 	public class ColorHarmonization : IDisposable
 	{
+		/// <summary>
+		/// 取得該物件是否已經回收(Disposed)
+		/// </summary>
 		public bool IsDisposed { get; protected set; }
 
 		private Net net;
 
+		/// <summary>
+		/// 初始化 SmartAutoAR.ColorHarmonization 類別的物件
+		/// </summary>
 		public ColorHarmonization()
 		{
 			//Net initialize 
@@ -20,9 +29,10 @@ namespace SmartAutoAR
 			first_forward("Resources\\Caffe\\ini_input.jpg");
 		}
 
-		//先預設讀一個最基本的照片來forward
-		//第一次forward的時間比較慢-1000ms
-		//之後每次只需要100ms左右
+		/// <summary>
+		/// 預先執行一次模型運算，以加速未來的運算速度
+		/// </summary>
+		/// <param name="ini_input">預執行的輸入影像</param>
 		public void first_forward(string ini_input)
 		{
 			Mat input_img = Cv2.ImRead(ini_input);
@@ -34,9 +44,12 @@ namespace SmartAutoAR
 			net.Forward();
 		}
 
+		/// <summary>
+		/// 將接收到的影像資料轉為適合模型的輸入
+		/// </summary>
+		/// <param name="input_img">欲作為輸入的影像資料</param>
 		public Mat inputImg_Process(Mat input_img)
 		{
-
 			//先把得到的圖轉成RGB,Bitmap截圖得到的是4-channel,此套件只要3-channel
 			Cv2.CvtColor(input_img, input_img, ColorConversionCodes.RGBA2RGB);
 			//做Resize的動作 應模組所需,512x512, InterpolationFlags可以選擇 但目前LinearExact和 Lanczos4最好,後者比較快
@@ -50,9 +63,12 @@ namespace SmartAutoAR
 			return blob_InputImg;
 		}
 
+		/// <summary>
+		/// 將虛擬物體遮罩處理為適合模型輸入的格式
+		/// </summary>
+		/// <param name="mask">虛擬物體遮罩影像</param>
 		public Mat maskImg_Process(Mat mask)
 		{
-
 			//同上,但這是mask的部分，然後mask一定要轉成1channel的圖
 			Cv2.CvtColor(mask, mask, ColorConversionCodes.RGBA2GRAY);
 			Scalar scalar_Mask = new Scalar(128.0, 128.0, 128.0);
@@ -62,6 +78,12 @@ namespace SmartAutoAR
 			return blob_mask;
 		}
 
+		/// <summary>
+		/// 進行模型前向傳播
+		/// </summary>
+		/// <param name="blob_InputImg">欲處理的 AR 影像</param>
+		/// <param name="blob_mask">虛擬物體遮罩影像</param>
+		/// <returns>模型前向傳播之輸出</returns>
 		public Mat netForward_Process(Mat blob_InputImg, Mat blob_mask)
 		{
 			//把input img和mask都丟進input内，"data" 和"mask"是套件取好的
@@ -74,9 +96,12 @@ namespace SmartAutoAR
 			return preProcess_output;
 		}
 
+		/// <summary>
+		/// 將模型的輸出處理為影像資料
+		/// </summary>
+		/// <returns>色彩調和後的擬真化影像</returns>
 		public Mat outputImg_Process(Mat preProcess_output, int windowWidth, int windowHeight)
 		{
-
 			//Output出去前的處理
 			int H = preProcess_output.Size(2);
 			int W = preProcess_output.Size(3);
@@ -105,6 +130,9 @@ namespace SmartAutoAR
 			return output_Img;
 		}
 
+		/// <summary>
+		/// 釋放物件相關之記憶體
+		/// </summary>
 		public void Dispose()
 		{
 			if (!IsDisposed)
