@@ -1,10 +1,10 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 using OpenTK.Graphics;
 using SmartAutoAR;
 using SmartAutoAR.InputSource;
 using SmartAutoAR.VirtualObject;
 using SmartAutoAR.VirtualObject.Lights;
-using System;
 using Bitmap = System.Drawing.Bitmap;
 
 namespace Debug
