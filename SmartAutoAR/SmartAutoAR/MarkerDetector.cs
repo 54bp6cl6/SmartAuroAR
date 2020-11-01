@@ -302,7 +302,6 @@ namespace SmartAutoAR
 			}
 
 			info.MarkerImageMat = markerMat;
-			lastInfo = info;
 			return homographyFound;
 		}
 

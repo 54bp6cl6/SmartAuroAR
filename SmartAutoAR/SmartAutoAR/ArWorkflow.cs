@@ -152,6 +152,7 @@ namespace SmartAutoAR
 				{
 					info.ComputePose();
 					if (detector.lastInfo != null) info.SmoothWith(detector.lastInfo);
+					detector.lastInfo = info;
 					info.ComputeMatrix();
 					infoScene.Add(new Tuple<MarkerTrackingInfo, Scene>(info, markerScene[detector]));
 				}
