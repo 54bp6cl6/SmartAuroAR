@@ -35,13 +35,16 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 是否啟用色彩調和模組
 		/// </summary>
-		public bool EnableColorHarmonizing { 
+		public bool EnableColorHarmonizing
+		{
 			get { return _enableColorHarmonizing; }
-			set { 
+			set
+			{
 				_enableColorHarmonizing = value;
 				if (!value && !(colorHarmonize is null) && !colorHarmonize.IsDisposed)
 					colorHarmonize.Dispose();
-			} }
+			}
+		}
 
 		/// <summary>
 		/// 取得輸出影像的長寬比
@@ -64,11 +67,6 @@ namespace SmartAutoAR
 		protected ICamera camera;
 
 		/// <summary>
-		/// 上一幀來源影像的計算結果
-		/// </summary>
-		protected MarkerTrackingInfo lastInfo;
-
-		/// <summary>
 		/// 用於對影像作色彩調和的物件
 		/// </summary>
 		protected ColorHarmonization colorHarmonize;
@@ -79,7 +77,6 @@ namespace SmartAutoAR
 		protected Background background;
 
 		private bool _enableColorHarmonizing;
-		private Bitmap arFrame;
 
 		/// <summary>
 		/// 以指定的影像輸入元件，初始化 SmartAutoAR.ArWorkFlow 類別的物件
@@ -99,7 +96,10 @@ namespace SmartAutoAR
 		/// </summary>
 		public void ClearState()
 		{
-			lastInfo = null;
+			foreach (MarkerDetector detector in markerScene.Keys)
+			{
+				detector.lastInfo = null;
+			}
 		}
 
 		/// <summary>
@@ -122,133 +122,110 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 在目前綁定的 OpenGL Context 上渲染 AR 畫面
 		/// </summary>
-		public void Show()
+		public void Show(bool nextFrame = true)
 		{
+			Bitmap inputFrame = nextFrame ? InputSource.GetNextFrame() : InputSource.LastFrame;
+			List<Tuple<MarkerTrackingInfo, Scene>> infoScene_tuples = DetectMarkers(inputFrame);
+
 			if (EnableColorHarmonizing)
 			{
 				if (colorHarmonize is null || colorHarmonize.IsDisposed)
 					colorHarmonize = new ColorHarmonization();
-				Simulate();
+				Simulate(inputFrame, infoScene_tuples);
 			}
 			else
 			{
-				ProcessAR(true);
+				ProcessAR(inputFrame, infoScene_tuples);
 			}
 		}
 
-		private void ProcessAR(bool withBackeground)
+		/// <summary>
+		/// 偵測並計算輸入畫面中出現的marker資訊
+		/// </summary>
+		private List<Tuple<MarkerTrackingInfo, Scene>> DetectMarkers(Bitmap inputFrame)
+		{
+			List<Tuple<MarkerTrackingInfo, Scene>> infoScene = new List<Tuple<MarkerTrackingInfo, Scene>>();
+
+			foreach (MarkerDetector detector in markerScene.Keys)
+			{
+				if (detector.Detect(inputFrame.ToMat(), out MarkerTrackingInfo info))
+				{
+					info.ComputePose();
+					if (detector.lastInfo != null) info.SmoothWith(detector.lastInfo);
+					info.ComputeMatrix();
+					infoScene.Add(new Tuple<MarkerTrackingInfo, Scene>(info, markerScene[detector]));
+				}
+			}
+
+			return infoScene;
+		}
+
+		/// <summary>
+		/// 根據 marker 偵測結果渲染畫面
+		/// </summary>
+		/// <param name="inputFrame">環境(背景)影像</param>
+		/// <param name="infoScene_tuples">DetectMarkers()之偵測結果</param>
+		/// <param name="forMask">此項為 true 則只渲染無擬真效果之虛擬物體</param>
+		private void ProcessAR(Bitmap inputFrame, List<Tuple<MarkerTrackingInfo, Scene>> infoScene_tuples, bool forMask = false)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-			Bitmap frame = InputSource.GetInputFrame();
-			if (withBackeground)
+			if (!forMask)
 			{
-				background.SetImage(frame);
+				background.SetImage(inputFrame);
 				background.Render();
 			}
 
-			foreach (MarkerDetector detector in markerScene.Keys)
+			foreach (Tuple<MarkerTrackingInfo, Scene> infoScene in infoScene_tuples)
 			{
-				if (detector.Detect(frame.ToMat(), out MarkerTrackingInfo info))
+				camera.Update(
+					infoScene.Item1.ViewMatrix,
+					infoScene.Item1.GetProjectionMatrix(inputFrame.Width, inputFrame.Height),
+					infoScene.Item1.CameraPosition);
+
+				// 為防止取得 mask 時沒有打燈，畫面會是全黑的，影響後續運作，因此給他個白光
+				if (forMask)
 				{
-					info.ComputePose();
-					if (lastInfo != null) info.SmoothWith(lastInfo);
-					lastInfo = info;
-					info.ComputeMatrix();
-
-					camera.Update(
-						info.ViewMatrix,
-						info.GetProjectionMatrix(frame.Width, frame.Height),
-						info.CameraPosition);
-
-					if (EnableLightTracking)
-					{
-						ILight[] predictLights = LightSourceTracker.PredictLightSource(detector.MarkerMat, info);
-						markerScene[detector].Lights.AddRange(predictLights);
-						markerScene[detector].Render(camera);
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-					}
-					else markerScene[detector].Render(camera);
+					infoScene.Item2.Lights.Add(new AmbientLight(OpenTK.Graphics.Color4.White, 1.0f));
+					infoScene.Item2.Render(camera);
+					infoScene.Item2.Lights.RemoveAt(infoScene.Item2.Lights.Count - 1);
 				}
+				else if (EnableLightTracking)
+				{
+					ILight[] predictLights = LightSourceTracker.PredictLightSource(infoScene.Item1.MarkerImageMat, infoScene.Item1);
+					infoScene.Item2.Lights.AddRange(predictLights);
+					infoScene.Item2.Render(camera);
+					infoScene.Item2.Lights.RemoveAt(infoScene.Item2.Lights.Count - 1);
+					infoScene.Item2.Lights.RemoveAt(infoScene.Item2.Lights.Count - 1);
+				}
+				else infoScene.Item2.Render(camera);
 			}
 
 			GC.Collect();
 		}
 
-		private void ProcessAR()
+		/// <summary>
+		/// 使用色彩調和模組對AR影像進行擬真畫處理
+		/// </summary>
+		/// <param name="inputFrame">環境(背景)影像</param>
+		/// <param name="infoScene_tuples">DetectMarkers()之偵測結果</param>
+		private void Simulate(Bitmap inputFrame, List<Tuple<MarkerTrackingInfo, Scene>> infoScene_tuples)
 		{
-			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+			// 取得遮罩
+			ProcessAR(inputFrame, infoScene_tuples, forMask: true);
+			Mat mask = Screenshot().ToMat(); // 由於套件需要所以轉成mat
 
-			Bitmap frame = InputSource.GetInputFrame();
-
-			foreach (MarkerDetector detector in markerScene.Keys)
-			{
-				if (detector.Detect(frame.ToMat(), out MarkerTrackingInfo info))
-				{
-					info.ComputePose();
-					if (lastInfo != null) info.SmoothWith(lastInfo);
-					lastInfo = info;
-					info.ComputeMatrix();
-
-					camera.Update(
-						info.ViewMatrix,
-						info.GetProjectionMatrix(frame.Width, frame.Height),
-						info.CameraPosition);
-
-					if (EnableLightTracking)
-					{
-						ILight[] predictLights = LightSourceTracker.PredictLightSource(detector.MarkerMat, info);
-						markerScene[detector].Lights.AddRange(predictLights);
-						markerScene[detector].Render(camera);
-
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-
-					}
-					else markerScene[detector].Render(camera);
-
-					GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-
-
-					background.SetImage(frame);
-					background.Render();
-
-					if (EnableLightTracking)
-					{
-						ILight[] predictLights = LightSourceTracker.PredictLightSource(detector.MarkerMat, info);
-						markerScene[detector].Lights.AddRange(predictLights);
-						markerScene[detector].Render(camera);
-
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						markerScene[detector].Lights.RemoveAt(markerScene[detector].Lights.Count - 1);
-						arFrame = Screenshot();
-					}
-					else markerScene[detector].Render(camera);
-
-				}
-			}
-
-			GC.Collect();
-		}
-
-		private void Simulate()
-		{
-			ProcessAR();
-
-			//由於套件需要所以轉成mat
-			Mat input_img = arFrame.ToMat();
-
-			//Preprocess
-			input_img = colorHarmonize.inputImg_Process(input_img);
-
-			//這個只有截AR物體
-			//一樣截圖了轉Mat
-			Mat mask = arFrame.ToMat();
 			mask = colorHarmonize.maskImg_Process(mask);
+
+			// 取得 AR 影像
+			ProcessAR(inputFrame, infoScene_tuples, false);
+			Mat input_img = Screenshot().ToMat(); // 由於套件需要所以轉成mat
+			input_img = colorHarmonize.inputImg_Process(input_img); // Preprocess
+
 			//把截下來的圖傳去做前處理，因爲background.SetImage()需要bitmap所以回傳回來又.ToBitmap了
 			Mat output = colorHarmonize.netForward_Process(input_img, mask);
 			output = colorHarmonize.outputImg_Process(output, windowWidth, windowHeight);
+
 			background.SetImage(output.ToBitmap());
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 			background.Render();

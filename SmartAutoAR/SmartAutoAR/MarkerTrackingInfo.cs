@@ -27,6 +27,7 @@ namespace SmartAutoAR
 		public double Pitch { get; protected set; }
 		public double Roll { get; protected set; }
 		public double Yaw { get; protected set; }
+		public Mat MarkerImageMat { get; set; }
 
 		protected float[,] cameraMatrix = new float[3, 3]
 		{

@@ -10,7 +10,9 @@ namespace SmartAutoAR.InputSource
 		/// <summary>
 		/// 呼叫影像來源回傳欲取得的影像
 		/// </summary>
-		public Bitmap GetInputFrame();
+		public Bitmap GetNextFrame();
+
+		public Bitmap LastFrame { get; }
 
 		/// <summary>
 		/// 回傳影像的寬度
