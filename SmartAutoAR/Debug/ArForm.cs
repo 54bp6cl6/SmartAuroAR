@@ -82,7 +82,7 @@ namespace Debug
 
 		protected override void OnResize(EventArgs e)
 		{
-			workflow.ChangeWindowSize(Width, Height);
+			workflow.SetOutputSize(Width, Height);
 
 			base.OnResize(e);
 		}
