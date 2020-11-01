@@ -13,7 +13,6 @@ namespace Debug
 	{
 		IInputSource inputSource;
 		ArWorkflow workflow;
-		Bitmap marker;
 		Scene scene;
 		Model model;
 		public ArForm(int width, int height, string title) :
@@ -29,17 +28,10 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"image_test2.jpg");
-			//inputSource = new VideoSource("video_test2.mp4");
+			//inputSource = new ImageSource(@"image_test2.jpg");
+			inputSource = new VideoSource("video_test2.mp4");
 			//inputSource = new StreamSource();
 
-			// 導入 marker圖像
-			marker = new Bitmap("Logo.png");
-
-			//導入caffe套件做擬真化處理
-
-			// 建立 workflow 物件
-			workflow = new ArWorkflow(inputSource);
 
 			// 設定場景
 			scene = new Scene();
@@ -51,7 +43,10 @@ namespace Debug
 			//scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
 			//scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
 
+			// 建立 workflow 物件
+			workflow = new ArWorkflow(inputSource);
 			// 設定 marker 對應的 scene
+			Bitmap marker = new Bitmap("Logo.png");
 			workflow.MarkerPairs[marker] = scene;
 			workflow.TrainMarkers();
 
@@ -87,7 +82,7 @@ namespace Debug
 
 		protected override void OnResize(EventArgs e)
 		{
-			workflow.SetOutputSize(Width, Height);
+			workflow.ChangeWindowSize(Width, Height);
 
 			base.OnResize(e);
 		}

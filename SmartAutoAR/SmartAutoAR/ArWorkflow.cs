@@ -250,7 +250,7 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 設定輸出影像的大小
 		/// </summary>
-		public void SetOutputSize(int Width, int Height)
+		public void ChangeWindowSize(int Width, int Height)
 		{
 			windowWidth = Width;
 			windowHeight = Height;
