@@ -12,7 +12,6 @@ namespace Debug
 	public partial class ArForm : GameWindow
 	{
 		IInputSource inputSource;
-		VideoSource videoSource;
 		Scene scene;
 		Model stoneMan;
 		ArWorkflow workflow;
