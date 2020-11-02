@@ -56,7 +56,7 @@ namespace Debug
 			workflow.EnableLightTracking = true;
 
 			// 開啟色彩調合模組
-			workflow.EnableColorHarmonizing = true;
+			//workflow.EnableColorHarmonizing = true;
 
 			base.OnLoad(e);
 		}
@@ -67,7 +67,7 @@ namespace Debug
 			// 確保視窗比例與背景一致
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
-			//model.Rotation(y: 5);
+			stoneMan.Rotation(y: 5);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			if (inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo)
