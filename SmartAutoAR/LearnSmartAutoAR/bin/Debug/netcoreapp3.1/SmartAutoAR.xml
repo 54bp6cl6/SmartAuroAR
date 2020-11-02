@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartAutoAR</name>
+    </assembly>
+    <members>
+        <member name="T:SmartAutoAR.ArWorkflow">
+            <summary>
+            整合各種功能，能夠快速製作AR的類別
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.ArWorkflow.InputSource">
+            <summary>
+            設定或取得影像輸入來源
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.ArWorkflow.MarkerPairs">
+            <summary>
+            設定或取得Marker與其對應的虛擬場景。須執行TrainMarker()後才會生效
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.ArWorkflow.EnableLightTracking">
+            <summary>
+            是否啟用光源追蹤模組
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.ArWorkflow.EnableColorHarmonizing">
+            <summary>
+            是否啟用色彩調和模組
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.ArWorkflow.WindowAspectRatio">
+            <summary>
+            取得輸出影像的長寬比
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.#ctor(SmartAutoAR.InputSource.IInputSource)">
+            <summary>
+            以指定的影像輸入元件，初始化 SmartAutoAR.ArWorkFlow 類別的物件
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.ClearState">
+            <summary>
+            將暫存資料清除
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.TrainMarkers">
+            <summary>
+            設定並部署 Marker 與其關聯的虛擬場影，使 MarkerPairs 屬性的改動生效
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.Show">
+            <summary>
+            在目前綁定的 OpenGL Context 上渲染 AR 畫面
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.Screenshot">
+            <summary>
+            輸出目前綁定之 OpenGL Context 上已經繪製的影像
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.ArWorkflow.SetOutputSize(System.Int32,System.Int32)">
+            <summary>
+            設定輸出影像的大小
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.InputSource.IInputSource">
+            <summary>
+            此介面定義了影像來源的行為
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.InputSource.IInputSource.GetInputFrame">
+            <summary>
+            呼叫影像來源回傳欲取得的影像
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.InputSource.IInputSource.OutputWidth">
+            <summary>
+            回傳影像的寬度
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.InputSource.IInputSource.OutputHeight">
+            <summary>
+            回傳影像的高度
+            </summary>
+        </member>
+        <member name="P:SmartAutoAR.InputSource.IInputSource.AspectRatio">
+            <summary>
+            回傳影像的長寬比
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.InputSource.ImageSource">
+            <summary>
+            處理影像來源為「圖片」的類別
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.InputSource.StreamSource">
+            <summary>
+            處理影像來源為「串流」的類別
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.InputSource.VideoSource">
+            <summary>
+            處理影像來源為「影片」的類別
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.Marker">
+            <summary>
+            Marker.
+            This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.size">
+            <summary>
+            The size.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.frame">
+            <summary>
+            The frame.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.grayImg">
+            <summary>
+            The gray image.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.keyPoints">
+            <summary>
+            The keypoints.
+            </summary>
+            
+        </member>
+        <member name="F:SmartAutoAR.Marker.descriptors">
+            <summary>
+            The descriptors.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.points2d">
+            <summary>
+            The points2d.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.Marker.points3d">
+            <summary>
+            The points3d.
+            </summary>
+            
+        </member>
+        <member name="M:SmartAutoAR.Marker.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SmartAutoAR.Marker"/> class.
+            </summary>
+            
+        </member>
+        <member name="T:SmartAutoAR.MarkerDetector">
+            <summary>
+            Marker detector.
+            This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.enableRatioTest">
+            <summary>
+            The enable ratio test.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.enableHomographyRefinement">
+            <summary>
+            The enable homography refinement.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.homographyReprojectionThreshold">
+            <summary>
+            The homography reprojection threshold.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_queryKeypoints">
+            <summary>
+            The m_query keypoints.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_queryDescriptors">
+            <summary>
+            The m_query descriptors.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_matches">
+            <summary>
+            The m_matches.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:SmartAutoAR.MarkerDetector.m_knnMatches" -->
+        <member name="F:SmartAutoAR.MarkerDetector.m_grayImg">
+            <summary>
+            The m_gray image.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_warpedImg">
+            <summary>
+            The m_warped image.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_roughHomography">
+            <summary>
+            The m_rough homography.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_refinedHomography">
+            <summary>
+            The m_refined homography.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_marker">
+            <summary>
+            The m_marker.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_detector">
+            <summary>
+            The m_detector.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_extractor">
+            <summary>
+            The m_extractor.
+            </summary>
+        </member>
+        <member name="F:SmartAutoAR.MarkerDetector.m_matcher">
+            <summary>
+            The m_matcher.
+            </summary>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.Point2fToPoint2d(OpenCvSharp.Point2f)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SmartAutoAR.MarkerDetector"/> class.
+            </summary>
+            <param name="detector">Detector.</param>
+            <param name="extractor">Extractor.</param>
+            <param name="matcher">Matcher.</param>
+            <param name="ratioTest">If set to <c>true</c> ratio test.</param>
+            
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.train">
+            <summary>
+            Train the specified marker.
+            </summary>
+            <param name="marker">Marker.</param>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.buildMarkerFromImage(OpenCvSharp.Mat)">
+            <summary>
+            Builds the marker from image.
+            </summary>
+            <param name="image">Image.</param>
+            <param name="marker">Marker.</param>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.Detect(OpenCvSharp.Mat,SmartAutoAR.MarkerTrackingInfo@)">
+            <summary>
+            Finds the marker.
+            </summary>
+            <returns><c>true</c>, if marker was found, <c>false</c> otherwise.</returns>
+            <param name="image">Image.</param>
+            <param name="info">Info.</param>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.extractFeatures(OpenCvSharp.Mat,OpenCvSharp.KeyPoint[]@,OpenCvSharp.Mat@)">
+            <summary>
+            Extracts the features.
+            </summary>
+            <returns><c>true</c>, if features was extracted, <c>false</c> otherwise.</returns>
+            <param name="image">Image.</param>
+            <param name="keypoints">Keypoints.</param>
+            <param name="descriptors">Descriptors.</param>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.getMatches(OpenCvSharp.Mat,OpenCvSharp.DMatch[]@)">
+            <summary>
+            Gets the matches.
+            </summary>
+            <param name="queryDescriptors">Query descriptors.</param>
+            <param name="matches">Matches.</param>
+        </member>
+        <member name="M:SmartAutoAR.MarkerDetector.refineMatchesWithHomography(OpenCvSharp.KeyPoint[],OpenCvSharp.KeyPoint[],System.Single,OpenCvSharp.DMatch[]@,OpenCvSharp.Mat@,OpenCvSharp.HomographyMethods)">
+            <summary>
+            Refines the matches with homography.
+            </summary>
+            <returns><c>true</c>, if matches with homography was refined, <c>false</c> otherwise.</returns>
+            <param name="queryKeypoints">Query keypoints.</param>
+            <param name="trainKeypoints">Train keypoints.</param>
+            <param name="reprojectionThreshold">Reprojection threshold.</param>
+            <param name="matches">Matches.</param>
+            <param name="homography">Homography.</param>
+        </member>
+        <member name="T:SmartAutoAR.MarkerTrackingInfo">
+            <summary>
+            Marker tracking info.
+            This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
+            </summary>
+        </member>
+        <member name="T:SmartAutoAR.Scene">
+            <summary>
+            用於管理模型與燈光的類別
+            </summary>
+        </member>
+    </members>
+</doc>

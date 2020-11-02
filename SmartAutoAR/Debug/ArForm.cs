@@ -12,9 +12,11 @@ namespace Debug
 	public partial class ArForm : GameWindow
 	{
 		IInputSource inputSource;
-		ArWorkflow workflow;
+		VideoSource videoSource;
 		Scene scene;
-		Model model;
+		Model stoneMan;
+		ArWorkflow workflow;
+
 		public ArForm(int width, int height, string title) :
 			base(width, height,
 				GraphicsMode.Default,
@@ -28,31 +30,34 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			//inputSource = new ImageSource(@"image_test2.jpg");
-			inputSource = new VideoSource("video_test2.mp4");
+			//inputSource = new ImageSource(@"..\..\..\resources\image_test.jpg");
+			inputSource = new VideoSource(@"..\..\..\resources\video_test.mp4");
 			//inputSource = new StreamSource();
 
-
-			// 設定場景
+			// 創建場景
 			scene = new Scene();
-			model = Model.LoadModel(@"..\..\..\models\Stone\Stone.obj");
-			//model = Model.LoadModel(@"..\..\..\models\ChineseCoin\chinese_coin.obj");
-			//model = Model.LoadModel(@"..\..\..\models\IronMan\IronMan.obj");
-			model.Resize(0.1f);
-			scene.Models.Add(model);
-			//scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
-			//scene.Lights.Add(new PointLight(Color4.White, new Vector3(0, 10, 10), 1.0f, 0.4f));
+			stoneMan = Model.LoadModel(@"..\..\..\resources\models\Stone\Stone.obj"); // 請輸入您的模型路徑
+			scene.Models.Add(stoneMan);
+
+			// 調整模型大小
+			stoneMan.Resize(0.1f);
+
+			// 加入燈光
+			// scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
 
 			// 建立 workflow 物件
 			workflow = new ArWorkflow(inputSource);
-			// 設定 marker 對應的 scene
-			Bitmap marker = new Bitmap("Logo.png");
-			workflow.MarkerPairs[marker] = scene;
-			workflow.TrainMarkers();
 
-			// 啟用需要的擬真方法
-			//workflow.EnableColorHarmonizing = true;
+			// 設定 marker 對應的 scene
+			Bitmap marker = new Bitmap(@"..\..\..\resources\marker.png"); // 請輸入您 Marker 圖檔的路徑
+			workflow.MarkerPairs[marker] = scene;
+			workflow.TrainMarkers(); // 修改後一定要執行!!
+
+			// 開啟光源追蹤模組
 			workflow.EnableLightTracking = true;
+
+			// 開啟色彩調合模組
+			workflow.EnableColorHarmonizing = true;
 
 			base.OnLoad(e);
 		}

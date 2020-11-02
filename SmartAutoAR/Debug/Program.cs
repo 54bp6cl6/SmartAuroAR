@@ -17,7 +17,7 @@ namespace Debug
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			using (ArForm game = new ArForm(800, 600, "LearnOpenTK"))
+			using (ArForm game = new ArForm(800, 600, "LearnSmartAutoAR"))
 			{
 				//Run takes a double, which is how many frames per second it should strive to reach.
 				//You can leave that out and it'll just update as fast as the hardware will allow it.
