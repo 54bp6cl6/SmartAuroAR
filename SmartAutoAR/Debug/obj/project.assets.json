@@ -5048,25 +5048,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\FamilyZheng\\.nuget\\packages\\": {},
+    "C:\\Users\\Max\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
+      "projectUniqueName": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
       "projectName": "Debug",
-      "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
-      "packagesPath": "C:\\Users\\FamilyZheng\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\obj\\",
+      "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\Debug.csproj",
+      "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\Debug\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\FamilyZheng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -5080,8 +5080,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
-              "projectPath": "C:\\Users\\FamilyZheng\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
+            "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj": {
+              "projectPath": "C:\\Users\\Max\\Desktop\\github\\SmartAuroAR\\SmartAutoAR\\SmartAutoAR\\SmartAutoAR.csproj"
             }
           }
         }

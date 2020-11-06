@@ -13,7 +13,7 @@ namespace Debug
 	{
 		IInputSource inputSource;
 		Scene scene;
-		Model stoneMan;
+		Model model;
 		ArWorkflow workflow;
 
 		public ArForm(int width, int height, string title) :
@@ -29,17 +29,18 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			//inputSource = new ImageSource(@"..\..\..\resources\image_test.jpg");
-			inputSource = new VideoSource(@"..\..\..\resources\video_test.mp4");
+			inputSource = new ImageSource(@"..\..\..\resources\image_test.jpg");
+			//inputSource = new VideoSource(@"..\..\..\resources\video_test.mp4");
 			//inputSource = new StreamSource();
 
 			// 創建場景
 			scene = new Scene();
-			stoneMan = Model.LoadModel(@"..\..\..\resources\models\Stone\Stone.obj"); // 請輸入您的模型路徑
-			scene.Models.Add(stoneMan);
+			model = Model.LoadModel(@"..\..\..\resources\models\cat\12221_Cat_v1_l3.obj"); // 請輸入您的模型路徑
+			scene.Models.Add(model);
 
 			// 調整模型大小
-			stoneMan.Resize(0.1f);
+			model.Resize(0.02f);
+			model.Rotation(x: -100f, z: -70);
 
 			// 加入燈光
 			// scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
@@ -67,7 +68,7 @@ namespace Debug
 			// 確保視窗比例與背景一致
 			Width = (int)(Height * workflow.WindowAspectRatio);
 
-			stoneMan.Rotation(y: 5);
+			//model.Rotation(y: 5);
 
 			// 對下一幀做處理，包含偵測、渲染、擬真
 			if (inputSource is VideoSource && (inputSource as VideoSource).EndOfVideo)

@@ -103,7 +103,6 @@ C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netsta
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.deps.json
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.dll
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.pdb
-C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\bin\Debug\netstandard2.1\SmartAutoAR.xml
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.csprojAssemblyReference.cache
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.AssemblyInfoInputs.cache
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\SmartAutoAR\obj\Debug\netstandard2.1\SmartAutoAR.AssemblyInfo.cs

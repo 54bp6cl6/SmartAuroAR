@@ -286,7 +286,6 @@ C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\opencv_videoio_ffmpeg440.dll
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\SmartAutoAR.dll
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\SmartAutoAR.pdb
-C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\bin\Debug\netcoreapp3.1\SmartAutoAR.xml
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.csprojAssemblyReference.cache
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfoInputs.cache
 C:\Users\Max\Desktop\github\SmartAuroAR\SmartAutoAR\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfo.cs
