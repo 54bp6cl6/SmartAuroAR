@@ -51,7 +51,7 @@ namespace SmartAutoAR
 			List<Vec3d> rvecs = new List<Vec3d>(), tvecs = new List<Vec3d>();
 			CvAruco.EstimatePoseSingleMarkers(
 				new Point2f[][] { pts },
-				1,
+				0.1f,
 				InputArray.Create(cameraMatrix),
 				InputArray.Create(dist),
 				OutputArray.Create<Vec3d>(rvecs),

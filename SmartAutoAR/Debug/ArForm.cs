@@ -36,10 +36,11 @@ namespace Debug
 			// 創建場景
 			scene = new Scene();
 			model = Model.LoadModel(@"..\..\..\resources\models\cat\12221_Cat_v1_l3.obj"); // 請輸入您的模型路徑
+			//model = Model.LoadModel(@"..\..\..\resources\models\IronMan\IronMan.obj"); // 請輸入您的模型路徑
 			scene.Models.Add(model);
 
 			// 調整模型大小
-			model.Resize(0.02f);
+			model.Resize(0.0035f);
 			model.Rotation(x: -100f, z: -70);
 
 			// 加入燈光
@@ -97,6 +98,15 @@ namespace Debug
 			scene.Dispose();
 
 			base.OnUnload(e);
+		}
+
+		private Tuple<IInputSource, Model> Cat()
+		{
+			Model cat = Model.LoadModel(@"..\..\..\resources\models\cat\12221_Cat_v1_l3.obj");
+			model.Resize(0.0035f);
+			model.Rotation(x: -100f, z: -70);
+
+			return new Tuple<IInputSource, Model>(new ImageSource(@"..\..\..\resources\image_test.jpg"), model);
 		}
 	}
 }
