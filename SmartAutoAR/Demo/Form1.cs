@@ -92,6 +92,24 @@ namespace Demo
 			}
 		}
 
+		private void Exemple1_Bt_Click(object sender, EventArgs e)
+		{
+			StreamSource_RB.Checked = true;
+			Marker_OFD.FileName = @"..\..\..\resources\marker2.jpg";
+			Model_OFD.FileName = @"..\..\..\resources\models\Propane\Propane.obj";
+			Resize_TB.Text = "";
+			RotaationX_TB.Text = "";
+			RotaationY_TB.Text = "";
+			RotaationZ_TB.Text = "";
+			LightTracking_CB.Checked = true;
+			ColorHarmonizing_CB.Checked = false;
+			Spin_CB.Checked = true;
+
+			SelectedInput_Lb.Text = InputSource_OFD.FileName.Split('\\')[^1];
+			SelectedMarker_Lb.Text = Marker_OFD.FileName.Split('\\')[^1];
+			SelectedModel_Lb.Text = Model_OFD.FileName.Split('\\')[^1];
+		}
+
 		private void Exemple2_Bt_Click(object sender, EventArgs e)
 		{
 			VideoSource_RB.Checked = true;

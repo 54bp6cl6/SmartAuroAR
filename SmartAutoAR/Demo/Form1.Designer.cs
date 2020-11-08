@@ -444,7 +444,7 @@
 			this.Exemple1_Bt.TabIndex = 2;
 			this.Exemple1_Bt.Text = "使用範例";
 			this.Exemple1_Bt.UseVisualStyleBackColor = false;
-			this.Exemple1_Bt.Click += new System.EventHandler(this.FileSelection_Bt_Click);
+			this.Exemple1_Bt.Click += new System.EventHandler(this.Exemple1_Bt_Click);
 			// 
 			// label1
 			// 
