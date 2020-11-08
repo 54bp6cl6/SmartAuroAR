@@ -26,14 +26,14 @@ namespace SmartAutoAR
 			//By using OPENCL we get the best speed ever
 			net.SetPreferableBackend(Net.Backend.OPENCV);
 			net.SetPreferableTarget(Net.Target.OPENCL_FP16);
-			first_forward("Resources\\Caffe\\ini_input.jpg");
+			FirstForward("Resources\\Caffe\\ini_input.jpg");
 		}
 
 		/// <summary>
 		/// 預先執行一次模型運算，以加速未來的運算速度
 		/// </summary>
 		/// <param name="ini_input">預執行的輸入影像</param>
-		public void first_forward(string ini_input)
+		public void FirstForward(string ini_input)
 		{
 			Mat input_img = Cv2.ImRead(ini_input);
 			Mat blob_InputImg = CvDnn.BlobFromImage(input_img, 1, swapRB: false);
@@ -48,7 +48,7 @@ namespace SmartAutoAR
 		/// 將接收到的影像資料轉為適合模型的輸入
 		/// </summary>
 		/// <param name="input_img">欲作為輸入的影像資料</param>
-		public Mat inputImg_Process(Mat input_img)
+		public Mat InputImgProcess(Mat input_img)
 		{
 			//先把得到的圖轉成RGB,Bitmap截圖得到的是4-channel,此套件只要3-channel
 			Cv2.CvtColor(input_img, input_img, ColorConversionCodes.RGBA2RGB);
@@ -67,7 +67,7 @@ namespace SmartAutoAR
 		/// 將虛擬物體遮罩處理為適合模型輸入的格式
 		/// </summary>
 		/// <param name="mask">虛擬物體遮罩影像</param>
-		public Mat maskImg_Process(Mat mask)
+		public Mat MaskImgProcess(Mat mask)
 		{
 			//同上,但這是mask的部分，然後mask一定要轉成1channel的圖
 			Cv2.CvtColor(mask, mask, ColorConversionCodes.RGBA2GRAY);
@@ -84,7 +84,7 @@ namespace SmartAutoAR
 		/// <param name="blob_InputImg">欲處理的 AR 影像</param>
 		/// <param name="blob_mask">虛擬物體遮罩影像</param>
 		/// <returns>模型前向傳播之輸出</returns>
-		public Mat netForward_Process(Mat blob_InputImg, Mat blob_mask)
+		public Mat NetForwardProcess(Mat blob_InputImg, Mat blob_mask)
 		{
 			//把input img和mask都丟進input内，"data" 和"mask"是套件取好的
 			net.SetInput(blob_InputImg, "data");
@@ -100,7 +100,7 @@ namespace SmartAutoAR
 		/// 將模型的輸出處理為影像資料
 		/// </summary>
 		/// <returns>色彩調和後的擬真化影像</returns>
-		public Mat outputImg_Process(Mat preProcess_output, int windowWidth, int windowHeight)
+		public Mat OutputImgProcess(Mat preProcess_output, int windowWidth, int windowHeight)
 		{
 			//Output出去前的處理
 			int H = preProcess_output.Size(2);

@@ -215,16 +215,16 @@ namespace SmartAutoAR
 			// 取得遮罩
 			ProcessAR(inputFrame, infoScene_tuples, forMask: true);
 			Mat mask = Screenshot().ToMat(); // 由於套件需要所以轉成mat
-			mask = colorHarmonize.maskImg_Process(mask);
+			mask = colorHarmonize.MaskImgProcess(mask);
 
 			// 取得 AR 影像
 			ProcessAR(inputFrame, infoScene_tuples, false);
 			Mat input_img = Screenshot().ToMat(); // 由於套件需要所以轉成mat
-			input_img = colorHarmonize.inputImg_Process(input_img); // Preprocess
+			input_img = colorHarmonize.InputImgProcess(input_img); // Preprocess
 
 			// 把截下來的圖傳去做前處理
-			Mat output = colorHarmonize.netForward_Process(input_img, mask);
-			output = colorHarmonize.outputImg_Process(output, windowWidth, windowHeight);
+			Mat output = colorHarmonize.NetForwardProcess(input_img, mask);
+			output = colorHarmonize.OutputImgProcess(output, windowWidth, windowHeight);
 
 			// 因爲background.SetImage()需要bitmap所以回傳回來又.ToBitmap了
 			background.SetImage(output.ToBitmap());
