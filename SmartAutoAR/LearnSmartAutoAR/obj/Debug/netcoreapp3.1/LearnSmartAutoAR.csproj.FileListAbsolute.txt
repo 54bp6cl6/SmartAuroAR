@@ -23,7 +23,6 @@ C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\bin
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\assimp.dll
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\bin\Debug\netcoreapp3.1\SmartAutoAR.dll
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\bin\Debug\netcoreapp3.1\SmartAutoAR.pdb
-C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\bin\Debug\netcoreapp3.1\SmartAutoAR.xml
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\obj\Debug\netcoreapp3.1\LearnSmartAutoAR.csprojAssemblyReference.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\obj\Debug\netcoreapp3.1\LearnSmartAutoAR.AssemblyInfoInputs.cache
 C:\Users\FamilyZheng\Desktop\github\SmartAuroAR\SmartAutoAR\LearnSmartAutoAR\obj\Debug\netcoreapp3.1\LearnSmartAutoAR.AssemblyInfo.cs

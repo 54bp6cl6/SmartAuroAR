@@ -66,6 +66,7 @@ namespace SmartAutoAR.VirtualObject
 				filepath = path
 			};
 			ProcessNode(aiScene.RootNode, aiScene, ref model);
+			model.Resize(0.01f);
 			return model;
 		}
 
