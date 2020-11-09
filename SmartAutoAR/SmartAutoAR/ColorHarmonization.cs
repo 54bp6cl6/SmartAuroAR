@@ -5,7 +5,7 @@ using OpenCvSharp.Dnn;
 namespace SmartAutoAR
 {
 	/// <summary>
-	/// 提供以機器學習技術對影像做色彩調和的效果
+	/// 提供以機器學習技術對影像做色彩融合的效果
 	/// </summary>
 	public class ColorHarmonization : IDisposable
 	{
@@ -99,7 +99,7 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 將模型的輸出處理為影像資料
 		/// </summary>
-		/// <returns>色彩調和後的擬真化影像</returns>
+		/// <returns>色彩融合後的擬真化影像</returns>
 		public Mat OutputImgProcess(Mat preProcess_output, int windowWidth, int windowHeight)
 		{
 			//Output出去前的處理

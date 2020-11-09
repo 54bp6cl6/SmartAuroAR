@@ -294,7 +294,7 @@
 			this.ColorHarmonizing_CB.Name = "ColorHarmonizing_CB";
 			this.ColorHarmonizing_CB.Size = new System.Drawing.Size(98, 19);
 			this.ColorHarmonizing_CB.TabIndex = 0;
-			this.ColorHarmonizing_CB.Text = "色彩調和模組";
+			this.ColorHarmonizing_CB.Text = "色彩融合模組";
 			this.ColorHarmonizing_CB.UseVisualStyleBackColor = true;
 			// 
 			// LightTracking_CB

@@ -33,7 +33,7 @@ namespace SmartAutoAR
 		public bool EnableLightTracking { get; set; }
 
 		/// <summary>
-		/// 是否啟用色彩調和模組
+		/// 是否啟用色彩融合模組
 		/// </summary>
 		public bool EnableColorHarmonizing
 		{
@@ -67,7 +67,7 @@ namespace SmartAutoAR
 		protected ICamera camera;
 
 		/// <summary>
-		/// 用於對影像作色彩調和的物件
+		/// 用於對影像作色彩融合的物件
 		/// </summary>
 		protected ColorHarmonization colorHarmonize;
 
@@ -206,7 +206,7 @@ namespace SmartAutoAR
 		}
 
 		/// <summary>
-		/// 使用色彩調和模組對AR影像進行擬真畫處理
+		/// 使用色彩融合模組對AR影像進行擬真畫處理
 		/// </summary>
 		/// <param name="inputFrame">環境(背景)影像</param>
 		/// <param name="infoScene_tuples">DetectMarkers()之偵測結果</param>

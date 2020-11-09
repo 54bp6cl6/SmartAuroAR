@@ -53,7 +53,7 @@ namespace LearnSmartAutoAR
             // 開啟光源追蹤模組
             workflow.EnableLightTracking = true;
 
-            // 開啟色彩調合模組
+            // 開啟色彩融合模組
             workflow.EnableColorHarmonizing = true;
 
             base.OnLoad(e);
