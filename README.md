@@ -25,6 +25,6 @@ AR效果要真一定要懂很多很難的技術嗎？
 #### 組員： 陳冠霖、曾天桐
 #### 指導教授： 羅梅君教授、林金玲教授
 
-教學文件(中文)：https://hackmd.io/MzwI6hvPRUKN1vdY6TrseA
+教學文件(中文)：https://hackmd.io/@SN2hZXguTrmvpfG8dA3dAg/SyVNyyhdv
 
 技術文件(中文)：https://hackmd.io/@SN2hZXguTrmvpfG8dA3dAg/SJqvIg2_v
