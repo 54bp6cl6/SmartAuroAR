@@ -1,6 +1,6 @@
 # 智動擬真標記式AR引擎
 
-![](https://github.com/54bp6cl6/SmartAutoAR/blob/master/SmartAutoAR/resources/marker.png){:height="50%" width="50%"}
+<img src="https://github.com/54bp6cl6/SmartAutoAR/blob/master/SmartAutoAR/resources/marker.png" width="300" height="300">
 
 ### 世新大學資訊管理學系第27屆畢業成果展作品
 
