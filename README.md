@@ -1,4 +1,7 @@
 # 智動擬真標記式AR引擎
+
+![image](https://github.com/54bp6cl6/SmartAutoAR/blob/master/SmartAutoAR/resources/marker.png?raw=true =300x)
+
 ### 世新大學資訊管理學系第27屆畢業成果展作品
 
 曾經風靡一時的AR潮流，
