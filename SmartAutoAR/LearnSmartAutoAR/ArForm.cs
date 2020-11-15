@@ -15,6 +15,7 @@ namespace LearnSmartAutoAR
         Scene scene;
         Model stoneMan;
         ArWorkflow workflow;
+        const string ResourcesPath = @"..\..\..\..\resources\";
 
         public ArForm(int width, int height, string title) :
             base(width, height,
@@ -29,15 +30,15 @@ namespace LearnSmartAutoAR
         protected override void OnLoad(EventArgs e)
         {
             // 請輸入您的影片路徑
-            videoSource = new VideoSource(@"..\..\..\resources\video_test.mp4");
+            videoSource = new VideoSource(ResourcesPath+"video_test.mp4");
 
             // 創建場景
             scene = new Scene();
-            stoneMan = Model.LoadModel(@"..\..\..\resources\models\Stone\Stone.obj"); // 請輸入您的模型路徑
+            stoneMan = Model.LoadModel(ResourcesPath+@"models\Stone\Stone.obj"); // 請輸入您的模型路徑
             scene.Models.Add(stoneMan);
 
             // 調整模型大小
-            stoneMan.Resize(0.1f);
+            stoneMan.Resize(0.5f);
 
             // 加入燈光
             // scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
@@ -46,7 +47,7 @@ namespace LearnSmartAutoAR
             workflow = new ArWorkflow(videoSource);
 
             // 設定 marker 對應的 scene
-            Bitmap marker = new Bitmap(@"..\..\..\resources\marker.png"); // 請輸入您 Marker 圖檔的路徑
+            Bitmap marker = new Bitmap(ResourcesPath+"marker.png"); // 請輸入您 Marker 圖檔的路徑
             workflow.MarkerPairs[marker] = scene;
             workflow.TrainMarkers(); // 修改後一定要執行!!
 

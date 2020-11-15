@@ -15,6 +15,7 @@ namespace Debug
 		Scene scene;
 		Model model;
 		ArWorkflow workflow;
+		const string ResourcesPath = @"..\..\..\..\resources\";
 
 		public ArForm(int width, int height, string title) :
 			base(width, height,
@@ -29,19 +30,17 @@ namespace Debug
 		protected override void OnLoad(EventArgs e)
 		{
 			// 設定影像輸入
-			inputSource = new ImageSource(@"..\..\..\resources\image_test.jpg");
+			inputSource = new ImageSource(ResourcesPath+"image_test.jpg");
 			//inputSource = new VideoSource(@"..\..\..\resources\video_test.mp4");
 			//inputSource = new StreamSource();
 
 			// 創建場景
 			scene = new Scene();
-			model = Model.LoadModel(@"..\..\..\resources\models\Cyclopropane\Cyclopropane.obj"); // 請輸入您的模型路徑
-			//model = Model.LoadModel(@"..\..\..\resources\models\IronMan\IronMan.obj"); // 請輸入您的模型路徑
+			model = Model.LoadModel(ResourcesPath+@"models\IronMan\IronMan.obj"); // 請輸入您的模型路徑
 			scene.Models.Add(model);
 
 			// 調整模型大小
-			model.Resize(0.00035f);
-			model.Rotation(x: -100f, z: -70);
+			model.Resize(0.035f);
 
 			// 加入燈光
 			// scene.Lights.Add(new AmbientLight(Color4.White, 0.8f));
@@ -50,7 +49,7 @@ namespace Debug
 			workflow = new ArWorkflow(inputSource);
 
 			// 設定 marker 對應的 scene
-			Bitmap marker = new Bitmap(@"..\..\..\resources\marker.png"); // 請輸入您 Marker 圖檔的路徑
+			Bitmap marker = new Bitmap(ResourcesPath+"marker.png"); // 請輸入您 Marker 圖檔的路徑
 			workflow.MarkerPairs[marker] = scene;
 			workflow.TrainMarkers(); // 修改後一定要執行!!
 
@@ -78,7 +77,6 @@ namespace Debug
 				workflow.ClearState();
 			}
 			workflow.Show();
-			//workflow.ShowMarker();
 
 			// 針對視窗本身做繪製
 			SwapBuffers();
@@ -98,15 +96,6 @@ namespace Debug
 			scene.Dispose();
 
 			base.OnUnload(e);
-		}
-
-		private Tuple<IInputSource, Model> Cat()
-		{
-			Model cat = Model.LoadModel(@"..\..\..\resources\models\cat\12221_Cat_v1_l3.obj");
-			model.Resize(0.0035f);
-			model.Rotation(x: -100f, z: -70);
-
-			return new Tuple<IInputSource, Model>(new ImageSource(@"..\..\..\resources\image_test.jpg"), model);
 		}
 	}
 }

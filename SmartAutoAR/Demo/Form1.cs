@@ -14,6 +14,7 @@ namespace Demo
 	public partial class Form1 : Form
 	{
 		ArForm arForm;
+		const string ResourcesPath = @"..\..\..\..\resources\";
 
 		public Form1()
 		{
@@ -95,13 +96,14 @@ namespace Demo
 		private void Exemple1_Bt_Click(object sender, EventArgs e)
 		{
 			StreamSource_RB.Checked = true;
-			Marker_OFD.FileName = @"..\..\..\resources\marker2.jpg";
-			Model_OFD.FileName = @"..\..\..\resources\models\Propane\Propane.obj";
-			Resize_TB.Text = "";
+			Marker_OFD.FileName = ResourcesPath+"marker2.jpg";
+			Model_OFD.FileName = ResourcesPath+@"models\Ray\ch4.obj";
+			Resize_TB.Text = "0.05";
+			CameraID_Tb.Text = "1";
 			RotaationX_TB.Text = "";
 			RotaationY_TB.Text = "";
 			RotaationZ_TB.Text = "";
-			LightTracking_CB.Checked = true;
+			LightTracking_CB.Checked = false;
 			ColorHarmonizing_CB.Checked = false;
 			Spin_CB.Checked = true;
 
@@ -113,9 +115,9 @@ namespace Demo
 		private void Exemple2_Bt_Click(object sender, EventArgs e)
 		{
 			VideoSource_RB.Checked = true;
-			InputSource_OFD.FileName = @"..\..\..\resources\video_test.mp4";
-			Marker_OFD.FileName = @"..\..\..\resources\marker.png";
-			Model_OFD.FileName = @"..\..\..\resources\models\Stone\Stone.obj";
+			InputSource_OFD.FileName = ResourcesPath+"video_test.mp4";
+			Marker_OFD.FileName = ResourcesPath+"marker.png";
+			Model_OFD.FileName = ResourcesPath+@"models\Stone\Stone.obj";
 			Resize_TB.Text = "";
 			RotaationX_TB.Text = "";
 			RotaationY_TB.Text = "";
@@ -132,9 +134,9 @@ namespace Demo
 		private void Exemple3_Bt_Click(object sender, EventArgs e)
 		{
 			ImageSource_RB.Checked = true;
-			InputSource_OFD.FileName = @"..\..\..\resources\image_test.jpg";
-			Marker_OFD.FileName = @"..\..\..\resources\marker.png";
-			Model_OFD.FileName = @"..\..\..\resources\models\cat\12221_Cat_v1_l3.obj";
+			InputSource_OFD.FileName = ResourcesPath+"image_test.jpg";
+			Marker_OFD.FileName = ResourcesPath+"marker.png";
+			Model_OFD.FileName = ResourcesPath+@"models\cat\12221_Cat_v1_l3.obj";
 			Resize_TB.Text = "0.35";
 			RotaationX_TB.Text = "-100";
 			RotaationY_TB.Text = "";
