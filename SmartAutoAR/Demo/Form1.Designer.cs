@@ -106,7 +106,7 @@
 			this.CameraID_Tb.Name = "CameraID_Tb";
 			this.CameraID_Tb.Size = new System.Drawing.Size(48, 23);
 			this.CameraID_Tb.TabIndex = 5;
-			this.CameraID_Tb.Text = "0";
+			this.CameraID_Tb.Text = "1";
 			this.CameraID_Tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.CameraID_Tb.Visible = false;
 			// 
