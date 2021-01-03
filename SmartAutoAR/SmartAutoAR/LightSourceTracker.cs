@@ -6,8 +6,17 @@ using System;
 
 namespace SmartAutoAR
 {
+	/// <summary>
+	/// 提供分析並模擬環境光源，以及生成光照元件等功能
+	/// </summary>
 	public static class LightSourceTracker
 	{
+		/// <summary>
+		/// 預測光源並生成相應的光照元件
+		/// </summary>
+		/// <param name="marker">設定之 Marker 影像</param>
+		/// <param name="info">影像的 Marker 偵測結果</param>
+		/// <returns>模擬的光照元件</returns>
 		public static ILight[] PredictLightSource(Mat marker, MarkerTrackingInfo info)
 		{
 			Mat distribution = GetDistribution(marker, info.DetectedMarkerImage);
@@ -37,14 +46,24 @@ namespace SmartAutoAR
 			return output;
 		}
 
+		/// <summary>
+		/// 根據 Marker 製作光照分布圖
+		/// </summary>
+		/// <param name="orgMarker">Marker 設定圖檔</param>
+		/// <param name="detectedMarker">偵測到的 Marker 影像</param>
+		/// <returns>光照分布圖</returns>
 		private static Mat GetDistribution(Mat orgMarker, Mat detectedMarker)
 		{
-			Mat[] labResult = new Mat[3];
 			Mat[] orgLab = ColorCalculation.GetLabChennel(orgMarker);
 			Mat[] detectedLab = ColorCalculation.GetLabChennel(detectedMarker);
 			return detectedLab[0] / orgLab[0] * 256;
 		}
 
+		/// <summary>
+		/// 取得光照分布圖中九個方位各自的平均亮度
+		/// </summary>
+		/// <param name="distribution">光照分布圖</param>
+		/// <returns>九個方位各自的平均亮度</returns>
 		private static double[] GetAvgBrightness(Mat distribution)
 		{
 			Mat leftTop = distribution.SubMat(0, distribution.Width / 3, 0, distribution.Height / 3);

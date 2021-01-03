@@ -67,9 +67,13 @@ namespace SmartAutoAR
 			}
 		}
 
+		/// <summary>
+		/// 釋放資源
+		/// </summary>
 		public void Dispose()
 		{
 			foreach (Model model in Models) model.Dispose();
+			shader.Dispose();
 		}
 	}
 }

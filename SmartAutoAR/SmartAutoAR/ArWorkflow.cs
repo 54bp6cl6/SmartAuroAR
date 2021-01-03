@@ -251,9 +251,9 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 設定輸出影像的大小
 		/// </summary>
-		public void SetOutputSize(int Width, int Height)
+		public void SetOutputSize(int width, int Height)
 		{
-			windowWidth = Width;
+			windowWidth = width;
 			windowHeight = Height;
 			GL.Viewport(0, 0, windowWidth, windowHeight);
 			camera.AspectRatio = WindowAspectRatio;

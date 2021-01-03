@@ -21,6 +21,10 @@ namespace SmartAutoAR.InputSource
 		Stopwatch watch;
 		double msPerFrame;
 
+		/// <summary>
+		/// 以指定的檔案路徑初始化物件
+		/// </summary>
+		/// <param name="path">來源影片之檔案路徑</param>
 		public VideoSource(string path)
 		{
 			OutputWidth = 1;
@@ -61,6 +65,9 @@ namespace SmartAutoAR.InputSource
 			return LastFrame;
 		}
 
+		/// <summary>
+		/// 重新撥放影片
+		/// </summary>
 		public void Replay()
 		{
 			videoCapture.Set(VideoCaptureProperties.PosFrames, 0);

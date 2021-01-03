@@ -4,6 +4,9 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace SmartAutoAR.VirtualObject.Base
 {
+	/// <summary>
+	/// 模型的最小可渲染單位
+	/// </summary>
 	public class Mesh : IDisposable
 	{
 		protected readonly int VAO, VBO, EBO;
@@ -16,6 +19,10 @@ namespace SmartAutoAR.VirtualObject.Base
 		public Texture Texture { get; private set; }
 		public bool UseTexture { get; set; }
 
+		/// <summary>
+		/// 以指定的頂點陣列初始化物件
+		/// </summary>
+		/// <param name="vertices"></param>
 		public Mesh(Vertex[] vertices)
 		{
 			this.Vertices = vertices;
@@ -55,6 +62,10 @@ namespace SmartAutoAR.VirtualObject.Base
 			UseTexture = false;
 		}
 
+		/// <summary>
+		/// 設定頂點的連接方式
+		/// </summary>
+		/// <param name="indices">Indice 陣列</param>
 		public void SetIndices(uint[] indices)
 		{
 			this.Indices = indices;
@@ -67,6 +78,10 @@ namespace SmartAutoAR.VirtualObject.Base
 			dis_EBO = true;
 		}
 
+		/// <summary>
+		/// 設定貼圖
+		/// </summary>
+		/// <param name="texture">欲使用的貼圖</param>
 		public void SetTexture(Texture texture)
 		{
 			this.Texture = texture;
@@ -74,6 +89,10 @@ namespace SmartAutoAR.VirtualObject.Base
 			dis_texture = true;
 		}
 
+		/// <summary>
+		/// 以指定的比率縮小此 Mesh
+		/// </summary>
+		/// <param name="percent">縮小比率</param>
 		public void Resize(float percent)
 		{
 			for (int i = 0; i < Vertices.Length; i++)
@@ -89,6 +108,10 @@ namespace SmartAutoAR.VirtualObject.Base
 			GL.NamedBufferData(VBO, Vertex.Size * Vertices.Length, Vertices, BufferUsageHint.StaticDraw);
 		}
 
+		/// <summary>
+		/// 在畫面上渲染此 Mesh
+		/// </summary>
+		/// <param name="shader">欲使用的著色器</param>
 		public void Render(Shader shader)
 		{
 			shader.Use();
@@ -110,6 +133,9 @@ namespace SmartAutoAR.VirtualObject.Base
 			else GL.DrawArrays(PrimitiveType.Triangles, 0, Vertices.Length);
 		}
 
+		/// <summary>
+		/// 釋放資源
+		/// </summary>
 		public void Dispose()
 		{
 			GL.DeleteVertexArray(VAO);

@@ -4,6 +4,9 @@ using System.IO;
 
 namespace SmartAutoAR.VirtualObject.Base
 {
+	/// <summary>
+	/// 用於管理著色器的類別
+	/// </summary>
 	public class Shader : IDisposable
 	{
 		public static Shader StandardShader
@@ -26,6 +29,11 @@ namespace SmartAutoAR.VirtualObject.Base
 
 		protected readonly int handle;
 
+		/// <summary>
+		/// 以指定的頂點著色器與片段著色器初始化物件
+		/// </summary>
+		/// <param name="vertexPath">頂點著色器檔案路徑</param>
+		/// <param name="fragmentPath">片段著色器檔案路徑</param>
 		public Shader(string vertexPath, string fragmentPath)
 		{
 			// vertex shader
@@ -55,6 +63,9 @@ namespace SmartAutoAR.VirtualObject.Base
 			GL.DeleteShader(fragmentShader);
 		}
 
+		/// <summary>
+		/// 呼叫顯示卡使用此著色器程式
+		/// </summary>
 		public void Use()
 		{
 			GL.UseProgram(handle);

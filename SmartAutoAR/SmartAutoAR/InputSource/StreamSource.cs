@@ -16,6 +16,10 @@ namespace SmartAutoAR.InputSource
 
         VideoCapture videoCapture;
 
+        /// <summary>
+        /// 以指定的內建攝影鏡頭編號初始化物件
+        /// </summary>
+        /// <param name="camId">指定之內建攝影鏡頭編號</param>
         public StreamSource(int camId = 0)
         {
             OutputWidth = 1;

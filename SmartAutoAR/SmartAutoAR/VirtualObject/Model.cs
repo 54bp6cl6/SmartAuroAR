@@ -10,6 +10,9 @@ using Mesh = SmartAutoAR.VirtualObject.Base.Mesh;
 
 namespace SmartAutoAR.VirtualObject
 {
+	/// <summary>
+	/// 儲存與管理模型資料之類別，並提供匯入模型檔之功能
+	/// </summary>
 	public class Model : IDisposable
 	{
 		public List<Mesh> Meshes { get; }
@@ -22,6 +25,12 @@ namespace SmartAutoAR.VirtualObject
 			ModelMatrix = Matrix4.Identity;
 		}
 
+		/// <summary>
+		/// 以指定的度數以三軸旋轉模型
+		/// </summary>
+		/// <param name="x">以x軸旋轉的度數</param>
+		/// <param name="y">以y軸旋轉的度數</param>
+		/// <param name="z">以z軸旋轉的度數</param>
 		public void Rotation(float x = 0f, float y = 0f, float z = 0f)
 		{
 			ModelMatrix = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(x)) * ModelMatrix;
@@ -29,11 +38,21 @@ namespace SmartAutoAR.VirtualObject
 			ModelMatrix = Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(z)) * ModelMatrix;
 		}
 
+		/// <summary>
+		/// 以指定的距離在三軸上移動模型
+		/// </summary>
+		/// <param name="x">依x軸移動的距離</param>
+		/// <param name="y">依y軸移動的距離</param>
+		/// <param name="z">依z軸移動的距離</param>
 		public void Move(float x = 0f, float y = 0f, float z = 0f)
 		{
 			ModelMatrix *= Matrix4.CreateTranslation(x, y, z);
 		}
 
+		/// <summary>
+		/// 以指定的比率縮小模型
+		/// </summary>
+		/// <param name="percent">縮小比率</param>
 		public void Resize(float percent)
 		{
 			foreach (Mesh mesh in Meshes)
@@ -42,6 +61,10 @@ namespace SmartAutoAR.VirtualObject
 			}
 		}
 
+		/// <summary>
+		/// 在畫面上渲染模型
+		/// </summary>
+		/// <param name="shader">欲使用的著色器</param>
 		public void Render(Shader shader)
 		{
 			Matrix4 temp = ModelMatrix;
@@ -52,6 +75,11 @@ namespace SmartAutoAR.VirtualObject
 			}
 		}
 
+		/// <summary>
+		/// 從指定檔案路徑匯入模型檔
+		/// </summary>
+		/// <param name="path">模型檔案路徑</param>
+		/// <returns>匯入之 Model 物件</returns>
 		public static Model LoadModel(string path)
 		{
 			AssimpContext importer = new AssimpContext();
@@ -70,6 +98,12 @@ namespace SmartAutoAR.VirtualObject
 			return model;
 		}
 
+		/// <summary>
+		/// 讀取 Assimp 模型節點
+		/// </summary>
+		/// <param name="node">Assimp 模型節點</param>
+		/// <param name="scene">Assimp 場景物件</param>
+		/// <param name="model">輸出模型</param>
 		private static void ProcessNode(Node node, Assimp.Scene scene, ref Model model)
 		{
 			for (int i = 0; i < node.MeshCount; i++)
@@ -83,6 +117,13 @@ namespace SmartAutoAR.VirtualObject
 			}
 		}
 
+		/// <summary>
+		/// 讀取 Assimp Mesh 物件
+		/// </summary>
+		/// <param name="mesh">Assimp Mesh 物件</param>
+		/// <param name="scene">Assimp 場景物件</param>
+		/// <param name="filepath">模型檔案路徑</param>
+		/// <returns>模型中的一小部分(Mesh)</returns>
 		private static Mesh ProcessMesh(Assimp.Mesh mesh, Assimp.Scene scene, string filepath)
 		{
 			List<Vertex> vertices = new List<Vertex>();
@@ -138,6 +179,9 @@ namespace SmartAutoAR.VirtualObject
 			return output;
 		}
 
+		/// <summary>
+		/// 釋放資源
+		/// </summary>
 		public void Dispose()
 		{
 			foreach (Mesh mesh in Meshes)

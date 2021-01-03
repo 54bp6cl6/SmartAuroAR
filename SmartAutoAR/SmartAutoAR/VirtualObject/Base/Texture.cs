@@ -7,6 +7,9 @@ using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 namespace SmartAutoAR.VirtualObject.Base
 {
+	/// <summary>
+	/// 用於管理貼圖的類別
+	/// </summary>
 	public class Texture : IDisposable
 	{
 		protected readonly int Handle;
@@ -20,6 +23,11 @@ namespace SmartAutoAR.VirtualObject.Base
 			Height = 0;
 		}
 
+		/// <summary>
+		/// 從指定檔案路徑導入貼圖
+		/// </summary>
+		/// <param name="file">貼圖檔案路徑</param>
+		/// <returns>導入之 Texture 物件</returns>
 		public static Texture FromFile(string file)
 		{
 			Texture texture = new Texture();
@@ -30,6 +38,10 @@ namespace SmartAutoAR.VirtualObject.Base
 			return texture;
 		}
 
+		/// <summary>
+		/// 設定貼圖圖像
+		/// </summary>
+		/// <param name="image">欲設定之圖像</param>
 		public void SetImage(Bitmap image)
 		{
 			Use();

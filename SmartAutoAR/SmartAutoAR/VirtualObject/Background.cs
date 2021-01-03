@@ -6,6 +6,9 @@ using Bitmap = System.Drawing.Bitmap;
 
 namespace SmartAutoAR.VirtualObject
 {
+	/// <summary>
+	/// 用於渲染背景的類別
+	/// </summary>
 	public class Background : IDisposable
 	{
 		protected static float[] vertices =
@@ -59,11 +62,18 @@ namespace SmartAutoAR.VirtualObject
 			GL.NamedBufferStorage(EBO, indices.Length * sizeof(uint), indices, BufferStorageFlags.MapWriteBit);
 		}
 
+		/// <summary>
+		/// 設定欲選染於背景的圖片
+		/// </summary>
+		/// <param name="frame"></param>
 		public void SetImage(Bitmap frame)
 		{
 			texture.SetImage(frame);
 		}
 
+		/// <summary>
+		/// 在畫面上渲染背景
+		/// </summary>
 		public void Render()
 		{
 			GL.Disable(EnableCap.DepthTest);
@@ -74,6 +84,9 @@ namespace SmartAutoAR.VirtualObject
 			GL.Enable(EnableCap.DepthTest);
 		}
 
+		/// <summary>
+		/// 釋放資源
+		/// </summary>
 		public void Dispose()
 		{
 			GL.DeleteVertexArray(VAO);

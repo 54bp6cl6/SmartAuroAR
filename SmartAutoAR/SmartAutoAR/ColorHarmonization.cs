@@ -17,7 +17,7 @@ namespace SmartAutoAR
 		private Net net;
 
 		/// <summary>
-		/// 初始化 SmartAutoAR.ColorHarmonization 類別的物件
+		/// 初始化物件
 		/// </summary>
 		public ColorHarmonization()
 		{
