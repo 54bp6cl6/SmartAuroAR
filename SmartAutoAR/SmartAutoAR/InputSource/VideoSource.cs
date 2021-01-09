@@ -36,10 +36,13 @@ namespace SmartAutoAR.InputSource
 			frame = new Mat();
 		}
 
+		/// <improvable>
+		/// 超過才給下一幀的方式還是有些許誤差
+		/// </improvable>
 		public Bitmap GetNextFrame()
 		{
 			if (videoCapture.Get(VideoCaptureProperties.PosFrames) == videoCapture.FrameCount)
-				throw new System.ArgumentException("Reach the end of video");
+				throw new System.ArgumentException("Reach the end of the video.");
 
 			if (!watch.IsRunning)
 			{
@@ -47,6 +50,8 @@ namespace SmartAutoAR.InputSource
 				watch.Start();
 			}
 
+			// 為確保影片撥放速度不會因處理速度忽快忽慢
+			// 計時超過 msPerFrame 才給他下一幀畫面(可改進)
 			if (watch.ElapsedMilliseconds > msPerFrame)
 			{
 				for(double ms = 0; ms < watch.ElapsedMilliseconds; ms += msPerFrame)
@@ -72,6 +77,7 @@ namespace SmartAutoAR.InputSource
 		{
 			videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
 			EndOfVideo = false;
+			watch.Stop();
 		}
 	}
 }

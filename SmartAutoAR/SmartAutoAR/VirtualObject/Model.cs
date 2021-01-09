@@ -124,6 +124,9 @@ namespace SmartAutoAR.VirtualObject
 		/// <param name="scene">Assimp 場景物件</param>
 		/// <param name="filepath">模型檔案路徑</param>
 		/// <returns>模型中的一小部分(Mesh)</returns>
+		/// <improvable>
+		/// 目前只拿檔案中的 vertex、indices、material 與 Texture 資料
+		/// </improvable>
 		private static Mesh ProcessMesh(Assimp.Mesh mesh, Assimp.Scene scene, string filepath)
 		{
 			List<Vertex> vertices = new List<Vertex>();
