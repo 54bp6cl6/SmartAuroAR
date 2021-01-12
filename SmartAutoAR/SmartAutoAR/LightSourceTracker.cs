@@ -13,6 +13,11 @@ namespace SmartAutoAR
 	{
 		/// <summary>
 		/// 預測光源並生成相應的光照元件
+		/// 1. 將偵測到的Marker與原始圖檔比對，得到光照分布圖
+		/// 2. 將光照分布圖切成九宮格，參考最暗一格的亮度來生成一個環境光元件
+		/// 3. 參考最亮一格的位置與亮度生成一個定向光元件
+		/// 4. 根據最亮與最暗的對比來調整模擬光的強度，增加對比
+		/// 5. Return 模擬光
 		/// </summary>
 		/// <param name="marker">設定之 Marker 影像</param>
 		/// <param name="info">影像的 Marker 偵測結果</param>

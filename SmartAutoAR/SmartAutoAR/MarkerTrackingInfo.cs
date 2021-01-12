@@ -8,6 +8,9 @@ namespace SmartAutoAR
 {
 	/// <summary>
 	/// Marker tracking info.
+	/// 
+	/// 用來計算圖像中marker相對於 相機的位置以及角度資訊 稱為姿態矩陣= model mat * view mat * projection mat
+	/// 
 	/// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
 	/// </summary>
 	public class MarkerTrackingInfo
@@ -46,6 +49,9 @@ namespace SmartAutoAR
 			DetectedMarkerImage = new Mat();
 		}
 
+		/// <summary>
+		/// 姿態估計 計算 marker相對於相機的 旋轉 位移 向量
+		/// </summary>
 		public void ComputePose()
 		{
 			List<Vec3d> rvecs = new List<Vec3d>(), tvecs = new List<Vec3d>();
@@ -59,7 +65,7 @@ namespace SmartAutoAR
 			Tvec = tvecs[0];
 			Rvec = rvecs[0];
 		}
-
+		
 		public void ComputeMatrix()
 		{
 			ViewMatrix = GetViewMatrix(Rvec, Tvec);
@@ -82,7 +88,9 @@ namespace SmartAutoAR
 			Roll = Rvec[1] / Math.PI * 180 % 360;
 			Yaw = Rvec[2] / Math.PI * 180 % 360;
 		}
-
+		/// <summary>
+		/// 計算view矩陣
+		/// </summary>
 		private Matrix4 GetViewMatrix(Vec3d rvec, Vec3d tvec)
 		{
 			Mat rotMat = new Mat();
@@ -100,6 +108,10 @@ namespace SmartAutoAR
 
 			return output;
 		}
+
+		/// <summary>
+		/// 計算Projection矩陣
+		/// </summary>
 
 		public Matrix4 GetProjectionMatrix(float width, float height, float near_plane = 0.0001f, float far_plane = 10000f)
 		{

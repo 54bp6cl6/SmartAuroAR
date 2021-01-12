@@ -8,6 +8,11 @@ namespace SmartAutoAR
 {
 	/// <summary>
 	/// Marker detector.
+	/// 
+	/// 主要流程如下
+	/// [step1] 初始化 buildMarkerFromImage(Mat image)-->train()
+	/// [step2] 偵測marker在圖像中的四頂點 --> Detect(Mat image, out MarkerTrackingInfo info)
+	/// ps:四頂點可以用來計算圖像中marker相對於 相機的位置以及角度資訊 稱為姿態矩陣
 	/// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
 	/// </summary>
 	public class MarkerDetector
@@ -114,10 +119,9 @@ namespace SmartAutoAR
 
 			m_extractor = ORB.Create(1000);
 			//BFMatcher bfMatcher = new BFMatcher(NormTypes.Hamming, true);
-			m_matcher = new BFMatcher(NormTypes.Hamming);
-			//m_matcher = DescriptorMatcher.Create("BRUTEFORCE_HAMMING");
+			m_matcher = new BFMatcher(NormTypes.Hamming);//比對特徵點的方式採用 Hamming
 			enableRatioTest = ratioTest;
-			enableHomographyRefinement = true;
+			enableHomographyRefinement = true;//開啟 使虛擬模型出現位置能更加準確 關閉 則能加快運算速度
 			homographyReprojectionThreshold = 3;
 
 			//m_queryKeypoints = new MatOfKeyPoint ();
@@ -131,7 +135,7 @@ namespace SmartAutoAR
 		}
 
 		/// <summary>
-		/// Train the specified marker.
+		/// 將要辨認的marker圖片 轉換成特徵點 登入至系統
 		/// </summary>
 		/// <param name="marker">Marker.</param>
 		public void train()
@@ -153,6 +157,9 @@ namespace SmartAutoAR
 			m_matcher.Train();
 		}
 
+		/// <summary>
+		/// 運用單應性矩陣 計算 圖像中marker四頂點
+		/// </summary>
 		private Point2f[] getPerspectiveTransformValue(Mat H, Point2f[] corners)
 		{
 			Point2f[] p2d = new Point2f[corners.Length];
@@ -174,6 +181,7 @@ namespace SmartAutoAR
 
 		/// <summary>
 		/// Builds the marker from image.
+		/// 並且預設系統裡的marker(擺正的)之座標
 		/// </summary>
 		/// <param name="image">Image.</param>
 		/// <param name="marker">Marker.</param>
@@ -204,18 +212,6 @@ namespace SmartAutoAR
 				new Point2f(0,h)
 			};
 
-			//float maxsize = Math.Max(h, w);
-			////marker.points2d.fromList (points2dList);
-			//float unitH = h / maxsize;
-			//float unitW = w / maxsize;
-			//m_marker.points3d = new Point3f[]
-			//{
-			//    //18 mean marker cm
-			//    new Point3f(-unitW, -unitH, 0),
-			//    new Point3f(unitW, -unitH, 0),
-			//    new Point3f(unitW, unitH, 0),
-			//    new Point3f(-unitW, unitH, 0)
-			//};
 			float w_r = 6, h_r = 5.5f;
 			m_marker.points3d = new Point3f[]
 		   {
@@ -232,6 +228,14 @@ namespace SmartAutoAR
 
 		/// <summary>
 		/// Finds the marker.
+		/// 
+		/// [step1] 將輸入圖片轉灰階 並擷取特徵點
+		/// [step2] 與系統內的marker圖片 進行特徵點匹配
+		/// [step3] 在refineMatchesWithHomography()裡會先以距離密集不能太密集前提篩選已找出的特徵匹配點
+		///			若有足夠多的特徵點成功保留 則計算 從 正marker 轉至 當前影像中marker  所需之homography矩陣
+		///			
+		/// [step4] 將正marker 的 座標(預設 (0,0),(w,0),(w,h),(0,h) 通過homography矩陣 映射到 新四頂點(輸入圖片中marker座標)
+		/// 
 		/// </summary>
 		/// <returns><c>true</c>, if marker was found, <c>false</c> otherwise.</returns>
 		/// <param name="image">Image.</param>
@@ -240,7 +244,7 @@ namespace SmartAutoAR
 		{
 			info = new MarkerTrackingInfo();
 			// Convert input image to gray
-			m_grayImg = ColorCalculation.GetLabChennel(image)[0];
+			m_grayImg = ColorCalculation.GetLabChennel(image)[0];//將灰階圖像設為 接收 lab中l值作為單通道
 			//Cv2.CvtColor(image, m_grayImg, ColorConversionCodes.BGR2GRAY);
 			// Extract feature points from input gray image
 			extractFeatures(m_grayImg, ref m_queryKeypoints, ref m_queryDescriptors);
@@ -306,7 +310,7 @@ namespace SmartAutoAR
 		}
 
 		/// <summary>
-		/// Extracts the features.
+		/// 從輸入的圖片擷取特徵點
 		/// </summary>
 		/// <returns><c>true</c>, if features was extracted, <c>false</c> otherwise.</returns>
 		/// <param name="image">Image.</param>
@@ -336,7 +340,7 @@ namespace SmartAutoAR
 		}
 
 		/// <summary>
-		/// Gets the matches.
+		/// 匹配兩圖像之間的特徵點
 		/// </summary>
 		/// <param name="queryDescriptors">Query descriptors.</param>
 		/// <param name="matches">Matches.</param>
@@ -384,7 +388,9 @@ namespace SmartAutoAR
 		}
 
 		/// <summary>
-		/// Refines the matches with homography.
+		/// 通過匹配特徵點 找出 從正marker 變換到 當前輸入圖像之marker 之 homography矩陣
+		/// 
+		/// 
 		/// </summary>
 		/// <returns><c>true</c>, if matches with homography was refined, <c>false</c> otherwise.</returns>
 		/// <param name="queryKeypoints">Query keypoints.</param>

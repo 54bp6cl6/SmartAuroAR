@@ -126,6 +126,7 @@ namespace SmartAutoAR.VirtualObject
 		/// <returns>模型中的一小部分(Mesh)</returns>
 		/// <improvable>
 		/// 目前只拿檔案中的 vertex、indices、material 與 Texture 資料
+		/// 無法表現高級、複雜的模型
 		/// </improvable>
 		private static Mesh ProcessMesh(Assimp.Mesh mesh, Assimp.Scene scene, string filepath)
 		{

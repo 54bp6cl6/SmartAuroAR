@@ -33,7 +33,8 @@ namespace SmartAutoAR
 		public bool EnableLightTracking { get; set; }
 
 		/// <summary>
-		/// 是否啟用色彩融合模組
+		/// 是否啟用色彩融合模組。
+		/// 若將此值設定為false，會釋放神經網路占用的資源
 		/// </summary>
 		public bool EnableColorHarmonizing
 		{
@@ -105,6 +106,9 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 設定並部署 Marker 與其關聯的虛擬場影，使 MarkerPairs 屬性的改動生效
 		/// </summary>
+		/// <explain>
+		/// 為每個Marker圖檔都生成一個MarkerDetector物件
+		/// </explain>
 		public void TrainMarkers()
 		{
 			markerScene = new Dictionary<MarkerDetector, Scene>();
@@ -122,6 +126,11 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 在目前綁定的 OpenGL Context 上渲染 AR 畫面
 		/// </summary>
+		/// <flow>
+		/// 1. 取得輸入畫面(環境)
+		/// 2. 偵測畫面中出現的Marker
+		/// 3. 根據是否使用色彩融合呼叫不同的處理方式
+		/// </flow>
 		public void Show(bool nextFrame = true)
 		{
 			Bitmap inputFrame = nextFrame ? InputSource.GetNextFrame() : InputSource.LastFrame;
@@ -142,6 +151,17 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 偵測並計算輸入畫面中出現的marker資訊
 		/// </summary>
+		/// <flow>
+		/// 1. 讓每個MarkerDetector輪流偵測
+		/// 2. 偵測到的話會產生出偵測結果info
+		/// 3. (如果有的話)以上一幀的偵測結果來平滑化這一幀
+		/// 4. 換算姿態矩陣
+		/// </flow>
+		/// <improvable>
+		/// 1. 當設定的Marker越多速度越慢
+		/// 2. 當畫面中出現的Marker越多速度越慢
+		/// 3. 可以考慮非同步式偵測
+		/// </improvable>
 		private List<Tuple<MarkerTrackingInfo, Scene>> DetectMarkers(Bitmap inputFrame)
 		{
 			List<Tuple<MarkerTrackingInfo, Scene>> infoScene = new List<Tuple<MarkerTrackingInfo, Scene>>();
@@ -167,6 +187,13 @@ namespace SmartAutoAR
 		/// <param name="inputFrame">環境(背景)影像</param>
 		/// <param name="infoScene_tuples">DetectMarkers()之偵測結果</param>
 		/// <param name="forMask">此項為 true 則只渲染無擬真效果之虛擬物體</param>
+		/// <flow>
+		/// 1. 清除GL暫存區
+		/// 2. 渲染背景(環境照)
+		/// 3. 渲染虛擬場景
+		///		(1) 將姿態矩陣導入camera
+		///		(2) 渲染虛擬模型
+		/// </flow>
 		private void ProcessAR(Bitmap inputFrame, List<Tuple<MarkerTrackingInfo, Scene>> infoScene_tuples, bool forMask = false)
 		{
 			GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
@@ -235,6 +262,10 @@ namespace SmartAutoAR
 		/// <summary>
 		/// 輸出目前綁定之 OpenGL Context 上已經繪製的影像
 		/// </summary>
+		/// <improvable>
+		/// 目前的截圖速度很慢，也是導致色彩融合效率低下的原因之一。
+		/// 但暫時找不到更快的辦法了。
+		/// </improvable>
 		public Bitmap Screenshot()
 		{
 			Bitmap output = new Bitmap(windowWidth, windowHeight);

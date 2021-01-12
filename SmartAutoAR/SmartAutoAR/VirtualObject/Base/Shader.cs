@@ -9,6 +9,9 @@ namespace SmartAutoAR.VirtualObject.Base
 	/// </summary>
 	public class Shader : IDisposable
 	{
+		/// <summary>
+		/// 預設的標準著色器
+		/// </summary>
 		public static Shader StandardShader
 		{
 			get
@@ -18,6 +21,9 @@ namespace SmartAutoAR.VirtualObject.Base
 			}
 		}
 
+		/// <summary>
+		/// 預設的背景著色器
+		/// </summary>
 		public static Shader BackgroundShader
 		{
 			get

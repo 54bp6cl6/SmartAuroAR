@@ -3,23 +3,23 @@ using OpenCvSharp;
 namespace SmartAutoAR
 {
     /// <summary>
-    /// Marker.
+    /// 從系統的角度 知道有關於marker的資訊 像是 marker的特徵點 
     /// This code is a rewrite of https://github.com/MasteringOpenCV/code/tree/master/Chapter3_MarkerlessAR using "OpenCV for Unity".
     /// </summary>
     class Marker
     {
         /// <summary>
-        /// The size.
+        /// marker的大小
         /// </summary>
         public Size size;
 
         /// <summary>
-        /// The frame.
+        /// 讓系統讀取的marker圖像
         /// </summary>
         public Mat frame;
 
         /// <summary>
-        /// The gray image.
+        /// The gray marker image.
         /// </summary>
         public Mat grayImg;
 
@@ -52,11 +52,6 @@ namespace SmartAutoAR
         /// Initializes a new instance of the <see cref="Marker"/> class.
         /// </summary>
         /// 
-        //public Mat points2d;
-        //w.Set<Point2d>(0, new Point2d(0, 0));
-        //            w.Set<Point2d>(1, new Point2d(0, 0));
-        //            w.Set<Point2d>(2, new Point2d(0, 0));
-        //            w.Set<Point2d>(3, new Point2d(0, 0));
         public Marker ()
         {
             size = new Size ();

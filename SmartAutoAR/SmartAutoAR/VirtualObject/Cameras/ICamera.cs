@@ -2,6 +2,9 @@
 
 namespace SmartAutoAR.VirtualObject.Cameras
 {
+	/// <summary>
+	/// 定義此介面以抽象鏡頭的概念，可能有人想透過鏡頭完玩一些花樣
+	/// </summary>
 	public interface ICamera
 	{
 		public Matrix4 ViewMatrix { get; }
